@@ -15,3 +15,15 @@ body {
   font-family: "Manrope", serif;
   overflow-x: hidden;
 }
+
+
+/* tarek css */
+.swiper-pagination-bullet {
+  background: #e7e8e8 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #010B21 !important;
+}
+
+/* tarek css */
