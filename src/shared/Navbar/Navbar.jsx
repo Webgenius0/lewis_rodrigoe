@@ -1,6 +1,4 @@
-import React from 'react';
-import { Menu, Dropdown, Button } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Menu, Dropdown} from 'antd';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import downArrow from '../../assets/cheveronDown.svg';
@@ -30,7 +28,7 @@ const Navbar = () => {
         </div>
         <div className="text-[#FFF] font-[Inter] text-[16px] not-italic font-medium leading-[27.2px] flex gap-10">
           {/* First menu with dropdown */}
-          <Dropdown overlay={menu1} placement="bottom">
+          <Dropdown menu={menu1} placement="bottom">
             <Link className="flex items-center gap-2.5">
               <span>Demos</span>
               <img src={downArrow} alt="downArrow" />
@@ -38,7 +36,7 @@ const Navbar = () => {
           </Dropdown>
 
           {/* Second menu with dropdown */}
-          <Dropdown overlay={menu2} placement="bottom">
+          <Dropdown menu={menu2} placement="bottom">
             <Link className="flex items-center gap-2.5">
               <span>Essential Pages</span>
               <img src={downArrow} alt="downArrow" />

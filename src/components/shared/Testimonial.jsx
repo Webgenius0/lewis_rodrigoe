@@ -1,13 +1,16 @@
-import Subtitile from '../shared/Subtitile'
+import Subtitile from '../shared/Subtitile';
 import Title from '../shared/Title';
 
-const Offer = () => {
+const Testimonial = () => {
   return (
     <>
       <div className="container mt-14">
         <div className="max-w-[978px] mx-auto flex flex-col gap-3 mb-4">
-          <Subtitile text="We are offering" className="text-center justify-center" />
-          <Title title="Excellent service in Home Care and Precision in Every Detail" />
+          <Subtitile
+            text="TESTIMONIAL"
+            className="text-center justify-center"
+          />
+          <Title title="What our clients say" />
         </div>
         <p className="font-[Manrope] text-[#606060] text-center text-[32px] not-italic font-medium leading-[52.48px] tracking-[0.32px]">
           HouseMate provides flexible, app-based homecare plans for residential
@@ -23,4 +26,4 @@ const Offer = () => {
   );
 }
 
-export default Offer
+export default Testimonial
