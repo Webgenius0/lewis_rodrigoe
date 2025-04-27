@@ -21,7 +21,7 @@ const menu2 = (
 
 const Navbar = () => {
   return (
-    <header className="bg-slate-500">
+    <header className="bg-inherit absolute top-0 left-0 right-0 z-20">
       <div className="container mx-auto flex items-center justify-between">
         <div className="header-right">
           <Link to="/" className="w-[125px] h-[125px] block">
