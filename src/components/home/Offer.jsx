@@ -6,7 +6,7 @@ const Offer = () => {
   return (
     <>
       <div className="container mt-14">
-        <div className="max-w-[978px] mx-auto flex flex-col gap-3">
+        <div className="max-w-[978px] mx-auto flex flex-col gap-3 mb-4">
           <Subtitile text="We are offering" className="text-center justify-center" />
           <Title title="Excellent service in Home Care and Precision in Every Detail" />
         </div>
