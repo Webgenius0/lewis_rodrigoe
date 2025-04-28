@@ -1,15 +1,14 @@
 import Subtitile from '../shared/Subtitile';
 import Title from '../shared/Title';
 import { Collapse } from 'antd';
-import plusIcon from '../../assets/plus.svg';  
-import minusIcon from '../../assets/minus.svg';  
-
+import plusIcon from '../../assets/plus.svg';
+import minusIcon from '../../assets/minus.svg';
 
 const items = [
   {
     key: '1',
     label: (
-      <div className="text-[#1B1139] font-[Satoshi] text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
+      <div className="text-[#1B1139] font-[Manrope] text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
         What is HouseMate and how does it work?
       </div>
     ),
@@ -34,31 +33,35 @@ const items = [
         peace of mind — powered by HouseMate
       </p>
     ),
+    className:
+      'rounded-[8px] bg-[#FFF] p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
   },
   {
     key: '2',
     label: (
-      <div className="text-[#1B1139] font-[Satoshi] text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
+      <div className="text-[#1B1139] font-[Manrope] text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
         How do I use HouseMate?
       </div>
     ),
     children: (
       <p className="text-[#363049] font-[Manrope] text-[18px] not-italic font-normal leading-[29.52px] tracking-[0.1px] opacity-70">
-        Using HouseMate is simple and hassle-free. Once you've selected and
+        Using HouseMate is simple and hassle-free. Once you&apos;ve selected and
         subscribed to your preferred plan, you’ll have immediate access to our
         network of trusted local professionals. When you experience a breakdown
         or a home emergency, just contact us through our 24/7 support system —
-        no long waits or complicated processes. We'll quickly dispatch a
+        no long waits or complicated processes. We&apos;ll quickly dispatch a
         qualified engineer to fix the issue. Plus, your annual boiler service
         will be scheduled automatically, so you don’t have to worry about
         booking it yourself.
       </p>
     ),
+    className:
+      'rounded-[8px] bg-[#FFF] p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
   },
   {
     key: '3',
     label: (
-      <div className="text-[#1B1139] font-[Satoshi] text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
+      <div className="text-[#1B1139] font-[Manrope] text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
         Is HouseMate available in all regions?
       </div>
     ),
@@ -69,10 +72,12 @@ const items = [
         growing demand. To check if HouseMate is available in your specific
         location, simply enter your postcode during the sign-up process — we’ll
         instantly let you know if we can provide coverage at your address. If
-        we're not in your area yet, stay tuned! We’re working hard to reach more
-        homes soon.
+        we&apos;re not in your area yet, stay tuned! We’re working hard to reach
+        more homes soon.
       </p>
     ),
+    className:
+      'rounded-[8px] bg-[#FFF] p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
   },
 ];
 const Faq = () => {
@@ -85,10 +90,12 @@ const Faq = () => {
               <Subtitile text="FAQ" className="text-start justify-center" />
               <Title title="HouseMate Explained" className="text-start" />
             </div>
-            <div className="accordion-part w-full">
+            <div className="accordion-part w-full ">
               <Collapse
                 accordion
                 items={items}
+                ghost
+                className="faq-collapse flex flex-col gap-[20px]"
                 expandIcon={({ isActive }) => (
                   <img
                     src={isActive ? minusIcon : plusIcon}

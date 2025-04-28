@@ -26,4 +26,9 @@ body {
   background: #010B21 !important;
 }
 
+.faq-collapse .ant-collapse-header {
+  align-items: center !important;
+}
+
+
 /* tarek css */

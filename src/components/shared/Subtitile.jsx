@@ -2,7 +2,7 @@
 const Subtitile = ({ text, className = '' }) => {
   return (
     <h4
-      className={`flex items-center text-[#010B21] font-[Manrope] text-[14px] not-italic font-medium leading-[22.96px] uppercase ${className}`}
+      className={`flex items-center text-[#010B21] font-[Manrope] text-[14px] not-italic font-medium leading-[22.96px] uppercase gap-2.5 ${className}`}
     >
       <span>
         <svg
