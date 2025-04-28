@@ -1,7 +1,7 @@
 import Banner from "@/components/home/Banner";
+import Faq from "@/components/home/Faq";
 import Offer from "@/components/home/Offer";
 import Testimonial from "@/components/home/Testimonial";
-import React from "react";
 
 const Home = () => {
   return (
@@ -9,6 +9,7 @@ const Home = () => {
         <Banner/>
         <Offer/>
         <Testimonial/>
+        <Faq/>
       
     </div>
   );

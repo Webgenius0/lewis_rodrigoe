@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 
 const Subtitile = ({ text, className = '' }) => {
   return (
@@ -26,10 +25,6 @@ const Subtitile = ({ text, className = '' }) => {
   );
 };
 
-// Adding PropTypes for text and className
-Subtitile.propTypes = {
-  text: PropTypes.string.isRequired, // Ensure text is required and is a string
-  className: PropTypes.string, // className should be a string
-};
+
 
 export default Subtitile;
