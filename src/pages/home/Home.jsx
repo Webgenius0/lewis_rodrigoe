@@ -3,6 +3,7 @@ import Faq from "@/components/home/Faq";
 import GetStarted from "@/components/home/GetStarted";
 import Offer from "@/components/home/Offer";
 import Testimonial from "@/components/home/Testimonial";
+import { ReactHookForm } from "@/components/shared/ReactHookForm";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         <Testimonial/>
         <Faq/>
         <GetStarted/>
+        <ReactHookForm/>
       
     </div>
   );

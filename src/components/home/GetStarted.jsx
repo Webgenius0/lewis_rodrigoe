@@ -23,7 +23,7 @@ const GetStarted = () => {
               </p>
               <div className="button-wrapper flex gap-2 items-center justify-center mt-10 md:mt-[60px] lg:mt-[85px]">
                 <Button className="rounded-[32px] border-[2px]  border-[rgba(255,255,255,0.10)] bg-[#FFF] text-[#0A0915] font-[Geist] text-[16px] not-italic font-normal leading-[28.8px] tracking-[-0.4px] flex px-[24px] py-[12px] md:py-[16px] justify-center items-center gap-[12px]">
-                  Download on Android{' '}
+                  Download on Android
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
