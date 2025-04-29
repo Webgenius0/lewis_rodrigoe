@@ -419,9 +419,6 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="react-hook-form text-white">
-
-          </div>
         </div>
       </footer>
     </>
