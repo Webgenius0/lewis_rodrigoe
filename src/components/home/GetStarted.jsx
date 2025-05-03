@@ -6,7 +6,7 @@ const GetStarted = () => {
   return (
     <>
       <section>
-        <div className="container mt-14">
+        <div className="container my-14">
           <div
             className="rounded-[24px] overflow-hidden py-[120px] bg-no-repeat bg-cover px-5"
             style={{ backgroundImage: `url(${getStartedBg})` }}

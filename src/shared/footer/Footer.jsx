@@ -2,6 +2,7 @@ import logoTransparent from '../../assets/logo-tranparent.png';
 import certificate1 from '../../assets/certificate.jpg';
 import certificate2 from '../../assets/certificate2.png';
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
 const Footer = () => {
   return (
@@ -11,7 +12,7 @@ const Footer = () => {
           <h1 className="text-[#FFF] font-[Outfit] text-[48px] not-italic font-semibold leading-[55.2px] tracking-[-1px] py-[100px] ">
             Smarter. Simpler. Covered
           </h1>
-
+          {/* footer main content */}
           <div
             className="py-[33px] border-b border-t border-[#262728] flex justify-between gap-[150px]"
             style={{
@@ -407,18 +408,37 @@ const Footer = () => {
                   Sign up to get updates & news.
                 </p>
                 <div className="flex flex-col gap-2">
-                  <form action="">
+                  <form action="" className="flex flex-col gap-3">
                     <input
                       type="text"
                       placeholder="Email Address"
                       className="rounded-[58px] bg-[#494C50] w- flex-shrink-0 py-4 pr-[64px] pl-5 text-[#FAFAFC] font-[Inter] text-[16px] not-italic font-normal leading-[27.2px] opacity-60"
                     />
+                    <Button
+                      type="submit"
+                      className="text-[#FFF] text-right font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase px-[50px] py-[20px] rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] border-none w-fit"
+                    >
+                      SUBSCRIBE NOW
+                    </Button>
                   </form>
                 </div>
               </div>
             </div>
           </div>
-
+          {/* footer bottom part */}
+          <div className="flex justify-between gap-10 py-6 md:py-10 lg:py-14 items-center ">
+            <p className="text-[#FAFAFC] font-[Inter] text-[14px] not-italic font-normal leading-[23.8px]">
+              © 2023 All Right Reserved by FramerBite
+            </p>
+            <div className="flex items-center gap-10">
+              <Link className="text-[#FAFAFC] font-[Inter] text-[14px] not-italic font-normal leading-[23.8px]">
+                Privacy Policy
+              </Link>
+              <Link className="text-[#FAFAFC] font-[Inter] text-[14px] not-italic font-normal leading-[23.8px]">
+                Terms of Use
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
     </>

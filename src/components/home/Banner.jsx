@@ -1,4 +1,4 @@
-import React from 'react';
+
 import homeHero from '../../assets/homeHero.png';
 import { Button } from 'antd';
 
