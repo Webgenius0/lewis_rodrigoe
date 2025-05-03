@@ -1,16 +1,26 @@
 import Layout from "@/layout/Layout";
 import Home from "@/pages/home/Home";
+import Pricing from "@/pages/home/Pricing";
 import { createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
+      {
+        path: '/pricing',
+        element: <Pricing/>,
+      },
     ],
+  },
+  {
+    path: '/sign-in',
+    element: <Layout />,
+ 
   },
 ]);
 

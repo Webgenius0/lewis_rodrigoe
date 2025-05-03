@@ -45,7 +45,7 @@ const Navbar = () => {
           </Dropdown>
 
           {/* Third menu without dropdown */}
-          <Link to="/">Pricing</Link>
+          <Link to="/pricing">Pricing</Link>
           <Link to="/">Connect</Link>
         </div>
 
