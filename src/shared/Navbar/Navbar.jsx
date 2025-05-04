@@ -1,5 +1,5 @@
-import { Menu, Dropdown} from 'antd';
-import { Link } from 'react-router-dom';
+import { Menu, Dropdown } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import downArrow from '../../assets/cheveronDown.svg';
 
@@ -17,8 +17,9 @@ const menu2 = {
   ],
 };
 
-
 const Navbar = () => {
+  const {pathname} = useLocation();
+
   return (
     <header className="bg-inherit absolute top-0 left-0 right-0 z-20">
       <div className="container mx-auto flex items-center justify-between">
@@ -50,15 +51,18 @@ const Navbar = () => {
         </div>
 
         {/* header left */}
-        <div className="header-left flex items-center">
-          <Link className="inline-flex px-[20px] py-[16px] justify-center items-center gap-[16px] text-[#FFF] text-right font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)]">
-            JOIN AS AN ENGINEER
-          </Link>
-        </div>
+        {pathname === '/pricing' ? (
+          <div />
+        ) : (
+          <div className="header-left flex items-center">
+            <Link className="inline-flex px-[20px] py-[16px] justify-center items-center gap-[16px] text-[#FFF] text-right font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)]">
+              JOIN AS AN ENGINEER
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );
 };
 
 export default Navbar;
-
