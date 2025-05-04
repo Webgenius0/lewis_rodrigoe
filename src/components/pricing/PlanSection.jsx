@@ -1,6 +1,5 @@
-// PlanSection.jsx
 import React, { useState } from 'react';
-import { Tabs, Row, Col } from 'antd';
+import { Tabs } from 'antd';
 import PlanCard from './PlanCard';
 
 const { TabPane } = Tabs;
@@ -58,7 +57,7 @@ const plans = {
     },
   ],
   landlord: [
-        {
+    {
       title: 'Standard Plus Plan',
       price: 28,
       features: [
@@ -89,30 +88,42 @@ const plans = {
 const PlanSection = () => {
   const [activeTab, setActiveTab] = useState('general');
 
+  const tabItems = [
+    { key: 'general', label: 'General User' },
+    { key: 'landlord', label: 'Landlords' },
+  ];
+
   return (
-    <div className="py-28 px-4 max-w-7xl mx-auto">
-      <Tabs
-        defaultActiveKey="general"
-        onChange={(key) => setActiveTab(key)}
-        centered
-        className="mb-8"
-      >
-        <TabPane tab="General User" key="general">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {plans.general.map((plan, idx) => (
-              <PlanCard key={idx} {...plan} />
+    <section className='bg-white'>
+      <div className="container mt-14">
+        <div className="rounded-[24px] bg-[#000] backdrop-blur-[86px]  w-fit mx-auto flex justify-center">
+          <div className="flex gap-2">
+            {tabItems.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-6 py-3 text-[16px] font-medium font-[Satoshi] rounded-[24px] transition-all duration-300 text-center
+                ${
+                  activeTab === tab.key
+                    ? 'text-white bg-[linear-gradient(95deg,#09B5FF_0%,#4F81FF_53.67%,#0048FF_100%)]'
+                    : 'text-[#9D9D9D]'
+                }`}
+              >
+                {tab.label}
+              </button>
             ))}
           </div>
-        </TabPane>
-        <TabPane tab="Landlords" key="landlord">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {plans.landlord.map((plan, idx) => (
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          {(activeTab === 'general' ? plans.general : plans.landlord).map(
+            (plan, idx) => (
               <PlanCard key={idx} {...plan} />
-            ))}
-          </div>
-        </TabPane>
-      </Tabs>
-    </div>
+            )
+          )}
+        </div>
+      </div>
+    </section>
   );
 };
 

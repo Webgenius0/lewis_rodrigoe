@@ -6,11 +6,13 @@ import PricingBanner from "@/components/pricing/PricingBanner"
 const Pricing = () => {
   return (
     <>
-    <PricingBanner/>
-    <PlanSection/>
-    <Testimonial/>
+      <PricingBanner />
+      <PlanSection />
+      <div className="mb-14">
+        <Testimonial />
+      </div>
     </>
-  )
+  );
 }
 
 export default Pricing
