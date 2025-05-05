@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        poppins: 'Manrope, serif',
+        manrope: 'Manrope, serif',
       },
       boxShadow: {
         custom: '',
