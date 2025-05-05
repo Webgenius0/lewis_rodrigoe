@@ -30,7 +30,13 @@ body {
   align-items: center !important;
 }
 
-/* for card css */
+.gradient-text {
+  background: linear-gradient(95deg, #09B5FF 0%, #4F81FF 53.67%, #0048FF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 
 /* tarek css */
