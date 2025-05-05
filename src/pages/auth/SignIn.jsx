@@ -44,7 +44,7 @@ const SignIn = () => {
               className="flex flex-col gap-4 md:gap-6"
             >
               <div className="flex flex-col gap-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                   Email Address
                 </label>
                 <Controller
@@ -77,7 +77,7 @@ const SignIn = () => {
                         </svg>
                       }
                       placeholder="elementary221b@gmail.co|"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
                     />
                   )}
                 />
@@ -90,7 +90,7 @@ const SignIn = () => {
                 )}
               </div>
               <div className="flex flex-col gap-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                   Password
                 </label>
                 <Controller
@@ -129,7 +129,7 @@ const SignIn = () => {
                           />
                         </svg>
                       }
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
                     />
                   )}
                 />
