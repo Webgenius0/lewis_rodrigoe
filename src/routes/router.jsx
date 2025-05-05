@@ -1,4 +1,5 @@
 import Layout from "@/layout/Layout";
+import SignIn from "@/pages/auth/SignIn";
 import Home from "@/pages/main/Home";
 import Pricing from "@/pages/main/Pricing";
 import { createBrowserRouter } from "react-router-dom";
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/sign-in',
-    element: <Layout />,
+    element: <SignIn/>,
  
   },
 ]);
