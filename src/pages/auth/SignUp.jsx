@@ -8,8 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
 import { AuthComment } from './AuthComment';
 const { Option } = Select;
-import React, { useState } from 'react';
-import { Form, Upload, message } from 'antd';
+import  { useState } from 'react';
+import {  Upload, message } from 'antd';
 import { PlusOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 import uploadPlus from "../../assets/uploadPlus.png"
@@ -298,12 +298,6 @@ const SignUp = () => {
 
               {/* react phone number input 2 */}
 
-              <Link
-                to=""
-                className="gradient-text font-[Manrope] text-[14px] not-italic font-medium leading-[22.96px] capitalize"
-              >
-                Forgot Password
-              </Link>
 
               <button
                 type="submit"

@@ -248,15 +248,6 @@ const SignUpContinue = () => {
                 )}
               </div>
 
-              {/* react phone number input 2 */}
-
-              <Link
-                to=""
-                className="gradient-text font-[Manrope] text-[14px] not-italic font-medium leading-[22.96px] capitalize"
-              >
-                Forgot Password
-              </Link>
-
               
                 <button
                   type="submit"

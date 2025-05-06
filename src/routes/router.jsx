@@ -1,7 +1,9 @@
 import Layout from "@/layout/Layout";
+import ForgotPassword from "@/pages/auth/ForgotPassword";
 import SignIn from "@/pages/auth/SignIn";
 import SignUp from "@/pages/auth/SignUp";
 import SignUpContinue from "@/pages/auth/SignUpContinue";
+import VerifyOtp from "@/pages/auth/VerifyOtp";
 import Home from "@/pages/main/Home";
 import Pricing from "@/pages/main/Pricing";
 import { createBrowserRouter } from "react-router-dom";
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
   {
     path: '/sign-up-continue',
     element: <SignUpContinue />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword />,
+  },
+  {
+    path: '/verify-otp',
+    element: <VerifyOtp />,
   },
 ]);
 
