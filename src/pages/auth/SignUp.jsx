@@ -6,7 +6,7 @@ import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/testimonial1.jpg';
 import { Link } from 'react-router-dom';
-import { Form, Input, Select } from 'antd';
+import { Input, Select } from 'antd';
 const { Option } = Select;
 
 const SignUp = () => {
@@ -23,14 +23,6 @@ const SignUp = () => {
 
   console.log(errors);
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
   return (
     <section
       className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center auth-section"
@@ -118,7 +110,7 @@ const SignUp = () => {
                       inputClass="!pl-12 !py-2 !px-4 !bg-[#F3F3F4] !border !border-transparent !rounded-md !w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-[#09B5FF] bg-[#F3F3F4] !h-11 "
                       buttonClass="!border-none !bg-transparent !left-3"
                       containerClass="!w-full"
-                      onChange={(value, data, event, formattedValue) => {
+                      onChange={(value) => {
                         field.onChange(value);
                       }}
                     />
@@ -203,7 +195,7 @@ const SignUp = () => {
                   to="/sign-in"
                   className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"
                 >
-                   Sign-in here!
+                  Sign-in here!
                 </Link>
               </p>
             </form>
