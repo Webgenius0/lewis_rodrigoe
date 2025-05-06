@@ -153,9 +153,9 @@ const SignIn = () => {
               </button>
 
               <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                Don’t have an Account?{' '}
+                Don’t have an Account? {""}
                 <Link
-                  to=""
+                  to="/sign-up"
                   className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"
                 >
                   Sign-Up here!

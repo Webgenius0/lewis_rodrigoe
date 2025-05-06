@@ -1,4 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/testimonial1.jpg';
@@ -104,23 +107,28 @@ const SignUp = () => {
                   Phone Number
                 </label>
                 <Controller
-                  name="gender"
+                  name="phone"
                   control={control}
-                  rules={{ required: 'Gender is required' }}
+                  rules={{ required: 'Phone number is required' }}
                   render={({ field }) => (
-                    <Input
+                    <PhoneInput
                       {...field}
-                      addonBefore={prefixSelector}
-                      style={{ width: '100%' }}
-                      placeholder="7437768442"
-                      className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
+                      country={'us'} // Default country
+                      enableSearch={true}
+                      inputClass="!pl-12 !py-2 !px-4 !bg-[#F3F3F4] !border !border-transparent !rounded-md !w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-[#09B5FF] bg-[#F3F3F4] !h-11 "
+                      buttonClass="!border-none !bg-transparent !left-3"
+                      containerClass="!w-full"
+                      onChange={(value, data, event, formattedValue) => {
+                        field.onChange(value);
+                      }}
                     />
                   )}
                 />
-                {errors.gender && (
-                  <p className="text-red-500">{errors.gender.message}</p>
+                {errors.phone && (
+                  <p className="text-red-500 ">{errors.phone.message}</p>
                 )}
               </div>
+
               <div className="flex flex-col gap-2">
                 <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                   Gender
@@ -171,6 +179,8 @@ const SignUp = () => {
                 )}
               </div>
 
+              {/* react phone number input 2 */}
+
               <Link
                 to=""
                 className="gradient-text font-[Manrope] text-[14px] not-italic font-medium leading-[22.96px] capitalize"
@@ -178,20 +188,22 @@ const SignUp = () => {
                 Forgot Password
               </Link>
 
-              <button
-                type="submit"
-                className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
-              >
-                Sign in
-              </button>
+              <Link to="/sign-up-continue">
+                <button
+                  type="submit"
+                  className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
+                >
+                  Sign Up
+                </button>
+              </Link>
 
               <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                Don’t have an Account?{' '}
+                Already have an account? {''}
                 <Link
-                  to=""
+                  to="/sign-in"
                   className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"
                 >
-                  Sign-Up here!
+                   Sign-in here!
                 </Link>
               </p>
             </form>
