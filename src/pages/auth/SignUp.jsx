@@ -4,24 +4,79 @@ import 'react-phone-input-2/lib/style.css';
 
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
 import { AuthComment } from './AuthComment';
 const { Option } = Select;
+import React, { useState } from 'react';
+import { Form, Upload, message } from 'antd';
+import { PlusOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
+import ImgCrop from 'antd-img-crop';
+import uploadPlus from "../../assets/uploadPlus.png"
 
+
+const getBase64 = (img, callback) => {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+};
+
+const beforeUpload = (file) => {
+  const isImage = file.type === 'image/jpeg' || file.type === 'image/png';
+  if (!isImage) {
+    message.error('Only JPG/PNG files allowed!');
+  }
+  const isSmall = file.size / 1024 / 1024 < 2;
+  if (!isSmall) {
+    message.error('Image must be smaller than 2MB!');
+  }
+  return isImage && isSmall;
+};
+
+
+  
 const SignUp = () => {
+  // for getting form data and error
   const {
-    register,
     handleSubmit,
     formState: { errors },
     control,
   } = useForm();
 
+
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
     console.log(data);
+    navigate('/sign-up-continue');
   };
 
   console.log(errors);
+
+  // for image upload
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const handleChange = (info) => {
+    if (info.file.status === 'uploading') {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === 'done' || info.file.originFileObj) {
+      getBase64(info.file.originFileObj, (url) => {
+        setImageUrl(url);
+        setLoading(false);
+      });
+    }
+  };
+
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
 
   return (
     <section
@@ -48,6 +103,76 @@ const SignUp = () => {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-4 md:gap-6"
             >
+              {/* Avatar Upload Section */}
+              <div
+                className="imgUploadClass"
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: 24,
+                }}
+              >
+                <ImgCrop rotate>
+                  <Upload
+                    name="avatar"
+                    listType="picture-circle"
+                    showUploadList={false}
+                    beforeUpload={beforeUpload}
+                    onChange={handleChange}
+                  >
+                    <div
+                      style={{ position: 'relative', width: 100, height: 100 }}
+                    >
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt="avatar"
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50%',
+                            background: '#f0f0f0',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <UserOutlined
+                            style={{ fontSize: 32, color: '#999' }}
+                          />
+                        </div>
+                      )}
+
+                      {/* Custom Icon Button */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          bottom: -2,
+                          right: -2,
+                          backgroundColor: 'inherit',
+                          borderRadius: '50%',
+                          padding: 6,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <span>
+                          <img src={uploadPlus} />
+                        </span>
+                      </div>
+                    </div>
+                  </Upload>
+                </ImgCrop>
+              </div>
+
               <div className="flex flex-col gap-2">
                 <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                   Name
@@ -180,14 +305,12 @@ const SignUp = () => {
                 Forgot Password
               </Link>
 
-              <Link to="/sign-up-continue">
-                <button
-                  type="submit"
-                  className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
-                >
-                  Continue
-                </button>
-              </Link>
+              <button
+                type="submit"
+                className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
+              >
+                Continue
+              </button>
 
               <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
                 Already have an account? {''}
@@ -203,7 +326,7 @@ const SignUp = () => {
 
           {/* dummy user comment area */}
 
-         <AuthComment/>
+          <AuthComment />
         </div>
       </div>
     </section>

@@ -47,13 +47,14 @@ body {
   height: 44px !important;
 }
 
-.auth-section .ant-input{
+.auth-section .ant-input {
   border: none !important;
   outline: 1px solid transparent !important;
   transition: all 0.2s ease;
   box-shadow: none !important;
   background: inherit;
 }
+
 .auth-section .ant-select-selector {
   border: none !important;
   outline: 1px solid transparent !important;
@@ -74,5 +75,15 @@ body {
 }
 
 
+/* imgUploadClass */
+.imgUploadClass.ant-upload-wrapper {
+  position: relative;
+}
+
+.imgUploadClass.anticon {
+  display: flex;
+  position: absolute !important;
+  bottom: 0 !important;
+}
 
 /* tarek css */
