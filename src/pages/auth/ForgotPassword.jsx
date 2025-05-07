@@ -28,7 +28,7 @@ const ForgotPassword = () => {
       <div className="container">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-10 py-[60px]">
           {/* main form area */}
-          <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] max-w-xl mx-auto">
+          <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl mx-auto md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
               <img
                 src={logo}
@@ -99,7 +99,6 @@ const ForgotPassword = () => {
                 )}
               </div>
 
-
               <button
                 type="submit"
                 className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
@@ -108,7 +107,6 @@ const ForgotPassword = () => {
               </button>
             </form>
           </div>
-
         </div>
       </div>
     </section>

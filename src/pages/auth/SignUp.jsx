@@ -86,7 +86,7 @@ const SignUp = () => {
       <div className="container">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-10 py-[60px]">
           {/* main form area */}
-          <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] max-w-xl">
+          <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
               <img
                 src={logo}
@@ -297,7 +297,6 @@ const SignUp = () => {
               </div>
 
               {/* react phone number input 2 */}
-
 
               <button
                 type="submit"

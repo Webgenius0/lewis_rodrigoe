@@ -1,5 +1,6 @@
 import Layout from "@/layout/Layout";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
+import NewPassword from "@/pages/auth/NewPassword";
 import SignIn from "@/pages/auth/SignIn";
 import SignUp from "@/pages/auth/SignUp";
 import SignUpContinue from "@/pages/auth/SignUpContinue";
@@ -43,8 +44,8 @@ const router = createBrowserRouter([
     element: <VerifyOtp />,
   },
   {
-    path: '/verify-otp',
-    element: <VerifyOtp />,
+    path: '/new-password',
+    element: <NewPassword />,
   },
 ]);
 

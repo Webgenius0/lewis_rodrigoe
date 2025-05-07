@@ -14,7 +14,7 @@ const VerifyOtp = () => {
     console.log(data);
         const otp = `${data.otp0}${data.otp1}${data.otp2}${data.otp3}`;
         console.log('OTP:', otp);
-        navigate('./')
+        navigate('/new-password');
   };
 
   console.log(errors);
@@ -31,9 +31,9 @@ const VerifyOtp = () => {
       style={{ backgroundImage: `url(${homeHero})` }}
     >
       <div className="container">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-10 py-[60px]">
+        <div className="flex flex-col lg:flex-row justify-between items-center py-[60px]">
           {/* main form area */}
-          <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] max-w-xl mx-auto">
+          <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl mx-auto md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
               <img
                 src={logo}
@@ -43,7 +43,7 @@ const VerifyOtp = () => {
                 Forgot Password
               </h2>
               <p className="text-[#3B3B3B] text-center font-[Urbanist] text-[15px] md:text-[16px] not-italic font-normal leading-[27.2px]">
-                ENTER YOUR OTP.
+                Enter your OTP
               </p>
             </div>
             <form
