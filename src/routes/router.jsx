@@ -42,6 +42,10 @@ const router = createBrowserRouter([
     path: '/verify-otp',
     element: <VerifyOtp />,
   },
+  {
+    path: '/verify-otp',
+    element: <VerifyOtp />,
+  },
 ]);
 
 export default router;
