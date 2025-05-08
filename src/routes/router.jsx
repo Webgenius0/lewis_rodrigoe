@@ -1,4 +1,5 @@
 import AnalysisResult from "@/components/auth/AnalysisResult";
+import Card from "@/components/auth/Card";
 import PricingAnalysing from "@/components/auth/PricingAnalysing";
 import Layout from "@/layout/Layout";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: '/analysis-result',
     element: <AnalysisResult />,
+  },
+  {
+    path: '/card',
+    element: <Card/>,
   },
 ]);
 

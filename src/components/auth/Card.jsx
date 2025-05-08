@@ -3,6 +3,7 @@ import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
+import PricingTitle from './PricingTitle';
 
 const Card = () => {
   const {
@@ -13,7 +14,6 @@ const Card = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate('/verify-otp');
   };
 
   console.log(errors);
@@ -33,83 +33,179 @@ const Card = () => {
                 src={logo}
                 className="w-[38px] h-[38px] [aspect-ratio:1/1]"
               />
-              <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
-                Forgot Password
-              </h2>
-              <p className="text-[#3B3B3B] text-center font-[Urbanist] text-[15px] md:text-[16px] not-italic font-normal leading-[27.2px]">
-                Enter your email address. We will send an OTP code for
-                verification in the next step.
-              </p>
             </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-4 md:gap-6"
             >
+              <PricingTitle titletext="Property Information" />
               <div className="flex flex-col gap-2">
                 <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                  Email Address
+                  Card Holder Name
                 </label>
                 <Controller
-                  name="email_address"
+                  name="cardHolderName"
                   control={control}
                   rules={{
-                    required: 'Email is required',
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: 'Please enter a valid email address',
-                    },
+                    required: 'Card Holder Name is required',
                   }}
                   render={({ field }) => (
                     <Input
                       {...field}
-                      prefix={
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <path
-                            d="M3.53691 8.15773C3.8319 7.42025 4.4238 6.84107 5.16752 6.56218L5.31227 6.5079C9.62415 4.89094 14.3758 4.89094 18.6877 6.5079L18.8325 6.56218C19.5762 6.84107 20.1681 7.42025 20.4631 8.15773V8.15773C21.4555 10.6386 21.5363 13.391 20.6914 15.9259L20.5451 16.3648C20.2056 17.3832 19.3693 18.1577 18.3278 18.4181L17.8567 18.5358C14.0114 19.4972 9.9886 19.4972 6.14333 18.5358L5.67223 18.4181C4.63071 18.1577 3.79441 17.3832 3.45492 16.3648L3.30863 15.9259C2.46366 13.391 2.54454 10.6386 3.53691 8.15773V8.15773Z"
-                            stroke="#111214"
-                            strokeWidth="2"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M4 7L7.36762 10.3676C7.78142 10.7814 8.29989 11.075 8.86762 11.2169V11.2169C10.9242 11.7311 13.0758 11.7311 15.1324 11.2169V11.2169C15.7001 11.075 16.2186 10.7814 16.6324 10.3676L20 7"
-                            stroke="#111214"
-                            strokeWidth="2"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      }
-                      placeholder="elementary221b@gmail.co|"
+                      prefix={<></>}
+                      placeholder="Ex: Saklain Sarowor"
                       className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
                     />
                   )}
                 />
 
-                {errors.email_address && (
+                {errors.cardHolderName && (
                   <p className="text-red-500">
                     {' '}
-                    {errors.email_address.message}{' '}
+                    {errors.cardHolderName.message}{' '}
                   </p>
                 )}
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
-              >
-                Continue
-              </button>
+              <div className="flex flex-col gap-2">
+                <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                  Card Number
+                </label>
+                <Controller
+                  name="cardNumber"
+                  control={control}
+                  rules={{
+                    required: 'Card Number is required',
+                    pattern: {
+                      value: /^\d{4} \d{4} \d{4} \d{4}$/,
+                      message: 'Invalid card number format',
+                    },
+                  }}
+                  render={({ field: { onChange, ...field } }) => (
+                    <Input
+                      {...field}
+                      onChange={(e) => {
+                        let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                        value = value
+                          .replace(/(\d{4})/g, '$1 ')
+                          .trim()
+                          .slice(0, 19); // Max 16 digits with 3 spaces
+                        onChange(value);
+                      }}
+                      placeholder="1234 5678 9012 3456"
+                      maxLength={19}
+                      prefix={<></>}
+                      className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
+                    />
+                  )}
+                />
+
+                {errors.cardNumber && (
+                  <p className="text-red-500"> {errors.cardNumber.message} </p>
+                )}
+              </div>
+              <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+                {/*CVV*/}
+                <div className="w-full">
+                  <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                    CVV
+                  </label>
+                  <Controller
+                    name="cvv"
+                    control={control}
+                    rules={{
+                      required: 'CVV is required',
+                      pattern: {
+                        value: /^\d{3,4}$/,
+                        message: 'CVV must be 3 or 4 digits',
+                      },
+                    }}
+                    render={({ field: { onChange, ...field } }) => (
+                      <Input
+                        {...field}
+                        prefix={<></>}
+                        onChange={(e) => {
+                          let value = e.target.value
+                            .replace(/\D/g, '')
+                            .slice(0, 4);
+                          onChange(value);
+                        }}
+                        placeholder="Ex: 133"
+                        maxLength={4}
+                        className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                      />
+                    )}
+                  />
+
+                  {errors.cvv && (
+                    <p className="text-red-500"> {errors.cvv.message} </p>
+                  )}
+                </div>
+                <div className="w-full">
+                  <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                    Expiration Date
+                  </label>
+                  <Controller
+                    name="expiration_date"
+                    control={control}
+                    rules={{
+                      required: 'Expiration Date is required',
+                      pattern: {
+                        value: /^(0[1-9]|1[0-2])\/\d{2}$/,
+                        message: 'Format must be MM/YY',
+                      },
+                    }}
+                    render={({ field: { onChange, ...field } }) => (
+                      <Input
+                        {...field}
+                        onChange={(e) => {
+                          let value = e.target.value
+                            .replace(/\D/g, '')
+                            .slice(0, 4);
+                          if (value.length >= 3)
+                            value = value.replace(/(\d{2})(\d{1,2})/, '$1/$2');
+                          onChange(value);
+                        }}
+                        placeholder="MM/YY"
+                        maxLength={5}
+                        prefix={<></>}
+                        className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                      />
+                    )}
+                  />
+
+                  {errors.expiration_date && (
+                    <p className="text-red-500">
+                      {' '}
+                      {errors.expiration_date.message}{' '}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="btn-wrapper mt-6 md:mt-8 lg:mt-10 flex flex-col md:flex-row gap-2 md:gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                  className="w-full bg-[#EAEAEA] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#ee3a3a] hover:text-[#F0F5F6] border border-[#EAEAEA] transition text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] "
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px]"
+                >
+                  Save & Analysis
+                </button>
+              </div>
             </form>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default Card;

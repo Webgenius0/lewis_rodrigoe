@@ -2,18 +2,17 @@
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { Checkbox, Input } from 'antd';
-import { Controller, useForm } from 'react-hook-form';
+import { Checkbox } from 'antd';
+import { useForm } from 'react-hook-form';
 const AnalysisResult = () => {
   const {
     handleSubmit,
     formState: { errors },
-    control,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate('/verify-otp');
+    navigate('/card');
   };
 
   console.log(errors);
