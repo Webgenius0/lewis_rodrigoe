@@ -1,9 +1,86 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* manrope {Replacement of sathosi}*/
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+/* inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: "Poppins", serif;
+  font-family: "Manrope", serif;
   overflow-x: hidden;
 }
+
+
+/* tarek css */
+.swiper-pagination-bullet {
+  background: #e7e8e8 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #010B21 !important;
+}
+
+.faq-collapse .ant-collapse-header {
+  align-items: center !important;
+}
+
+.gradient-text {
+  background: linear-gradient(95deg, #09B5FF 0%, #4F81FF 53.67%, #0048FF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Default (no border) */
+.auth-section .ant-select-selector {
+  background: #F3F3F4 !important;
+  border-radius: 0.375rem;
+  border: none !important;
+  outline: 1px solid transparent !important;
+  transition: all 0.2s ease;
+  height: 44px !important;
+  box-shadow: none !important;
+}
+
+.auth-section .ant-input {
+  border: none !important;
+  outline: 1px solid transparent !important;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+  background: inherit;
+}
+
+
+/* On hover */
+.auth-section .ant-select-selector:hover {
+  outline: 1px solid #0048FF !important;
+}
+
+/* On focus */
+.auth-section .ant-select-focused .ant-select-selector {
+  outline: 1px solid #0048FF !important;
+}
+
+
+/* imgUploadClass */
+.imgUploadClass.ant-upload-wrapper {
+  position: relative;
+}
+
+.imgUploadClass.anticon {
+  display: flex;
+  position: absolute !important;
+  bottom: 0 !important;
+}
+
+.ant-select{
+  display: flex;
+  align-items: center;
+}
+/* tarek css */
