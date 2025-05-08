@@ -63,7 +63,7 @@ const PricingAnalysing = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-4 md:gap-6"
               >
-                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
+                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
                   <PricingTitle titletext="Services" />
                   <div className="grid grid-cols-3 gap-2">
                     {/* Plumbing */}
@@ -179,17 +179,102 @@ const PricingAnalysing = () => {
                 </div>
 
                 {/* location information */}
-                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
+                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
                   <PricingTitle titletext="Location Information" />
+
+                  <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 ">
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Street Address*
+                      </label>
+                      <Controller
+                        name="street"
+                        control={control}
+                        rules={{ required: 'Street Address is required' }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            prefix={<></>}
+                            placeholder="Enter street address"
+                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                          />
+                        )}
+                      />
+
+                      {errors.name && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.street.message}{' '}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+                      <div className="w-full">
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                          Apartment / Suite / Unit*
+                        </label>
+                        <Controller
+                          name="apartment"
+                          control={control}
+                          rules={{
+                            required: 'Apartment / Suite / Unit is required',
+                          }}
+                          render={({ field }) => (
+                            <Input
+                              {...field}
+                              prefix={<></>}
+                              placeholder="Enter apartment..."
+                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            />
+                          )}
+                        />
+
+                        {errors.name && (
+                          <p className="text-red-500">
+                            {' '}
+                            {errors.apartment.message}{' '}
+                          </p>
+                        )}
+                      </div>
+                      
+                      {/* State / Province / Region* */}
+                      <div className="w-full">
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                          Street Address*
+                        </label>
+                        <Controller
+                          name="street"
+                          control={control}
+                          rules={{ required: 'Street Address is required' }}
+                          render={({ field }) => (
+                            <Input
+                              {...field}
+                              prefix={<></>}
+                              placeholder="Robert Lewis"
+                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            />
+                          )}
+                        />
+
+                        {errors.name && (
+                          <p className="text-red-500">
+                            {' '}
+                            {errors.street.message}{' '}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Boiler Information */}
-                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
+                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
                   <PricingTitle titletext="Boiler Information" />
                 </div>
 
                 {/* Property Information */}
-                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
+                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
                   <PricingTitle titletext="Property Information" />
                 </div>
 
