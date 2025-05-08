@@ -45,6 +45,7 @@ body {
   outline: 1px solid transparent !important;
   transition: all 0.2s ease;
   height: 44px !important;
+  box-shadow: none !important;
 }
 
 .auth-section .ant-input {
@@ -55,23 +56,15 @@ body {
   background: inherit;
 }
 
-.auth-section .ant-select-selector {
-  border: none !important;
-  outline: 1px solid transparent !important;
-  transition: all 0.2s ease;
-  box-shadow: none !important;
-}
 
 /* On hover */
 .auth-section .ant-select-selector:hover {
   outline: 1px solid #0048FF !important;
-  outline-offset: 1px !important;
 }
 
 /* On focus */
 .auth-section .ant-select-focused .ant-select-selector {
   outline: 1px solid #0048FF !important;
-  outline-offset: 1px !important;
 }
 
 
@@ -86,4 +79,8 @@ body {
   bottom: 0 !important;
 }
 
+.ant-select{
+  display: flex;
+  align-items: center;
+}
 /* tarek css */

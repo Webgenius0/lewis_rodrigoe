@@ -1,4 +1,3 @@
-
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
@@ -6,35 +5,31 @@ import 'react-phone-input-2/lib/style.css';
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { Input, Select } from 'antd';
+import { DatePicker, Input, Select } from 'antd';
 const { Option } = Select;
-import { useState } from 'react';
-import { message } from 'antd';
-import {  UserOutlined } from '@ant-design/icons';
-import ImgCrop from 'antd-img-crop';
-import uploadPlus from '../../assets/uploadPlus.png';
 import PricingTitle from './PricingTitle';
 
+const onChange = (date, dateString) => {
+  console.log(date, dateString);
+};
+
 const PricingAnalysing = () => {
-    // for getting form data and error
-    const {
-      handleSubmit,
-      formState: { errors },
-      control,
-    } = useForm();
-  
-  
-    const navigate = useNavigate();
-  
-    const onSubmit = (data) => {
-      console.log(data);
-      navigate('/sign-up-continue');
-    };
-  
-    console.log(errors);
-  
-  
- 
+  // for getting form data and error
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm();
+
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate('/sign-up-continue');
+  };
+
+  console.log(errors);
+
   return (
     <>
       <section
@@ -183,9 +178,10 @@ const PricingAnalysing = () => {
                   <PricingTitle titletext="Location Information" />
 
                   <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 ">
+                    {/* Street Address* */}
                     <div className="w-full">
                       <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                        Street Address*
+                        Street Address<span className="text-red-500">*</span>
                       </label>
                       <Controller
                         name="street"
@@ -201,7 +197,7 @@ const PricingAnalysing = () => {
                         )}
                       />
 
-                      {errors.name && (
+                      {errors.street && (
                         <p className="text-red-500">
                           {' '}
                           {errors.street.message}{' '}
@@ -210,9 +206,11 @@ const PricingAnalysing = () => {
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+                      {/* Apartment / Suite / Unit* */}
                       <div className="w-full">
                         <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                          Apartment / Suite / Unit*
+                          Apartment / Suite / Unit
+                          <span className="text-red-500">*</span>
                         </label>
                         <Controller
                           name="apartment"
@@ -230,40 +228,138 @@ const PricingAnalysing = () => {
                           )}
                         />
 
-                        {errors.name && (
+                        {errors.apartment && (
                           <p className="text-red-500">
                             {' '}
                             {errors.apartment.message}{' '}
                           </p>
                         )}
                       </div>
-                      
+
                       {/* State / Province / Region* */}
                       <div className="w-full">
                         <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                          Street Address*
+                          State / Province / Region
+                          <span className="text-red-500">*</span>
                         </label>
                         <Controller
-                          name="street"
+                          name="state"
                           control={control}
-                          rules={{ required: 'Street Address is required' }}
+                          rules={{ required: 'State / Province / Region' }}
                           render={({ field }) => (
                             <Input
                               {...field}
                               prefix={<></>}
-                              placeholder="Robert Lewis"
+                              placeholder="Enter state..."
                               className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
                             />
                           )}
                         />
 
-                        {errors.name && (
+                        {errors.state && (
                           <p className="text-red-500">
                             {' '}
-                            {errors.street.message}{' '}
+                            {errors.state.message}{' '}
                           </p>
                         )}
                       </div>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+                      {/* City**/}
+                      <div className="w-full">
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
+                          City<span className="text-red-500">*</span>
+                        </label>
+                        <Controller
+                          name="city"
+                          control={control}
+                          rules={{
+                            required: 'city is required',
+                          }}
+                          render={({ field }) => (
+                            <Select
+                              {...field}
+                              placeholder="-- Select city --"
+                              allowClear
+                              prefix={<></>}
+                              className=""
+                            >
+                              <Option value="male">City 1</Option>
+                              <Option value="female">City 2</Option>
+                              <Option value="other">City 3</Option>
+                            </Select>
+                          )}
+                        />
+
+                        {errors.city && (
+                          <p className="text-red-500">
+                            {' '}
+                            {errors.city.message}{' '}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Postal / ZIP Code* */}
+                      <div className="w-full">
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                          Postal / ZIP Code
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <Controller
+                          name="postal"
+                          control={control}
+                          rules={{ required: 'Postal / ZIP Code is required' }}
+                          render={({ field }) => (
+                            <Input
+                              {...field}
+                              prefix={<></>}
+                              placeholder="Enter postal.."
+                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            />
+                          )}
+                        />
+
+                        {errors.postal && (
+                          <p className="text-red-500">
+                            {' '}
+                            {errors.postal.message}{' '}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {/* Country**/}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
+                        Country<span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="country"
+                        control={control}
+                        rules={{
+                          required: 'country is required',
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            placeholder="-- Select city --"
+                            allowClear
+                            prefix={<></>}
+                            className=""
+                          >
+                            <Option value="male">Country 1</Option>
+                            <Option value="female">Country 2</Option>
+                            <Option value="other">Country 3</Option>
+                          </Select>
+                        )}
+                      />
+
+                      {errors.country && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.country.message}{' '}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -271,6 +367,185 @@ const PricingAnalysing = () => {
                 {/* Boiler Information */}
                 <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
                   <PricingTitle titletext="Boiler Information" />
+                  <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
+                    {/* Boiler Type**/}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
+                        Boiler Type<span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="boilerType"
+                        control={control}
+                        rules={{
+                          required: 'Boiler Type is required',
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            placeholder="-- Select boiler type --"
+                            allowClear
+                            prefix={<></>}
+                            className=""
+                          >
+                            <Option value="male">Type 1</Option>
+                            <Option value="female">Type 2</Option>
+                            <Option value="other">Type 3</Option>
+                          </Select>
+                        )}
+                      />
+
+                      {errors.boilerType && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.boilerType.message}{' '}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Brand & Model* */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Brand & Model
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="model"
+                        control={control}
+                        rules={{ required: 'Brand & Model* is required' }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            prefix={<></>}
+                            placeholder="Enter brand & model"
+                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                          />
+                        )}
+                      />
+
+                      {errors.model && (
+                        <p className="text-red-500"> {errors.model.message} </p>
+                      )}
+                    </div>
+                    {/* Number of Boilers**/}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
+                        Number of Boilers<span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="boilersNumber"
+                        control={control}
+                        rules={{
+                          required: 'Number of Boilers is required',
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            placeholder="-- Select boiler number --"
+                            allowClear
+                            prefix={<></>}
+                            className=""
+                          >
+                            <Option value="male">Option 1</Option>
+                            <Option value="female">Option 2</Option>
+                            <Option value="other">Option 3</Option>
+                          </Select>
+                        )}
+                      />
+
+                      {errors.boilersNumber && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.boilersNumber.message}{' '}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-2 md:gap-4">
+                      {/* Age of Boiler**/}
+                      <div className="w-full">
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                          Age of Boiler
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <Controller
+                          name="boilerAge"
+                          control={control}
+                          rules={{ required: 'Age of Boiler is required' }}
+                          render={({ field }) => (
+                            <Input
+                              {...field}
+                              prefix={<></>}
+                              placeholder="Enter boiler age"
+                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            />
+                          )}
+                        />
+
+                        {errors.boilerAge && (
+                          <p className="text-red-500">
+                            {' '}
+                            {errors.boilerAge.message}{' '}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Last Serviced Date* */}
+                      <div className="w-full">
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                          Last Serviced Date*
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <Controller
+                          name="lastServiceDate"
+                          control={control}
+                          rules={{ required: 'Last Serviced Date is required' }}
+                          render={({ field }) => (
+                            <DatePicker
+                              onChange={onChange}
+                              {...field}
+                              placeholder="DD/MM/YYYY"
+                              allowClear
+                              prefix={<></>}
+                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            />
+                          )}
+                        />
+
+                        {errors.lastServiceDate && (
+                          <p className="text-red-500">
+                            {' '}
+                            {errors.lastServiceDate.message}{' '}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {/* Boiler Location* */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Boiler Location
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="boilerLocation"
+                        control={control}
+                        rules={{ required: 'Boiler Location* is required' }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            prefix={<></>}
+                            placeholder="Enter boiler location"
+                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                          />
+                        )}
+                      />
+
+                      {errors.boilerLocation && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.boilerLocation.message}{' '}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Property Information */}
@@ -401,8 +676,6 @@ const PricingAnalysing = () => {
                   )}
                 </div>
 
-                {/* react phone number input 2 */}
-
                 <button
                   type="submit"
                   className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
@@ -426,6 +699,6 @@ const PricingAnalysing = () => {
       </section>
     </>
   );
-}
+};
 
-export default PricingAnalysing
+export default PricingAnalysing;
