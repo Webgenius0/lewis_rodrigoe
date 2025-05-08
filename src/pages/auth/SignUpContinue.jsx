@@ -5,7 +5,7 @@ import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { Input } from 'antd';
-import { AuthComment } from './AuthComment';
+import { AuthComment } from '../../components/auth/AuthComment';
 
 const SignUpContinue = () => {
   const {

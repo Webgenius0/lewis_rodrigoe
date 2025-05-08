@@ -1,5 +1,4 @@
 import { Controller, useForm } from 'react-hook-form';
-import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
 import homeHero from '../../assets/homeHero.png';
@@ -25,7 +24,7 @@ const PricingAnalysing = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate('/sign-up-continue');
+    navigate('/analysis-result');
   };
 
   console.log(errors);
@@ -638,7 +637,12 @@ const PricingAnalysing = () => {
 
                 <div className="btn-wrapper mt-6 md:mt-8 lg:mt-10 flex flex-col md:flex-row gap-2 md:gap-3">
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={
+                      ()=>{
+                        navigate(-1)
+                      }
+                    }
                     className="w-full bg-[#EAEAEA] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#ee3a3a] hover:text-[#F0F5F6] border border-[#EAEAEA] transition text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] "
                   >
                     Back

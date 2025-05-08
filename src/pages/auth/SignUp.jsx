@@ -6,7 +6,7 @@ import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
-import { AuthComment } from './AuthComment';
+import { AuthComment } from '../../components/auth/AuthComment';
 const { Option } = Select;
 import  { useState } from 'react';
 import {  Upload, message } from 'antd';

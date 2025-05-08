@@ -1,4 +1,5 @@
-import PricingAnalysing from "@/components/shared/PricingAnalysing";
+import AnalysisResult from "@/components/auth/AnalysisResult";
+import PricingAnalysing from "@/components/auth/PricingAnalysing";
 import Layout from "@/layout/Layout";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
 import NewPassword from "@/pages/auth/NewPassword";
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: '/pricing-analysing',
     element: <PricingAnalysing />,
+  },
+  {
+    path: '/analysis-result',
+    element: <AnalysisResult />,
   },
 ]);
 
