@@ -36,9 +36,15 @@ const JobCard = ({
           </p>
         </div>
         <div className="text-right">
-          <Tag color={isCompleted ? 'green' : 'blue'}>
+          <span
+            className={`inline-block px-2 py-1 text-[12px] font-semibold rounded-[99px] text-[#2FAEED] font-[Nunito] not-italic leading-[16px] ${
+              isCompleted
+                ? 'bg-[rgba(47,_237,_161,_0.16)] text-[#27AE60]'
+                : 'bg-[rgba(47,_174,_237,_0.16)] text-[#2FAEED]'
+            }`}
+          >
             {isCompleted ? 'Completed' : 'Ongoing'}
-          </Tag>
+          </span>
         </div>
       </div>
 
@@ -72,7 +78,9 @@ const JobCard = ({
         <UserOutlined />
         <span>
           Arrived in{' '}
-          <strong className="text-blue-600 font-semibold">{arrivalTime}</strong>
+          <strong className="text-[#2F6FED] font-semibold">
+            {arrivalTime}
+          </strong>
         </span>
       </div>
     </div>
