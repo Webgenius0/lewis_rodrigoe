@@ -59,16 +59,13 @@ const MyJobs = () => {
     <>
       <div className="my-jobs-container">
         <div
-          className="header"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
+          className="header flex justify-between items-center"
         >
-          <h2>My Job</h2>
+          <h2 className="text-[#181D27] font-[Manrope] text-[30px] not-italic font-semibold leading-[38px]">
+            My Job
+          </h2>
           <Button
-            className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px]"
+            className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] mt-3"
             onClick={() => setModalOpen(true)}
           >
             Create new Job
