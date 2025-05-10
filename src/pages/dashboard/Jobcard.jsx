@@ -20,17 +20,18 @@ const JobCard = ({
   const isCompleted = status === 'completed';
 
   return (
-    <div className=" pt-1 rounded-[16px] border-[1px] border-[solid] border-[#E1E6EF] bg-[#FFF] [box-shadow:0px_1px_3px_0px_rgba(0,_0,_0,_0.05)] mb-4">
+    <div className=" pt-1 rounded-[16px] border-[1px] border-[solid] border-[#E1E6EF] bg-[#FFF] [box-shadow:0px_1px_3px_0px_rgba(0,_0,_0,_0.05)] mb-4 overflow-hidden">
       {/* Header */}
-      <div className="flex justify-between items-start p-3 border-b border-[#E1E6EF]">
-        <div>
+      <div className="flex justify-between items-start p-3 border-b border-[#E1E6EF] [box-shadow:0px_1px_3px_0px_rgba(0,_0,_0,_0.05)]">
+        <div className="flex flex-col gap-2">
           <h3 className="text-[#132235] font-[Manrope] text-[17px] not-italic font-bold leading-[22px]">
             {title}
           </h3>
           <p className="text-[#364B63] font-[Manrope] text-[12px] not-italic font-normal leading-[normal] flex items-center gap-1">
-            <CalendarOutlined /> {date}
+            <CalendarOutlined style={{ fontSize: '18px', color: '#364B63' }} />
+            {date}
           </p>
-          <p className="text-[#364B63] font-[Manrope] text-[12px] not-italic font-normal leading-[normal] mt-1">
+          <p className="text-[#364B63] font-[Manrope] text-[12px] not-italic font-normal leading-[normal]">
             ID: {id}
           </p>
         </div>
@@ -42,10 +43,13 @@ const JobCard = ({
       </div>
 
       {/* Location */}
-      <div className=" p-3 border-b border-[#E1E6EF] flex justify-between items-start">
-        <div className="">
-          <p className="text-[#132235] font-[Manrope] text-[14px] not-italic leading-[22px] flex items-center gap-1 font-medium">
-            <EnvironmentOutlined /> {locationTitle}
+      <div className=" p-3 border-b border-[#E1E6EF] flex justify-between items-start [box-shadow:0px_1px_3px_0px_rgba(0,_0,_0,_0.05)]">
+        <div className="flex flex-col gap-2">
+          <p className="text-[#132235] font-[Manrope] text-[14px] not-italic leading-[22px] flex items-center gap-1.5 font-medium">
+            <EnvironmentOutlined
+              style={{ fontSize: '20px', color: '#E02D3C' }}
+            />
+            {locationTitle}
           </p>
           <p className="text-[#364B63] font-[Manrope] text-[13px] not-italic font-normal leading-[18px] ml-5">
             {address}

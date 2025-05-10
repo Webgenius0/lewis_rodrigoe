@@ -1,20 +1,26 @@
 
-import { Link} from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
 import logo from '../../assets/logo-white.png';
 
 const DashboardNavbar = () => {
   return (
-    <header className="flex w-[221px] p-[16px] flex-col items-start gap-[29px] flex-shrink-0 self-stretch rounded-[12px] bg-[#FDFDFD]">
-      <div className="flex flex-col items-start gap-5 md:gap-7">
+    <header className="flex w-[221px] p-[16px] flex-col items-start gap-[29px] flex-shrink-0 self-stretch rounded-[12px] bg-[#FDFDFD] ">
+      <div className="flex flex-col items-start gap-5 md:gap-7 w-full">
         <div className="header-right">
           <Link to="/" className="w-[125px] h-[90px] block">
             <img src={logo} alt="" className="h-full w-full object-cover" />
           </Link>
         </div>
-        <div className="text-[#6D6E75] text-center font-[Lato] text-[14px] not-italic font-medium leading-[14px] tracking-[0.14px] flex flex-col gap-10">
-          <Link
+        <div className="text-[#6D6E75] text-center font-[Lato] text-[14px] not-italic font-medium leading-[14px] tracking-[0.14px] flex flex-col gap-2 w-full">
+          <NavLink
             to="/dashboard/my-jobs"
-            className="flex items items-center gap-2"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3.5 py-2.5 w-full rounded-md ${
+                isActive
+                  ? '[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF]'
+                  : 'text-[#6D6E75]'
+              }`
+            }
           >
             <span>
               <svg
@@ -31,10 +37,17 @@ const DashboardNavbar = () => {
               </svg>
             </span>
             My Jobs
-          </Link>
-          <Link
+          </NavLink>
+
+          <NavLink
             to="/dashboard/my-properties"
-            className="flex items items-center gap-2"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3.5 py-2.5 w-full rounded-md ${
+                isActive
+                  ? '[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF]'
+                  : 'text-[#6D6E75]'
+              }`
+            }
           >
             <span>
               <svg
@@ -80,10 +93,16 @@ const DashboardNavbar = () => {
               </svg>
             </span>
             My Properties
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/dashboard/messages"
-            className="flex items items-center gap-2"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3.5 py-2.5 w-full rounded-md ${
+                isActive
+                  ? '[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] '
+                  : 'text-[#6D6E75]'
+              }`
+            }
           >
             <span>
               <svg
@@ -120,8 +139,17 @@ const DashboardNavbar = () => {
               </svg>
             </span>
             Messages
-          </Link>
-          <Link to="/dashboard/profile" className="flex items items-center gap-2">
+          </NavLink>
+          <NavLink
+            to="/dashboard/profile"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3.5 py-2.5 w-full rounded-md ${
+                isActive
+                  ? '[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF]'
+                  : 'text-[#6D6E75]'
+              }`
+            }
+          >
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +165,7 @@ const DashboardNavbar = () => {
               </svg>
             </span>
             Profile
-          </Link>
+          </NavLink>
         </div>
       </div>
     </header>

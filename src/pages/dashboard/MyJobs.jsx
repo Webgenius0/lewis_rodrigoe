@@ -67,7 +67,10 @@ const MyJobs = () => {
           }}
         >
           <h2>My Job</h2>
-          <Button type="primary" onClick={() => setModalOpen(true)}>
+          <Button
+            className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px]"
+            onClick={() => setModalOpen(true)}
+          >
             Create new Job
           </Button>
         </div>
