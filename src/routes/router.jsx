@@ -9,8 +9,10 @@ import SignIn from "@/pages/auth/SignIn";
 import SignUp from "@/pages/auth/SignUp";
 import SignUpContinue from "@/pages/auth/SignUpContinue";
 import VerifyOtp from "@/pages/auth/VerifyOtp";
+import Messages from "@/pages/dashboard/Messages";
 import MyJobs from "@/pages/dashboard/MyJobs";
 import MyProperties from "@/pages/dashboard/MyProperties";
+import Profile from "@/pages/dashboard/Profile";
 import Home from "@/pages/main/Home";
 import Pricing from "@/pages/main/Pricing";
 import { createBrowserRouter } from "react-router-dom";
@@ -73,12 +75,20 @@ const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: 'my-jobs',
-        element: <MyJobs/>,
+        path: '/dashboard/my-jobs',
+        element: <MyJobs />,
       },
       {
-        path: 'my-properties',
+        path: '/dashboard/my-properties',
         element: <MyProperties />,
+      },
+      {
+        path: '/dashboard/messages',
+        element: <Messages />,
+      },
+      {
+        path: '/dashboard/profile',
+        element: <Profile />,
       },
     ],
   },
