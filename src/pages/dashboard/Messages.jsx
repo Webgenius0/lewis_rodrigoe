@@ -14,28 +14,32 @@ import {
   MessageSeparator,
 } from '@chatscope/chat-ui-kit-react';
 import { useState } from 'react';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu, Input } from 'antd';
 import { EllipsisOutlined, PaperClipOutlined } from '@ant-design/icons';
 
 const Messages = () => {
   const [messages, setMessages] = useState([
     {
-      message: 'Hello, here’s the design requirement document.',
+      message: 'Hello, how can I help you?',
       sender: 'agent',
       direction: 'incoming',
     },
     {
-      message: 'Thanks! I’ll check it out.',
+      message: 'I need info about your boiler plans.',
       sender: 'user',
       direction: 'outgoing',
     },
   ]);
 
+  const [searchValue, setSearchValue] = useState('');
+
   const handleSend = (message) => {
-    setMessages((prev) => [
-      ...prev,
-      { message, sender: 'user', direction: 'outgoing' },
-    ]);
+    if (message.trim()) {
+      setMessages((prev) => [
+        ...prev,
+        { message, sender: 'user', direction: 'outgoing' },
+      ]);
+    }
   };
 
   const menu = (
@@ -49,12 +53,25 @@ const Messages = () => {
   );
 
   return (
-    <div className="h-screen bg-white">
+    <div className=" h-full">
       <MainContainer responsive>
-        {/* Sidebar */}
-        <Sidebar position="left" scrollable className="overflow-y-auto">
+        <Sidebar position="left" scrollable>
+          <div className="p-3 border-b border-gray-300">
+            <h2 className="text-lg font-semibold">
+              Messages
+              <span className="ml-2 text-xs bg-blue-500 text-white px-2 py-0.5 rounded-full">
+                29
+              </span>
+            </h2>
+            <Input
+              placeholder="Search..."
+              className="mt-2"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
           <ConversationList>
-            {Array.from({ length: 10 }).map((_, i) => (
+            {[...Array(10)].map((_, i) => (
               <Conversation
                 key={i}
                 name={`User ${i + 1}`}
@@ -67,7 +84,6 @@ const Messages = () => {
           </ConversationList>
         </Sidebar>
 
-        {/* Chat Area */}
         <ChatContainer>
           <ConversationHeader>
             <Avatar src="https://i.pravatar.cc/150?img=3" />
@@ -81,7 +97,6 @@ const Messages = () => {
 
           <MessageList
             typingIndicator={<TypingIndicator content="Jerome is typing..." />}
-            className="overflow-y-auto"
           >
             <MessageSeparator content="19 August" />
             {messages.map((msg, i) => (
@@ -99,20 +114,13 @@ const Messages = () => {
             <MessageSeparator content="Today" />
           </MessageList>
 
-          {/* Custom Input with File Upload */}
-          <div className="flex items-center gap-2 px-4 py-2 border-t">
-            <label className="cursor-pointer">
-              <input type="file" hidden />
-              <PaperClipOutlined className="text-xl text-gray-500" />
-            </label>
-            <div className="flex-1">
-              <MessageInput
-                placeholder="Send a message..."
-                attachButton={false}
-                onSend={handleSend}
-              />
-            </div>
-          </div>
+          <MessageInput
+            placeholder="Send a message..."
+            attachButton={false}
+            sendButton
+            onSend={handleSend}
+          
+          />
         </ChatContainer>
       </MainContainer>
     </div>
