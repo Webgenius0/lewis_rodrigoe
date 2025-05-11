@@ -7,9 +7,38 @@ const Profile = () => {
   const personalInfoForm = (
     <div className="p-6 bg-white border border-[#E1E6EF] rounded-[16px] shadow-sm">
       {/* Name */}
-      <div className="mb-4">
-        <label className="block text-[#132235] font-semibold mb-1">Name</label>
-        <Input defaultValue="eklemen" />
+      <div className="py-5 flex gap-8 border-y border-[#E9EAEB]">
+        <label className="block text-[#132235] font-semibold min-w-[280px]">
+          Name
+        </label>
+        <Input
+          prefix={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M12.1586 10.87C12.0586 10.86 11.9386 10.86 11.8286 10.87C9.44859 10.79 7.55859 8.84 7.55859 6.44C7.55859 3.99 9.53859 2 11.9986 2C14.4486 2 16.4386 3.99 16.4386 6.44C16.4286 8.84 14.5386 10.79 12.1586 10.87Z"
+                stroke="#292D32"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+              <path
+                d="M7.15875 14.56C4.73875 16.18 4.73875 18.82 7.15875 20.43C9.90875 22.27 14.4188 22.27 17.1688 20.43C19.5888 18.81 19.5888 16.17 17.1688 14.56C14.4288 12.73 9.91875 12.73 7.15875 14.56Z"
+                stroke="#292D32"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+          placeholder="Robert Lewis"
+          className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
+        />
       </div>
 
       {/* Email */}
