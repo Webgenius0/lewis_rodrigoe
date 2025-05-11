@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^2.0.3",
     "@radix-ui/react-navigation-menu": "^1.2.10",
     "@radix-ui/react-select": "^2.1.6",
     "antd": "^5.25.1",
