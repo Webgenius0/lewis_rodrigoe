@@ -38,12 +38,8 @@ const PricingAnalysing = () => {
         <div className="container">
           <div className="flex flex-col lg:flex-row justify-between items-center  py-[60px]">
             {/* main form area */}
-            <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px] mx-auto">
+            <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px] mx-auto white-input">
               <div className="form-header flex flex-col gap-2 items-center">
-                <img
-                  src={logo}
-                  className="w-[38px] h-[38px] [aspect-ratio:1/1]"
-                />
                 <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
                   Pricing Analysis
                 </h2>
@@ -191,7 +187,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter street address"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -222,7 +218,7 @@ const PricingAnalysing = () => {
                               {...field}
                               prefix={<></>}
                               placeholder="Enter apartment..."
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -250,7 +246,7 @@ const PricingAnalysing = () => {
                               {...field}
                               prefix={<></>}
                               placeholder="Enter state..."
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -314,7 +310,7 @@ const PricingAnalysing = () => {
                               {...field}
                               prefix={<></>}
                               placeholder="Enter postal.."
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -416,7 +412,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter brand & model"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -474,7 +470,7 @@ const PricingAnalysing = () => {
                               {...field}
                               prefix={<></>}
                               placeholder="Enter boiler age"
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -504,7 +500,7 @@ const PricingAnalysing = () => {
                               placeholder="DD/MM/YYYY"
                               allowClear
                               prefix={<></>}
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -532,7 +528,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter boiler location"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -566,7 +562,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter property name"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -593,7 +589,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter property name"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -620,7 +616,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter property name"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />

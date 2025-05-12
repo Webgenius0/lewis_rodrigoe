@@ -38,7 +38,7 @@ body {
 }
 
 /* Default (no border) */
-.auth-section .ant-select-selector {
+.ant-select-selector {
   background: #F3F3F4 !important;
   border-radius: 0.375rem;
   border: none !important;
@@ -48,7 +48,14 @@ body {
   box-shadow: none !important;
 }
 
-.auth-section .ant-input {
+.white-input .ant-select-selector {
+  background: #FFF !important;
+  border-radius: 12px !important;
+  border: 1px solid  #E1E6EF !important;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.03) !important;
+}
+
+.ant-input {
   border: none !important;
   outline: 1px solid transparent !important;
   transition: all 0.2s ease;
@@ -58,12 +65,12 @@ body {
 
 
 /* On hover */
-.auth-section .ant-select-selector:hover {
+.ant-select-selector:hover {
   outline: 1px solid #0048FF !important;
 }
 
 /* On focus */
-.auth-section .ant-select-focused .ant-select-selector {
+.ant-select-focused .ant-select-selector {
   outline: 1px solid #0048FF !important;
 }
 
@@ -79,8 +86,27 @@ body {
   bottom: 0 !important;
 }
 
-.ant-select{
+.ant-select {
   display: flex;
   align-items: center;
 }
+
+.ant-tabs-tab-btn {
+  color: #717680;
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #00245F;
+  text-shadow: 0 0 0.25px currentcolor;
+}
+
+.ant-tabs .ant-tabs-ink-bar {
+  background: #00245F;
+}
+
 /* tarek css */
