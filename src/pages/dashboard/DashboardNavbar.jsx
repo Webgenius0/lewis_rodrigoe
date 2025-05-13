@@ -13,7 +13,8 @@ const DashboardNavbar = () => {
         </div>
         <div className="text-[#6D6E75] text-center font-[Lato] text-[14px] not-italic font-medium leading-[14px] tracking-[0.14px] flex flex-col gap-2 w-full">
           <NavLink
-            to="/dashboard/my-jobs"
+            to="/dashboard"
+            end
             className={({ isActive }) =>
               `flex items-center gap-2 px-3.5 py-2.5 w-full rounded-md ${
                 isActive
