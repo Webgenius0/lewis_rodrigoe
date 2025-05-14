@@ -1,10 +1,69 @@
 import { axiosPublic } from "@/lib/axios.config";
-import { signInSchema } from "@/schemas/auth.schema";
+import {
+  matchOtpSchema,
+  resetPasswordSchema,
+  sendOtpSchema,
+  signInSchema,
+  signUpSchema,
+} from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate, useSearchParams } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
+
+export const useSignUp = () => {
+  const navigate = useNavigate();
+
+  const form = useForm({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      phone: "",
+      gender: "",
+      avatar: null,
+    },
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (payload) => {
+      const formData = new FormData();
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, value);
+        }
+      });
+
+      const res = await axiosPublic.post("/auth/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success(data?.message || "User created successfully");
+        navigate("/sign-in");
+      } else {
+        toast.error(data?.message || "Failed to create user");
+      }
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || "Failed to create user";
+      if (message.includes("email")) {
+        form.setError("email", { message });
+      } else {
+        toast.error(message);
+      }
+    },
+  });
+
+  return { form, mutate, isPending };
+};
 
 export const useSignIn = () => {
   const [params] = useSearchParams();
@@ -52,4 +111,170 @@ export const useSignIn = () => {
   });
 
   return { form, mutate, isPending };
+};
+
+// send OTP function
+
+export const useSendOtp = () => {
+  const navigate = useNavigate();
+  const form = useForm({
+    resolver: zodResolver(sendOtpSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async ({ email }) => {
+      const payload = {
+        email: email,
+        operation: "password",
+      };
+      const { data } = await axiosPublic.post(
+        "/auth/forget-password/otp-send",
+        payload
+      );
+      if (!data?.success) {
+        throw new Error(data?.message || "Failed to send OTP");
+      }
+      return data;
+    },
+    onSuccess: (data) => {
+      navigate("/verify-otp", {
+        state: { email: form.watch("email") },
+      });
+      toast.success(data?.message || "OTP sent successfully");
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || error.message;
+      toast.error(message || "Failed to send OTP");
+    },
+  });
+
+  return { form, mutate, isPending };
+};
+
+//  OTP Match function
+export const useMatchOtp = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const email = location.state?.email || "";
+
+  const form = useForm({
+    resolver: zodResolver(matchOtpSchema),
+    defaultValues: {
+      email,
+      operation: "password",
+      otp0: "",
+      otp1: "",
+      otp2: "",
+      otp3: "",
+    },
+  });
+
+  useEffect(() => {
+    if (email) {
+      form.reset({
+        email,
+        operation: "password",
+        otp0: "",
+        otp1: "",
+        otp2: "",
+        otp3: "",
+      });
+    }
+  }, [email]);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (formData) => {
+      const otp = `${formData.otp0}${formData.otp1}${formData.otp2}${formData.otp3}`;
+      const payload = {
+        email: formData.email,
+        otp,
+        operation: formData.operation,
+      };
+
+      const { data } = await axiosPublic.post(
+        "/auth/forget-password/otp-match",
+        payload
+      );
+
+      return data;
+    },
+    onSuccess: (data) => {
+      navigate("/new-password", { state: { email: form.watch("email") } });
+      toast.success(data.message || "OTP Verified");
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || error.message;
+      toast.error(message || "OTP verification failed");
+    },
+  });
+
+  return {
+    form,
+    matchOtp: mutate,
+    isMatching: isPending,
+  };
+};
+
+//  Reset-password function
+export const useResetPassword = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const email = location.state?.email || "";
+
+  const form = useForm({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      email,
+      password: "",
+      password_confirmation: "",
+    },
+  });
+
+  useEffect(() => {
+    if (email) {
+      form.reset({
+        email,
+        password: "",
+        password_confirmation: "",
+      });
+    }
+  }, [email]);
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (formData) => {
+      const payload = {
+        email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.password_confirmation,
+      };
+
+      const { data } = await axiosPublic.post(
+        "/auth/forget-password/reset-password",
+        payload
+      );
+
+      if (!data?.success) {
+        throw new Error(data?.message || "Reset failed");
+      }
+
+      return data;
+    },
+    onSuccess: (data) => {
+      toast.success(data.message || "Password reset successful");
+      navigate("/sign-in");
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || error.message;
+      toast.error(message || "Password reset failed");
+    },
+  });
+
+  return {
+    form,
+    resetPassword: mutate,
+    isResetting: isPending,
+  };
 };

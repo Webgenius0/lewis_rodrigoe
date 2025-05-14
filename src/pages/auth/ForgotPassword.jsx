@@ -2,23 +2,22 @@ import homeHero from "../../assets/homeHero.png";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router";
 import { Input } from "antd";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { useSendOtp } from "@/hooks/auth.hook";
 
 const ForgotPassword = () => {
+  const { form, mutate, isPending } = useSendOtp();
+
   const {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm();
+  } = form;
 
   const onSubmit = (data) => {
-    console.log(data);
-    navigate("/verify-otp");
+    mutate(data);
   };
 
-  console.log(errors);
-
-  const navigate = useNavigate();
   return (
     <section
       className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center auth-section"
@@ -50,15 +49,8 @@ const ForgotPassword = () => {
                   Email Address
                 </label>
                 <Controller
-                  name="email_address"
+                  name="email"
                   control={control}
-                  rules={{
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Please enter a valid email address",
-                    },
-                  }}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -90,11 +82,8 @@ const ForgotPassword = () => {
                   )}
                 />
 
-                {errors.email_address && (
-                  <p className="text-red-500">
-                    {" "}
-                    {errors.email_address.message}{" "}
-                  </p>
+                {errors.email && (
+                  <p className="text-red-500"> {errors.email.message} </p>
                 )}
               </div>
 

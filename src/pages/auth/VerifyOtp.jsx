@@ -1,27 +1,20 @@
 import { useNavigate } from "react-router";
 import homeHero from "../../assets/homeHero.png";
 import logo from "../../assets/logo.png";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { useMatchOtp } from "@/hooks/auth.hook";
 
 const VerifyOtp = () => {
+  const { form, matchOtp, isMatching } = useMatchOtp();
   const {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm();
+  } = form;
 
   const onSubmit = (data) => {
-    console.log(data);
-    const otp = `${data.otp0}${data.otp1}${data.otp2}${data.otp3}`;
-    console.log("OTP:", otp);
-    navigate("/new-password");
+    matchOtp(data);
   };
-
-  console.log(errors);
-
-  const navigate = useNavigate();
-
-  // for otp
 
   return (
     <section
@@ -124,7 +117,7 @@ const VerifyOtp = () => {
                   type="submit"
                   className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] "
                 >
-                  Verify Code
+                  {isMatching ? "Verifying..." : "Verify Code"}
                 </button>
               </div>
             </form>
