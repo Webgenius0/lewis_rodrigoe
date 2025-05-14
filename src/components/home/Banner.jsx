@@ -1,6 +1,5 @@
-
-import { Link } from 'react-router-dom';
-import homeHero from '../../assets/homeHero.png';
+import { Link } from "react-router";
+import homeHero from "../../assets/homeHero.png";
 
 const Banner = () => {
   return (
@@ -25,7 +24,10 @@ const Banner = () => {
             </h3>
           </div>
 
-          <Link to="/sign-up" className="mt-7 text-[#FFF] text-right font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase px-[50px] py-[20px] rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] border-none ">
+          <Link
+            to="/sign-up"
+            className="mt-7 text-[#FFF] text-right font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase px-[50px] py-[20px] rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] border-none "
+          >
             Join Now
           </Link>
         </div>

@@ -1,28 +1,28 @@
-import { Controller, useForm } from 'react-hook-form';
-import 'react-phone-input-2/lib/style.css';
+import { Controller, useForm } from "react-hook-form";
+import "react-phone-input-2/lib/style.css";
 
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
-import { Input } from 'antd';
-import { AuthComment } from './AuthComment';
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { Link } from "react-router";
+import { Input } from "antd";
+import { AuthComment } from "./AuthComment";
 
 const SignUpContinue = () => {
   const {
     handleSubmit,
     formState: { errors },
     control,
-    setError
+    setError,
   } = useForm();
 
   const onSubmit = (data) => {
     const password = data?.password;
     const confirm_password = data?.confirm_password;
 
-    if(password !== confirm_password) {
-        setError('confirm_password', {
-          message:'🚫ERROR: Passwords Don’t Match!',
-        });
+    if (password !== confirm_password) {
+      setError("confirm_password", {
+        message: "🚫ERROR: Passwords Don’t Match!",
+      });
     }
   };
 
@@ -61,7 +61,7 @@ const SignUpContinue = () => {
                 <Controller
                   name="username"
                   control={control}
-                  rules={{ required: 'Username is required' }}
+                  rules={{ required: "Username is required" }}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -108,7 +108,7 @@ const SignUpContinue = () => {
                 <Controller
                   name="email_address"
                   control={control}
-                  rules={{ required: 'Email is required' }}
+                  rules={{ required: "Email is required" }}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -142,8 +142,8 @@ const SignUpContinue = () => {
 
                 {errors.email_address && (
                   <p className="text-red-500">
-                    {' '}
-                    {errors.email_address.message}{' '}
+                    {" "}
+                    {errors.email_address.message}{" "}
                   </p>
                 )}
               </div>
@@ -155,7 +155,7 @@ const SignUpContinue = () => {
                 <Controller
                   name="password"
                   control={control}
-                  rules={{ required: 'Password is required' }}
+                  rules={{ required: "Password is required" }}
                   render={({ field }) => (
                     <Input.Password
                       {...field}
@@ -204,7 +204,7 @@ const SignUpContinue = () => {
                 <Controller
                   name="confirm_password"
                   control={control}
-                  rules={{ required: 'Password is required' }}
+                  rules={{ required: "Password is required" }}
                   render={({ field }) => (
                     <Input.Password
                       {...field}
@@ -256,7 +256,7 @@ const SignUpContinue = () => {
               </button>
 
               <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                Already have an account? {''}
+                Already have an account? {""}
                 <Link
                   to="/sign-in"
                   className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"

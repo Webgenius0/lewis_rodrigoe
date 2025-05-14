@@ -1,25 +1,24 @@
-
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { useNavigate } from 'react-router-dom';
-import { Input } from 'antd';
-import { Controller, useForm } from 'react-hook-form';
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { useNavigate } from "react-router";
+import { Input } from "antd";
+import { Controller, useForm } from "react-hook-form";
 
 const ForgotPassword = () => {
-     const {
-        handleSubmit,
-        formState: { errors },
-        control,
-      } = useForm();
-    
-      const onSubmit = (data) => {
-        console.log(data);
-        navigate('/verify-otp');
-      };
-    
-      console.log(errors);
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm();
 
-      const navigate = useNavigate();
+  const onSubmit = (data) => {
+    console.log(data);
+    navigate("/verify-otp");
+  };
+
+  console.log(errors);
+
+  const navigate = useNavigate();
   return (
     <section
       className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center auth-section"
@@ -54,10 +53,10 @@ const ForgotPassword = () => {
                   name="email_address"
                   control={control}
                   rules={{
-                    required: 'Email is required',
+                    required: "Email is required",
                     pattern: {
                       value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: 'Please enter a valid email address',
+                      message: "Please enter a valid email address",
                     },
                   }}
                   render={({ field }) => (
@@ -93,8 +92,8 @@ const ForgotPassword = () => {
 
                 {errors.email_address && (
                   <p className="text-red-500">
-                    {' '}
-                    {errors.email_address.message}{' '}
+                    {" "}
+                    {errors.email_address.message}{" "}
                   </p>
                 )}
               </div>
@@ -111,6 +110,6 @@ const ForgotPassword = () => {
       </div>
     </section>
   );
-}
+};
 
-export default ForgotPassword
+export default ForgotPassword;

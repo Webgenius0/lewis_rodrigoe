@@ -1,40 +1,37 @@
-import { Controller, useForm } from 'react-hook-form';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import { Controller, useForm } from "react-hook-form";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { Input, Select } from 'antd';
-import { AuthComment } from './AuthComment';
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { Link, useNavigate } from "react-router";
+import { Input, Select } from "antd";
+import { AuthComment } from "./AuthComment";
 const { Option } = Select;
-import  { useState } from 'react';
-import {  Upload, message } from 'antd';
-import { PlusOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
-import ImgCrop from 'antd-img-crop';
-import uploadPlus from "../../assets/uploadPlus.png"
-
+import { useState } from "react";
+import { Upload, message } from "antd";
+import { PlusOutlined, LoadingOutlined, UserOutlined } from "@ant-design/icons";
+import ImgCrop from "antd-img-crop";
+import uploadPlus from "../../assets/uploadPlus.png";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
+  reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
 
 const beforeUpload = (file) => {
-  const isImage = file.type === 'image/jpeg' || file.type === 'image/png';
+  const isImage = file.type === "image/jpeg" || file.type === "image/png";
   if (!isImage) {
-    message.error('Only JPG/PNG files allowed!');
+    message.error("Only JPG/PNG files allowed!");
   }
   const isSmall = file.size / 1024 / 1024 < 2;
   if (!isSmall) {
-    message.error('Image must be smaller than 2MB!');
+    message.error("Image must be smaller than 2MB!");
   }
   return isImage && isSmall;
 };
 
-
-  
 const SignUp = () => {
   // for getting form data and error
   const {
@@ -43,12 +40,11 @@ const SignUp = () => {
     control,
   } = useForm();
 
-
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate('/sign-up-continue');
+    navigate("/sign-up-continue");
   };
 
   console.log(errors);
@@ -58,11 +54,11 @@ const SignUp = () => {
   const [imageUrl, setImageUrl] = useState(null);
 
   const handleChange = (info) => {
-    if (info.file.status === 'uploading') {
+    if (info.file.status === "uploading") {
       setLoading(true);
       return;
     }
-    if (info.file.status === 'done' || info.file.originFileObj) {
+    if (info.file.status === "done" || info.file.originFileObj) {
       getBase64(info.file.originFileObj, (url) => {
         setImageUrl(url);
         setLoading(false);
@@ -76,7 +72,6 @@ const SignUp = () => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-
 
   return (
     <section
@@ -107,8 +102,8 @@ const SignUp = () => {
               <div
                 className="imgUploadClass"
                 style={{
-                  display: 'flex',
-                  justifyContent: 'center',
+                  display: "flex",
+                  justifyContent: "center",
                   marginBottom: 24,
                 }}
               >
@@ -121,33 +116,33 @@ const SignUp = () => {
                     onChange={handleChange}
                   >
                     <div
-                      style={{ position: 'relative', width: 100, height: 100 }}
+                      style={{ position: "relative", width: 100, height: 100 }}
                     >
                       {imageUrl ? (
                         <img
                           src={imageUrl}
                           alt="avatar"
                           style={{
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50%',
-                            objectFit: 'cover',
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
                           }}
                         />
                       ) : (
                         <div
                           style={{
-                            width: '100px',
-                            height: '100px',
-                            borderRadius: '50%',
-                            background: '#f0f0f0',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "50%",
+                            background: "#f0f0f0",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                           }}
                         >
                           <UserOutlined
-                            style={{ fontSize: 32, color: '#999' }}
+                            style={{ fontSize: 32, color: "#999" }}
                           />
                         </div>
                       )}
@@ -155,13 +150,13 @@ const SignUp = () => {
                       {/* Custom Icon Button */}
                       <div
                         style={{
-                          position: 'absolute',
+                          position: "absolute",
                           bottom: -2,
                           right: -2,
-                          backgroundColor: 'inherit',
-                          borderRadius: '50%',
+                          backgroundColor: "inherit",
+                          borderRadius: "50%",
                           padding: 6,
-                          cursor: 'pointer',
+                          cursor: "pointer",
                         }}
                       >
                         <span>
@@ -180,7 +175,7 @@ const SignUp = () => {
                 <Controller
                   name="name"
                   control={control}
-                  rules={{ required: 'Name is required' }}
+                  rules={{ required: "Name is required" }}
                   render={({ field }) => (
                     <Input
                       {...field}
@@ -226,11 +221,11 @@ const SignUp = () => {
                 <Controller
                   name="phone"
                   control={control}
-                  rules={{ required: 'Phone number is required' }}
+                  rules={{ required: "Phone number is required" }}
                   render={({ field }) => (
                     <PhoneInput
                       {...field}
-                      country={'us'} // Default country
+                      country={"us"} // Default country
                       enableSearch={true}
                       inputClass="!pl-12 !py-2 !px-4 !bg-[#F3F3F4] !border !border-transparent !rounded-md !w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-[#09B5FF] bg-[#F3F3F4] !h-11 "
                       buttonClass="!border-none !bg-transparent !left-3"
@@ -253,7 +248,7 @@ const SignUp = () => {
                 <Controller
                   name="gender"
                   control={control}
-                  rules={{ required: 'Gender is required' }}
+                  rules={{ required: "Gender is required" }}
                   render={({ field }) => (
                     <Select
                       {...field}
@@ -306,7 +301,7 @@ const SignUp = () => {
               </button>
 
               <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                Already have an account? {''}
+                Already have an account? {""}
                 <Link
                   to="/sign-in"
                   className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"

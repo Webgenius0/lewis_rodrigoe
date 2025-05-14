@@ -1,13 +1,13 @@
-import { Controller, useForm } from 'react-hook-form';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import { Controller, useForm } from "react-hook-form";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { DatePicker, Input, Select } from 'antd';
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { Link, useNavigate } from "react-router";
+import { DatePicker, Input, Select } from "antd";
 const { Option } = Select;
-import PricingTitle from './PricingTitle';
+import PricingTitle from "./PricingTitle";
 
 const onChange = (date, dateString) => {
   console.log(date, dateString);
@@ -25,7 +25,7 @@ const PricingAnalysing = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    navigate('/sign-up-continue');
+    navigate("/sign-up-continue");
   };
 
   console.log(errors);
@@ -186,7 +186,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="street"
                         control={control}
-                        rules={{ required: 'Street Address is required' }}
+                        rules={{ required: "Street Address is required" }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -199,8 +199,8 @@ const PricingAnalysing = () => {
 
                       {errors.street && (
                         <p className="text-red-500">
-                          {' '}
-                          {errors.street.message}{' '}
+                          {" "}
+                          {errors.street.message}{" "}
                         </p>
                       )}
                     </div>
@@ -216,7 +216,7 @@ const PricingAnalysing = () => {
                           name="apartment"
                           control={control}
                           rules={{
-                            required: 'Apartment / Suite / Unit is required',
+                            required: "Apartment / Suite / Unit is required",
                           }}
                           render={({ field }) => (
                             <Input
@@ -230,8 +230,8 @@ const PricingAnalysing = () => {
 
                         {errors.apartment && (
                           <p className="text-red-500">
-                            {' '}
-                            {errors.apartment.message}{' '}
+                            {" "}
+                            {errors.apartment.message}{" "}
                           </p>
                         )}
                       </div>
@@ -245,7 +245,7 @@ const PricingAnalysing = () => {
                         <Controller
                           name="state"
                           control={control}
-                          rules={{ required: 'State / Province / Region' }}
+                          rules={{ required: "State / Province / Region" }}
                           render={({ field }) => (
                             <Input
                               {...field}
@@ -258,8 +258,8 @@ const PricingAnalysing = () => {
 
                         {errors.state && (
                           <p className="text-red-500">
-                            {' '}
-                            {errors.state.message}{' '}
+                            {" "}
+                            {errors.state.message}{" "}
                           </p>
                         )}
                       </div>
@@ -275,7 +275,7 @@ const PricingAnalysing = () => {
                           name="city"
                           control={control}
                           rules={{
-                            required: 'city is required',
+                            required: "city is required",
                           }}
                           render={({ field }) => (
                             <Select
@@ -294,8 +294,8 @@ const PricingAnalysing = () => {
 
                         {errors.city && (
                           <p className="text-red-500">
-                            {' '}
-                            {errors.city.message}{' '}
+                            {" "}
+                            {errors.city.message}{" "}
                           </p>
                         )}
                       </div>
@@ -309,7 +309,7 @@ const PricingAnalysing = () => {
                         <Controller
                           name="postal"
                           control={control}
-                          rules={{ required: 'Postal / ZIP Code is required' }}
+                          rules={{ required: "Postal / ZIP Code is required" }}
                           render={({ field }) => (
                             <Input
                               {...field}
@@ -322,8 +322,8 @@ const PricingAnalysing = () => {
 
                         {errors.postal && (
                           <p className="text-red-500">
-                            {' '}
-                            {errors.postal.message}{' '}
+                            {" "}
+                            {errors.postal.message}{" "}
                           </p>
                         )}
                       </div>
@@ -337,7 +337,7 @@ const PricingAnalysing = () => {
                         name="country"
                         control={control}
                         rules={{
-                          required: 'country is required',
+                          required: "country is required",
                         }}
                         render={({ field }) => (
                           <Select
@@ -356,8 +356,8 @@ const PricingAnalysing = () => {
 
                       {errors.country && (
                         <p className="text-red-500">
-                          {' '}
-                          {errors.country.message}{' '}
+                          {" "}
+                          {errors.country.message}{" "}
                         </p>
                       )}
                     </div>
@@ -377,7 +377,7 @@ const PricingAnalysing = () => {
                         name="boilerType"
                         control={control}
                         rules={{
-                          required: 'Boiler Type is required',
+                          required: "Boiler Type is required",
                         }}
                         render={({ field }) => (
                           <Select
@@ -396,8 +396,8 @@ const PricingAnalysing = () => {
 
                       {errors.boilerType && (
                         <p className="text-red-500">
-                          {' '}
-                          {errors.boilerType.message}{' '}
+                          {" "}
+                          {errors.boilerType.message}{" "}
                         </p>
                       )}
                     </div>
@@ -411,7 +411,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="model"
                         control={control}
-                        rules={{ required: 'Brand & Model* is required' }}
+                        rules={{ required: "Brand & Model* is required" }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -435,7 +435,7 @@ const PricingAnalysing = () => {
                         name="boilersNumber"
                         control={control}
                         rules={{
-                          required: 'Number of Boilers is required',
+                          required: "Number of Boilers is required",
                         }}
                         render={({ field }) => (
                           <Select
@@ -454,8 +454,8 @@ const PricingAnalysing = () => {
 
                       {errors.boilersNumber && (
                         <p className="text-red-500">
-                          {' '}
-                          {errors.boilersNumber.message}{' '}
+                          {" "}
+                          {errors.boilersNumber.message}{" "}
                         </p>
                       )}
                     </div>
@@ -469,7 +469,7 @@ const PricingAnalysing = () => {
                         <Controller
                           name="boilerAge"
                           control={control}
-                          rules={{ required: 'Age of Boiler is required' }}
+                          rules={{ required: "Age of Boiler is required" }}
                           render={({ field }) => (
                             <Input
                               {...field}
@@ -482,8 +482,8 @@ const PricingAnalysing = () => {
 
                         {errors.boilerAge && (
                           <p className="text-red-500">
-                            {' '}
-                            {errors.boilerAge.message}{' '}
+                            {" "}
+                            {errors.boilerAge.message}{" "}
                           </p>
                         )}
                       </div>
@@ -497,7 +497,7 @@ const PricingAnalysing = () => {
                         <Controller
                           name="lastServiceDate"
                           control={control}
-                          rules={{ required: 'Last Serviced Date is required' }}
+                          rules={{ required: "Last Serviced Date is required" }}
                           render={({ field }) => (
                             <DatePicker
                               onChange={onChange}
@@ -512,8 +512,8 @@ const PricingAnalysing = () => {
 
                         {errors.lastServiceDate && (
                           <p className="text-red-500">
-                            {' '}
-                            {errors.lastServiceDate.message}{' '}
+                            {" "}
+                            {errors.lastServiceDate.message}{" "}
                           </p>
                         )}
                       </div>
@@ -527,7 +527,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="boilerLocation"
                         control={control}
-                        rules={{ required: 'Boiler Location* is required' }}
+                        rules={{ required: "Boiler Location* is required" }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -540,8 +540,8 @@ const PricingAnalysing = () => {
 
                       {errors.boilerLocation && (
                         <p className="text-red-500">
-                          {' '}
-                          {errors.boilerLocation.message}{' '}
+                          {" "}
+                          {errors.boilerLocation.message}{" "}
                         </p>
                       )}
                     </div>
@@ -560,7 +560,7 @@ const PricingAnalysing = () => {
                   <Controller
                     name="name"
                     control={control}
-                    rules={{ required: 'Name is required' }}
+                    rules={{ required: "Name is required" }}
                     render={({ field }) => (
                       <Input
                         {...field}
@@ -606,11 +606,11 @@ const PricingAnalysing = () => {
                   <Controller
                     name="phone"
                     control={control}
-                    rules={{ required: 'Phone number is required' }}
+                    rules={{ required: "Phone number is required" }}
                     render={({ field }) => (
                       <PhoneInput
                         {...field}
-                        country={'us'} // Default country
+                        country={"us"} // Default country
                         enableSearch={true}
                         inputClass="!pl-12 !py-2 !px-4 !bg-[#F3F3F4] !border !border-transparent !rounded-md !w-full border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-[#09B5FF] bg-[#F3F3F4] !h-11 "
                         buttonClass="!border-none !bg-transparent !left-3"
@@ -633,7 +633,7 @@ const PricingAnalysing = () => {
                   <Controller
                     name="gender"
                     control={control}
-                    rules={{ required: 'Gender is required' }}
+                    rules={{ required: "Gender is required" }}
                     render={({ field }) => (
                       <Select
                         {...field}
@@ -684,7 +684,7 @@ const PricingAnalysing = () => {
                 </button>
 
                 <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                  Already have an account? {''}
+                  Already have an account? {""}
                   <Link
                     to="/sign-in"
                     className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"

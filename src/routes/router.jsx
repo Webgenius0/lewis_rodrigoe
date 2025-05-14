@@ -8,48 +8,48 @@ import SignUpContinue from "@/pages/auth/SignUpContinue";
 import VerifyOtp from "@/pages/auth/VerifyOtp";
 import Home from "@/pages/main/Home";
 import Pricing from "@/pages/main/Pricing";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router";
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: '/pricing',
+        path: "/pricing",
         element: <Pricing />,
       },
     ],
   },
   {
-    path: '/sign-in',
+    path: "/sign-in",
     element: <SignIn />,
   },
   {
-    path: '/sign-up',
+    path: "/sign-up",
     element: <SignUp />,
   },
   {
-    path: '/sign-up-continue',
+    path: "/sign-up-continue",
     element: <SignUpContinue />,
   },
   {
-    path: '/forgot-password',
+    path: "/forgot-password",
     element: <ForgotPassword />,
   },
   {
-    path: '/verify-otp',
+    path: "/verify-otp",
     element: <VerifyOtp />,
   },
   {
-    path: '/new-password',
+    path: "/new-password",
     element: <NewPassword />,
   },
   {
-    path: '/pricing-analysing',
+    path: "/pricing-analysing",
     element: <PricingAnalysing />,
   },
 ]);

@@ -1,24 +1,24 @@
-import { Menu, Dropdown } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import downArrow from '../../assets/cheveronDown.svg';
+import { Menu, Dropdown } from "antd";
+import { Link, useLocation } from "react-router";
+import logo from "../../assets/logo.png";
+import downArrow from "../../assets/cheveronDown.svg";
 
 const menu1 = {
   items: [
-    { key: '1', label: 'Submenu 1-1' },
-    { key: '2', label: 'Submenu 1-2' },
+    { key: "1", label: "Submenu 1-1" },
+    { key: "2", label: "Submenu 1-2" },
   ],
 };
 
 const menu2 = {
   items: [
-    { key: '1', label: 'Submenu 2-1' },
-    { key: '2', label: 'Submenu 2-2' },
+    { key: "1", label: "Submenu 2-1" },
+    { key: "2", label: "Submenu 2-2" },
   ],
 };
 
 const Navbar = () => {
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <header className="bg-inherit absolute top-0 left-0 right-0 z-20">
@@ -51,7 +51,7 @@ const Navbar = () => {
         </div>
 
         {/* header left */}
-        {pathname === '/pricing' ? (
+        {pathname === "/pricing" ? (
           <div />
         ) : (
           <div className="header-left flex items-center">
