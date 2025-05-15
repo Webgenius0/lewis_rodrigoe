@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+//const ukMobileRegex = /^(?:\+44|0)7\d{9}$/;
 export const signUpSchema = z
   .object({
     first_name: z.string().min(1, "First name is required"),
@@ -20,7 +20,9 @@ export const signUpSchema = z
     gender: z.enum(["male", "female", "other"], {
       required_error: "Gender is required",
     }),
-    avatar: z.any().optional(),
+    avatar: z.any({
+      required_error: "Avatar is required",
+    }),
   })
   .refine((data) => data.password === data.password_confirmation, {
     path: ["password_confirmation"],
