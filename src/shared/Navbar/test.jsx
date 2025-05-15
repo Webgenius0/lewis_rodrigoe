@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Menu, Dropdown } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
@@ -23,14 +23,6 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.classList.add('overflow-hidden');
-    } else {
-      document.body.classList.remove('overflow-hidden');
-    }
-  }, [mobileMenuOpen]);
-
   return (
     <header className="bg-inherit absolute top-0 left-0 right-0 z-20">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
@@ -40,14 +32,6 @@ const Navbar = () => {
             <img src={logo} alt="Logo" className="h-full w-full object-cover" />
           </Link>
         </div>
-
-        {/* Toggle Button */}
-        <button
-          className="md:hidden text-white text-2xl"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
-        </button>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-10 text-white font-[Inter] text-[16px] font-medium leading-[27.2px]">
@@ -77,47 +61,35 @@ const Navbar = () => {
             </Link>
           </div>
         )}
+
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="text-white text-2xl"
+          >
+            {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu Fullscreen Panel */}
+      {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed inset-0 z-50 bg-[#111827] text-white font-medium font-[Inter] transform transition-all duration-500 ease-in-out ${
-          mobileMenuOpen
-            ? 'translate-y-0 opacity-100'
-            : '-translate-y-full opacity-0 pointer-events-none'
+        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden bg-[#111827] ${
+          mobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="p-6 flex flex-col gap-6">
-          {/* Mobile Logo and Close Button */}
-          <div className="flex justify-between items-center mb-4">
-            <Link
-              to="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-[100px]"
-            >
-              <img src={logo} alt="Logo" className="w-full object-contain" />
-            </Link>
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-white text-2xl"
-            >
-              <CloseOutlined />
-            </button>
-          </div>
-
-          {/* Menu Items */}
+        <div className="flex flex-col gap-6 p-6 text-white text-[16px] font-medium font-[Inter]">
           <Dropdown menu={menu1} placement="bottom">
             <span className="flex items-center gap-2.5 cursor-pointer">
               Demos <img src={downArrow} alt="downArrow" />
             </span>
           </Dropdown>
-
           <Dropdown menu={menu2} placement="bottom">
             <span className="flex items-center gap-2.5 cursor-pointer">
               Essential Pages <img src={downArrow} alt="downArrow" />
             </span>
           </Dropdown>
-
           <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>
             Pricing
           </Link>
