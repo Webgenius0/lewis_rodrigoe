@@ -10,7 +10,7 @@ const Footer = () => {
       <footer className="bg-[#0E0F11]">
         <div className="container">
           <h1 className="text-[#FFF] font-[Outfit] text-[48px] not-italic font-semibold leading-[55.2px] tracking-[-1px] py-[100px] ">
-            Smarter. Simpler. Covered
+            Smarter. Simpler. Covered.
           </h1>
           {/* footer main content */}
           <div
@@ -21,19 +21,19 @@ const Footer = () => {
             }}
           >
             <div className="w-[283px]">
-              <div className="w-[125px] h-[90px]">
+              <div className="w-[175px] h-[95px]">
                 <img
                   src={logoTransparent}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <p className="text-[#FAFAFC] font-[Manrope] text-[16px] not-italic font-normal leading-[27.2px]">
+              <p className="text-[#FAFAFC] font-[Manrope] text-[16px] not-italic font-normal leading-[27.2px] hidden ">
                 Plumer is an electrician company that specializes in providing
                 high-quality electrical services.
               </p>
 
               {/* social Wrapper */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 my-5 md:my-8">
                 <a href="#" className="w-[30px] h-[30px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,9 @@ const Footer = () => {
 
               {/* certificate wrapper */}
               <div className="certificate-area">
-                <h5>Certified On</h5>
+                <h5 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-2 md:mb-3">
+                  Certified On
+                </h5>
                 <div className="flex items-center gap-1">
                   <div className="rounded-[7px] overflow-hidden w-[48px] h-[52px] [aspect-ratio:12/13]">
                     <img src={certificate1} className="w-full h-full" />
@@ -107,7 +109,7 @@ const Footer = () => {
             <div className="grid grid-cols-[repeat(3,1fr)] flex-grow">
               {/* first grid item */}
               <div className="firstGrid">
-                <h4 className="text-[#FFF] font-[Satoshi] text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5">
+                <h4 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5 opacity-50">
                   LINKS
                 </h4>
                 <div className="link-wrapper flex flex-col gap-2 md:gap-4">
@@ -140,7 +142,7 @@ const Footer = () => {
 
               {/* second grid item */}
               <div className="seconGrid">
-                <h4 className="text-[#FFF] font-[Satoshi] text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5">
+                <h4 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5">
                   Download the app
                 </h4>
                 <div className="flex flex-col gap-2">
@@ -401,7 +403,7 @@ const Footer = () => {
 
               {/* third grid item */}
               <div className="thirdGrid">
-                <h4 className="text-[#FFF] font-[Satoshi] text-[16px] not-italic font-bold leading-[27.2px] mb-2">
+                <h4 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-2">
                   NEWSLETTER
                 </h4>
                 <p className="text-[#FAFAFC] font-[Manrope] text-[16px] not-italic font-normal leading-[27.2px] mb-3 md:mb-5">
@@ -416,7 +418,7 @@ const Footer = () => {
                     />
                     <Button
                       type="submit"
-                      className="text-[#FFF] text-right font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase px-[50px] py-[20px] rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] border-none w-fit"
+                      className="text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase px-[50px] py-[20px] rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] border-none w-fit"
                     >
                       SUBSCRIBE NOW
                     </Button>
