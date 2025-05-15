@@ -88,6 +88,8 @@ export const useSignIn = () => {
         toast.success(data?.message || "Sign in successfully");
         const token = data?.token;
         localStorage.setItem("token", token);
+        const user = data?.data?.user;
+        localStorage.setItem("user", JSON.stringify(user));
         if (redirectUrl) {
           navigate(redirectUrl);
         } else {
@@ -112,7 +114,37 @@ export const useSignIn = () => {
 
   return { form, mutate, isPending };
 };
+export const useLogout = () => {
+  const navigate = useNavigate();
 
+  const { mutate: logout, isPending } = useMutation({
+    mutationFn: async () => {
+      const token = localStorage.getItem("token");
+      return await axiosPublic.post(
+        "/auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    },
+    onSuccess: () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      toast.success("Logged out successfully");
+      navigate("/sign-in");
+    },
+    onError: (error) => {
+      toast.error(
+        error?.response?.data?.message || "Failed to logout. Try again."
+      );
+    },
+  });
+
+  return { logout, isPending };
+};
 // send OTP function
 
 export const useSendOtp = () => {

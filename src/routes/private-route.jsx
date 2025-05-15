@@ -8,7 +8,7 @@ export default function PrivateRoute({ children }) {
 
   useEffect(() => {
     if (!token) {
-      navigate(`/api/v1/auth/login`);
+      navigate(`/sign-in`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);

@@ -9,9 +9,11 @@ import VerifyOtp from "@/pages/auth/VerifyOtp";
 import Home from "@/pages/main/Home";
 import Pricing from "@/pages/main/Pricing";
 import { createBrowserRouter } from "react-router";
+import PrivateRoute from "./private-route";
 const router = createBrowserRouter([
   {
     path: "/",
+
     element: <Layout />,
     children: [
       {
@@ -50,7 +52,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/pricing-analysing",
-    element: <PricingAnalysing />,
+    element: (
+      <PrivateRoute>
+        <PricingAnalysing />
+      </PrivateRoute>
+    ),
   },
 ]);
 
