@@ -86,7 +86,7 @@ export const useSignIn = () => {
     onSuccess: (data) => {
       if (data?.success) {
         toast.success(data?.message || "Sign in successfully");
-        const token = data?.token;
+        const token = data?.data?.token;
         localStorage.setItem("token", token);
         const user = data?.data?.user;
         localStorage.setItem("user", JSON.stringify(user));

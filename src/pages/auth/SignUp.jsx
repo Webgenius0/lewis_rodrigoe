@@ -41,6 +41,7 @@ const SignUp = () => {
     formState: { errors },
     control,
     trigger,
+    watch,
   } = form;
 
   const onSubmit = (data) => {
@@ -80,6 +81,10 @@ const SignUp = () => {
       setStep(2);
     }
   };
+
+  const watchFields = watch(["first_name", "last_name", "phone", "gender"]);
+  const isDisabled = watchFields.some((val) => !val);
+
   return (
     <section
       className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center auth-section"
@@ -237,7 +242,7 @@ const SignUp = () => {
                       <Controller
                         name="last_name"
                         control={control}
-                        rules={{ required: "Name is required" }}
+                        rules={{ required: "Last Name is required" }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -364,6 +369,7 @@ const SignUp = () => {
                   <button
                     type="button"
                     onClick={goToNextStep}
+                    disabled={isDisabled}
                     className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
                   >
                     Continue
