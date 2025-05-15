@@ -16,6 +16,13 @@ body {
   overflow-x: hidden;
 }
 
+/* common css */
+.container{
+  padding-left:20px;
+  padding-right: 20px;
+}
+/* common css */
+
 
 /* tarek css */
 .swiper-pagination-bullet {
