@@ -34,7 +34,7 @@ const beforeUpload = (file) => {
 };
 
 const SignUp = () => {
-  const { form, mutate } = useSignUp();
+  const { form, mutate, isPending } = useSignUp();
   // for getting form data and error
   const {
     handleSubmit,
@@ -528,9 +528,10 @@ const SignUp = () => {
 
                   <button
                     type="submit"
+                    disabled={isPending}
                     className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
                   >
-                    Sign Up
+                    {isPending ? "Signing Up..." : "Sign Up"}
                   </button>
 
                   <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
