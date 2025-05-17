@@ -6,7 +6,8 @@ const Title = ({ title, className = '' }) => {
     <>
       <h2
         className={cn(
-          'text-[#0E0F11] text-center font-[Manrope] text-[48px] not-italic font-bold leading-[63.36px] tracking-[-0.48px]', className
+          'text-[#0E0F11] text-center font-[Manrope] text-[22px] sm:text-[24px] md:text-[32px] xl:text-[48px] not-italic font-bold leading-[33.36px] sm:leading-[43.36px] md:leading-[53.36px] lg:leading-[63.36px] tracking-[-0.48px]',
+          className
         )}
       >
         {title}

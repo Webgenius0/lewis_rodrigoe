@@ -64,7 +64,7 @@ const Navbar = () => {
         </div>
 
         {/* Toggle Button */}
-        <div className="md:hidden flex items-center gap-4">
+        <div className="lg:hidden flex items-center gap-4">
           <button
             className="text-white text-2xl"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -110,7 +110,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-10 text-white font-[Inter] text-[16px] font-medium leading-[27.2px]">
+        <nav className="hidden lg:flex items-center gap-10 text-white font-[Inter] text-[16px] font-medium leading-[27.2px]">
           <Dropdown menu={menu1} placement="bottom">
             <Link className="flex items-center gap-2.5">
               <span>Demos</span>
@@ -131,13 +131,13 @@ const Navbar = () => {
 
         {/* Join button */}
         {pathname === '/pricing' ? (
-          <div className='hidden md:block'></div>
+          <div className='hidden lg:block'></div>
         ) : (
-          <div className="header-left items-center hidden md:flex">
+          <div className="header-left items-center hidden lg:flex">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Avatar className="cursor-pointer h-10 w-10 border hidden md:block">
+                  <Avatar className="cursor-pointer h-10 w-10 border hidden lg:block">
                     <AvatarImage
                       // className="bg-transparent"
                       // src={`https://lewis-rodrigoe.softvencefsd.xyz/storage/avatar/${user?.avatar}`}
@@ -182,7 +182,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Fullscreen Panel */}
       <div
-        className={`md:hidden fixed inset-0 z-50 bg-[#111827] text-white font-medium font-[Inter] transform transition-all duration-500 ease-in-out ${
+        className={`lg:hidden fixed inset-0 z-50 bg-[#111827] text-white font-medium font-[Inter] transform transition-all duration-500 ease-in-out ${
           mobileMenuOpen
             ? 'translate-y-0 opacity-100'
             : '-translate-y-full opacity-0 pointer-events-none'
