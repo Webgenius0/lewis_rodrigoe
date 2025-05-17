@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, Dropdown } from 'antd';
+import { Dropdown } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import logo from '../../assets/logo.png';
@@ -24,11 +24,11 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.classList.add('overflow-hidden');
-    } else {
-      document.body.classList.remove('overflow-hidden');
-    }
+    // if (mobileMenuOpen) {
+    //   document.body.classList.add;
+    // } else {
+    //   document.body.classList.remove;
+    // }
   }, [mobileMenuOpen]);
 
   return (
