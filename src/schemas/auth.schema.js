@@ -17,7 +17,7 @@ export const signUpSchema = z
         message: "Phone number must be between 10 and 15 digits",
       }),
 
-    gender: z.enum(["male", "female", "other"], {
+    gender: z.enum(["male", "femail", "other"], {
       required_error: "Gender is required",
     }),
     avatar: z.any({

@@ -2,18 +2,18 @@ import { Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-import homeHero from "../../assets/homeHero.png";
-import logo from "../../assets/logo.png";
-import { Link } from "react-router";
-import { Input, Select } from "antd";
-import { AuthComment } from "./AuthComment";
+import homeHero from '../../assets/homeHero.png';
+import logo from '../../assets/logo.png';
+import { Link, useNavigate } from 'react-router-dom';
+import { Input, Select } from 'antd';
 const { Option } = Select;
-import { useState } from "react";
-import { Upload, message } from "antd";
-import { PlusOutlined, LoadingOutlined, UserOutlined } from "@ant-design/icons";
-import ImgCrop from "antd-img-crop";
-import uploadPlus from "../../assets/uploadPlus.png";
+import { useState } from 'react';
+import { Upload, message } from 'antd';
+import ImgCrop from 'antd-img-crop';
+import uploadPlus from '../../assets/uploadPlus.png';
+import {  UserOutlined } from "@ant-design/icons";
 import { useSignUp } from "@/hooks/auth.hook";
+import { AuthComment } from "@/components/auth/AuthComment";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -44,7 +44,9 @@ const SignUp = () => {
     watch,
   } = form;
 
+
   const onSubmit = (data) => {
+    console.log({data});
     console.log(data);
     mutate(data);
   };
@@ -52,7 +54,6 @@ const SignUp = () => {
   console.log(errors);
 
   // for image upload
-  const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [step, setStep] = useState(1);
 
@@ -61,14 +62,12 @@ const SignUp = () => {
     if (!file) return;
 
     if (info.file.status === "uploading") {
-      setLoading(true);
       return;
     }
 
     if (info.file.status === "done" || file) {
       getBase64(file, (url) => {
         setImageUrl(url);
-        setLoading(false);
       });
 
       form.setValue("avatar", file);
@@ -95,10 +94,12 @@ const SignUp = () => {
           {/* main form area */}
           <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
-              <img
-                src={logo}
-                className="w-[38px] h-[38px] [aspect-ratio:1/1]"
-              />
+              <Link to="/">
+                <img
+                  src={logo}
+                  className="w-[38px] h-[38px] [aspect-ratio:1/1]"
+                />
+              </Link>
               <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
                 Create your account
               </h2>
@@ -356,7 +357,7 @@ const SignUp = () => {
                           className=""
                         >
                           <Option value="male">Male</Option>
-                          <Option value="female">Female</Option>
+                          <Option value="femail">Female</Option>
                           <Option value="other">Other</Option>
                         </Select>
                       )}
@@ -537,7 +538,7 @@ const SignUp = () => {
                       onClick={() => setStep(1)}
                       className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
                     >
-                      ← Back to Step 1
+                      ← Previous
                     </button>
 
                     <button

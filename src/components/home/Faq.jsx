@@ -85,8 +85,8 @@ const Faq = () => {
     <>
       <section>
         <div className="container mt-14">
-          <div className="content-wrapper flex gap-3">
-            <div className="max-w-[405px] flex flex-col items-start gap-3 mb-4">
+          <div className="content-wrapper flex flex-col lg:flex-row gap-3">
+            <div className="w-full lg:max-w-[405px] flex flex-col items-center lg:items-start gap-3 mb-4">
               <Subtitile text="FAQ" className="text-start justify-center" />
               <Title title="HouseMate Explained" className="text-start" />
             </div>

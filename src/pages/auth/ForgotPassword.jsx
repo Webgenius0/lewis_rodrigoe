@@ -1,9 +1,11 @@
-import homeHero from "../../assets/homeHero.png";
-import logo from "../../assets/logo.png";
-import { useNavigate } from "react-router";
-import { Input } from "antd";
-import { Controller } from "react-hook-form";
+import homeHero from '../../assets/homeHero.png';
+import logo from '../../assets/logo.png';
+import { Link } from 'react-router';
+import { Input } from 'antd';
+import { Controller } from 'react-hook-form';
 import { useSendOtp } from "@/hooks/auth.hook";
+
+
 
 const ForgotPassword = () => {
   const { form, mutate, isPending } = useSendOtp();
@@ -13,6 +15,7 @@ const ForgotPassword = () => {
     formState: { errors },
     control,
   } = form;
+
 
   const onSubmit = (data) => {
     mutate(data);
@@ -28,10 +31,12 @@ const ForgotPassword = () => {
           {/* main form area */}
           <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl mx-auto md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
-              <img
-                src={logo}
-                className="w-[38px] h-[38px] [aspect-ratio:1/1]"
-              />
+              <Link to="/">
+                <img
+                  src={logo}
+                  className="w-[38px] h-[38px] [aspect-ratio:1/1]"
+                />
+              </Link>
               <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
                 Forgot Password
               </h2>
@@ -91,7 +96,7 @@ const ForgotPassword = () => {
                 type="submit"
                 className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
               >
-                Continue
+                {isPending ? 'Continuing': 'Continue'}
               </button>
             </form>
           </div>

@@ -1,10 +1,10 @@
-import { Controller } from "react-hook-form";
-import homeHero from "../../assets/homeHero.png";
-import logo from "../../assets/logo.png";
+import { Controller } from 'react-hook-form';
+import homeHero from '../../assets/homeHero.png';
+import logo from '../../assets/logo.png';
+import { Input } from 'antd';
 import { Link } from "react-router";
-import { Input } from "antd";
-import { AuthComment } from "./AuthComment";
 import { useSignIn } from "@/hooks/auth.hook";
+import { AuthComment } from '@/components/auth/AuthComment';
 
 const SignIn = () => {
   const { form, mutate, isPending } = useSignIn();
@@ -28,8 +28,13 @@ const SignIn = () => {
           {/* main form area */}
           <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
-              <img src={logo} className="w-[38px] h-[38px]" />
-              <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] font-semibold">
+              <Link to="/">
+                <img
+                  src={logo}
+                  className="w-[38px] h-[38px] [aspect-ratio:1/1]"
+                />
+              </Link>
+              <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
                 Welcome Back!
               </h2>
               <p className="text-[#3B3B3B] text-center font-[Urbanist] text-[15px] md:text-[16px]">

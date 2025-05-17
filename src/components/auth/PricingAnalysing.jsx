@@ -1,19 +1,17 @@
-import { Controller, useForm } from "react-hook-form";
-import PhoneInput from "react-phone-input-2";
+import { Controller } from 'react-hook-form';
+import 'react-phone-input-2/lib/style.css';
+import homeHero from '../../assets/homeHero.png';
+import { DatePicker, Input, Select } from 'antd';
 import "react-phone-input-2/lib/style.css";
-
-import homeHero from "../../assets/homeHero.png";
-import logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router";
-import { DatePicker, Input, Select } from "antd";
+import { useNavigate } from "react-router";
 const { Option } = Select;
 import PricingTitle from "./PricingTitle";
 import { useCreateProperty, useGetService } from "@/hooks/service.hook";
-import Servicebtn from "./Servicebtn";
 import Plumbing from "@/assets/Plumbing";
 import Electrinic from "@/assets/electrinic";
 import Drainage from "@/assets/Drainage";
 import Heating from "@/assets/Heating";
+import Servicebtn from '../shared/Servicebtn';
 
 const onChange = (date, dateString) => {
   console.log(date, dateString);
@@ -21,8 +19,6 @@ const onChange = (date, dateString) => {
 
 const PricingAnalysing = () => {
   const { service, isLoading } = useGetService();
-
-  console.log({ service });
 
   const { form, mutate, isPending } = useCreateProperty();
   const {
@@ -79,12 +75,8 @@ const PricingAnalysing = () => {
         <div className="container">
           <div className="flex flex-col lg:flex-row justify-between items-center  py-[60px]">
             {/* main form area */}
-            <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px] mx-auto">
-              <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
-                <img
-                  src={logo}
-                  className="w-[38px] h-[38px] [aspect-ratio:1/1]"
-                />
+            <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px] mx-auto white-input">
+              <div className="form-header flex flex-col gap-2 items-center">
                 <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
                   Pricing Analysis
                 </h2>
@@ -167,7 +159,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter street address"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -198,7 +190,7 @@ const PricingAnalysing = () => {
                               {...field}
                               prefix={<></>}
                               placeholder="Enter apartment..."
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -231,7 +223,7 @@ const PricingAnalysing = () => {
                                 field.onChange(Number(e.target.value))
                               }
                               placeholder="Enter state..."
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -300,7 +292,7 @@ const PricingAnalysing = () => {
                               {...field}
                               prefix={<></>}
                               placeholder="Enter postal.."
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -419,7 +411,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter brand & model"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -477,7 +469,7 @@ const PricingAnalysing = () => {
                               {...field}
                               prefix={<></>}
                               placeholder="Enter boiler age"
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -507,7 +499,7 @@ const PricingAnalysing = () => {
                               placeholder="DD/MM/YYYY"
                               allowClear
                               prefix={<></>}
-                              className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                             />
                           )}
                         />
@@ -535,7 +527,7 @@ const PricingAnalysing = () => {
                             {...field}
                             prefix={<></>}
                             placeholder="Enter boiler location"
-                            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] "
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
                           />
                         )}
                       />
@@ -550,22 +542,113 @@ const PricingAnalysing = () => {
                   </div>
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
-                >
-                  Continue
-                </button>
+                {/* Property Information */}
+                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
+                  <PricingTitle titletext="Property Information" />
+                  <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
+                    {/* property Name */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Property Name
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="propertyName"
+                        control={control}
+                        rules={{ required: 'Property Name is required' }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            prefix={<></>}
+                            placeholder="Enter property name"
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                          />
+                        )}
+                      />
 
-                <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                  Already have an account? {""}
-                  <Link
-                    to="/sign-in"
-                    className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"
+                      {errors.propertyName && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.propertyName.message}{' '}
+                        </p>
+                      )}
+                    </div>
+                    {/* Property Type* */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Property Type
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="propertyType"
+                        control={control}
+                        rules={{ required: 'Property Type is required' }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            prefix={<></>}
+                            placeholder="Enter property name"
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                          />
+                        )}
+                      />
+
+                      {errors.propertyType && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.propertyType.message}{' '}
+                        </p>
+                      )}
+                    </div>
+                    {/* Accessibility Info */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Accessibility Info
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="accessibilityInfo"
+                        control={control}
+                        rules={{ required: 'Accessibility Info is required' }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            prefix={<></>}
+                            placeholder="Enter property name"
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                          />
+                        )}
+                      />
+
+                      {errors.accessibilityInfo && (
+                        <p className="text-red-500">
+                          {' '}
+                          {errors.accessibilityInfo.message}{' '}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="btn-wrapper mt-6 md:mt-8 lg:mt-10 flex flex-col md:flex-row gap-2 md:gap-3">
+                  <button
+                    type="button"
+                    onClick={
+                      ()=>{
+                        navigate(-1)
+                      }
+                    }
+                    className="w-full bg-[#EAEAEA] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#ee3a3a] hover:text-[#F0F5F6] border border-[#EAEAEA] transition text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] "
                   >
-                    Sign-in here!
-                  </Link>
-                </p>
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px]"
+                  >
+                    Save & Analysis
+                  </button>
+                </div>
               </form>
             </div>
           </div>
