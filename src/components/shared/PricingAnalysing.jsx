@@ -497,7 +497,7 @@ const PricingAnalysing = () => {
                           <span className="text-red-500">*</span>
                         </label>
                         <Controller
-                          name="lastServiceDate"
+                          name="last_service_date"
                           control={control}
                           rules={{ required: "Last Serviced Date is required" }}
                           render={({ field }) => (
@@ -512,10 +512,10 @@ const PricingAnalysing = () => {
                           )}
                         />
 
-                        {errors.lastServiceDate && (
+                        {errors.last_service_date && (
                           <p className="text-red-500">
                             {" "}
-                            {errors.lastServiceDate.message}{" "}
+                            {errors.last_service_date.message}{" "}
                           </p>
                         )}
                       </div>
@@ -527,7 +527,7 @@ const PricingAnalysing = () => {
                         <span className="text-red-500">*</span>
                       </label>
                       <Controller
-                        name="boilerLocation"
+                        name="location"
                         control={control}
                         rules={{ required: "Boiler Location* is required" }}
                         render={({ field }) => (
@@ -540,10 +540,10 @@ const PricingAnalysing = () => {
                         )}
                       />
 
-                      {errors.boilerLocation && (
+                      {errors.location && (
                         <p className="text-red-500">
                           {" "}
-                          {errors.boilerLocation.message}{" "}
+                          {errors.location.message}{" "}
                         </p>
                       )}
                     </div>
