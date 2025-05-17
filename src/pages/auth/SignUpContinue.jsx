@@ -12,17 +12,17 @@ const SignUpContinue = () => {
     handleSubmit,
     formState: { errors },
     control,
-    setError
+    setError,
   } = useForm();
 
   const onSubmit = (data) => {
     const password = data?.password;
     const confirm_password = data?.confirm_password;
 
-    if(password !== confirm_password) {
-        setError('confirm_password', {
-          message:'🚫ERROR: Passwords Don’t Match!',
-        });
+    if (password !== confirm_password) {
+      setError('confirm_password', {
+        message: '🚫ERROR: Passwords Don’t Match!',
+      });
     }
   };
 
@@ -38,10 +38,12 @@ const SignUpContinue = () => {
           {/* main form area */}
           <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF]  w-full sm:max-w-xl md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
-              <img
-                src={logo}
-                className="w-[38px] h-[38px] [aspect-ratio:1/1]"
-              />
+              <Link to="/">
+                <img
+                  src={logo}
+                  className="w-[38px] h-[38px] [aspect-ratio:1/1]"
+                />
+              </Link>
               <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
                 Create your account
               </h2>

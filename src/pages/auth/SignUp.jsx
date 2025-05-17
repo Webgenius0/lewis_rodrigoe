@@ -8,12 +8,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
 import { AuthComment } from '../../components/auth/AuthComment';
 const { Option } = Select;
-import  { useState } from 'react';
-import {  Upload, message } from 'antd';
+import { useState } from 'react';
+import { Upload, message } from 'antd';
 import { PlusOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
-import uploadPlus from "../../assets/uploadPlus.png"
-
+import uploadPlus from '../../assets/uploadPlus.png';
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -33,8 +32,6 @@ const beforeUpload = (file) => {
   return isImage && isSmall;
 };
 
-
-  
 const SignUp = () => {
   // for getting form data and error
   const {
@@ -42,7 +39,6 @@ const SignUp = () => {
     formState: { errors },
     control,
   } = useForm();
-
 
   const navigate = useNavigate();
 
@@ -77,7 +73,6 @@ const SignUp = () => {
     </div>
   );
 
-
   return (
     <section
       className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center auth-section"
@@ -88,10 +83,12 @@ const SignUp = () => {
           {/* main form area */}
           <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] bg-[#FFF] w-full sm:max-w-xl md:min-w-[530px]">
             <div className="form-header flex flex-col gap-2  mb-6 lg:mb-12 items-center">
-              <img
-                src={logo}
-                className="w-[38px] h-[38px] [aspect-ratio:1/1]"
-              />
+              <Link to="/">
+                <img
+                  src={logo}
+                  className="w-[38px] h-[38px] [aspect-ratio:1/1]"
+                />
+              </Link>
               <h2 className="text-[#0A0A0A] text-center font-[Urbanist] text-[24px] md:text-[30px] lg:text-[36px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
                 Create your account
               </h2>
