@@ -1,7 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
 import 'react-phone-input-2/lib/style.css';
 import logo from '../../assets/logo.png';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router';
 import { DatePicker, Input, Select, Modal } from 'antd';
 const { Option } = Select;
 import PricingTitle from './../../components/auth/PricingTitle';

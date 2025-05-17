@@ -1,5 +1,5 @@
 import DashboardNavbar from '@/pages/dashboard/DashboardNavbar';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 const DashboardLayout = () => {
   return (

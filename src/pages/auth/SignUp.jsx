@@ -4,7 +4,7 @@ import "react-phone-input-2/lib/style.css";
 
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { Input, Select } from 'antd';
 const { Option } = Select;
 import { useState } from 'react';
