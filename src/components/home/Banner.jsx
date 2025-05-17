@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import homeHero from '../../assets/homeHero.png';
+import { Link } from "react-router";
+import homeHero from "../../assets/homeHero.png";
 
 const Banner = () => {
   return (

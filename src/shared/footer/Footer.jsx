@@ -1,8 +1,8 @@
-import logoTransparent from '../../assets/logo-tranparent.png';
-import certificate1 from '../../assets/certificate.jpg';
-import certificate2 from '../../assets/certificate2.png';
-import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import logoTransparent from "../../assets/logo-tranparent.png";
+import certificate1 from "../../assets/certificate.jpg";
+import certificate2 from "../../assets/certificate2.png";
+import { Link } from "react-router";
+import { Button } from "antd";
 
 const Footer = () => {
   return (
@@ -16,8 +16,8 @@ const Footer = () => {
           <div
             className="py-[33px] border-b border-t border-[#262728] flex lg:flex-row flex-col justify-between gap-[30px] sm:gap-[50px] md:gap-[80px] lg:gap-[150px]"
             style={{
-              borderBottomWidth: '1px',
-              borderTopWidth: '1px',
+              borderBottomWidth: "1px",
+              borderTopWidth: "1px",
             }}
           >
             <div className="flex flex-col items-start md:items-center w-full md:w-[283px] ">

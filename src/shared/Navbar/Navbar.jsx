@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Dropdown } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { Menu, Dropdown } from 'antd';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import logo from '../../assets/logo.png';
 import downArrow from '../../assets/cheveronDown.svg';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import toast from 'react-hot-toast';
 
 const menu1 = {
   items: [
@@ -22,14 +25,33 @@ const menu2 = {
 const Navbar = () => {
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // if (mobileMenuOpen) {
-    //   document.body.classList.add;
-    // } else {
-    //   document.body.classList.remove;
-    // }
-  }, [mobileMenuOpen]);
+    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+
+    if (token && storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch {
+        localStorage.removeItem('user');
+        setUser(null);
+      }
+    } else {
+      setUser(null);
+    }
+  }, [pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    toast.success('Logged out successfully');
+    navigate('/sign-in');
+  };
+ 
 
   return (
     <header className="bg-inherit absolute top-0 left-0 right-0 z-20">
@@ -42,12 +64,50 @@ const Navbar = () => {
         </div>
 
         {/* Toggle Button */}
-        <button
-          className="md:hidden text-white text-2xl"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+          <button
+            className="text-white text-2xl"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
+          </button>
+
+          {user  && (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar className="cursor-pointer h-10 w-10 border">
+                  <AvatarImage
+                    // className="bg-transparent"
+                    // src={`https://lewis-rodrigoe.softvencefsd.xyz/storage/avatar/${user?.avatar}`}
+                    //src={user?.avatar}
+                    src={
+                      'https://adaptcommunitynetwork.org/wp-content/uploads/2023/09/person-placeholder.jpg'
+                    }
+                    alt={user?.first_name}
+                  />
+                  {/* <AvatarFallback className="text-white">
+                      {user?.first_name?.[0]?.toUpperCase()}
+                      {user?.last_name?.[0]?.toUpperCase()}
+                    </AvatarFallback> */}
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="border-none bg-[#08172c] p-2"
+              >
+                <DropdownMenuItem className="text-white hover:bg-[#010B21] cursor-pointer">
+                  Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="text-white hover:bg-[#010B21] cursor-pointer"
+                >
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </div>
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-10 text-white font-[Inter] text-[16px] font-medium leading-[27.2px]">
@@ -70,11 +130,52 @@ const Navbar = () => {
         </nav>
 
         {/* Join button */}
-        {pathname !== '/pricing' && (
-          <div className="hidden md:flex items-center">
-            <Link className="inline-flex px-[20px] py-[16px] justify-center items-center gap-[16px] text-white text-[14px] font-semibold leading-[23.8px] uppercase rounded-[30px] bg-gradient-to-r from-[#09B5FF] via-[#4F81FF] to-[#0048FF]">
-              JOIN AS AN ENGINEER
-            </Link>
+        {pathname === '/pricing' ? (
+          <div className='hidden md:block'></div>
+        ) : (
+          <div className="header-left items-center hidden md:flex">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar className="cursor-pointer h-10 w-10 border hidden md:block">
+                    <AvatarImage
+                      // className="bg-transparent"
+                      // src={`https://lewis-rodrigoe.softvencefsd.xyz/storage/avatar/${user?.avatar}`}
+                      //src={user?.avatar}
+                      src={
+                        'https://adaptcommunitynetwork.org/wp-content/uploads/2023/09/person-placeholder.jpg'
+                      }
+                      alt={user?.first_name}
+                    />
+                    {/* <AvatarFallback className="text-white">
+                      {user?.first_name?.[0]?.toUpperCase()}
+                      {user?.last_name?.[0]?.toUpperCase()}
+                    </AvatarFallback> */}
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="border-none bg-[#08172c] p-2"
+                >
+                  <DropdownMenuItem className="text-white hover:bg-[#010B21] cursor-pointer">
+                    Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-white hover:bg-[#010B21] cursor-pointer"
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                to="/sign-in"
+                className="inline-flex px-[20px] py-[16px] justify-center items-center gap-[16px] text-[#FFF] text-right font-[Inter] text-[14px] not-italic font-semibold leading-[23.8px] uppercase rounded-[30px] [background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)]"
+              >
+                JOIN AS AN ENGINEER
+              </Link>
+            )}
           </div>
         )}
       </div>
@@ -125,7 +226,7 @@ const Navbar = () => {
             Connect
           </Link>
 
-          {pathname !== '/pricing' && (
+          {pathname !== '/pricing' && !user && (
             <Link
               onClick={() => setMobileMenuOpen(false)}
               className="mt-4 inline-flex px-[20px] py-[16px] justify-center items-center gap-[16px] text-white text-[14px] font-semibold leading-[23.8px] uppercase rounded-[30px] bg-gradient-to-r from-[#09B5FF] via-[#4F81FF] to-[#0048FF]"
