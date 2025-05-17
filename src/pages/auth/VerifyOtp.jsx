@@ -1,29 +1,20 @@
-import { useNavigate } from 'react-router-dom';
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Controller, useForm } from 'react-hook-form';
+import { useNavigate } from "react-router";
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { Controller } from "react-hook-form";
+import { useMatchOtp } from "@/hooks/auth.hook";
 
 const VerifyOtp = () => {
+  const { form, matchOtp, isMatching } = useMatchOtp();
   const {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm();
+  } = form;
 
   const onSubmit = (data) => {
-    console.log(data);
-        const otp = `${data.otp0}${data.otp1}${data.otp2}${data.otp3}`;
-        console.log('OTP:', otp);
-        navigate('/new-password');
+    matchOtp(data);
   };
-
-  console.log(errors);
-
-  const navigate = useNavigate();
-
-  // for otp
-
-
 
   return (
     <section
@@ -56,14 +47,14 @@ const VerifyOtp = () => {
                     key={index}
                     name={`otp${index}`}
                     control={control}
-                    rules={{ required: 'Required' }}
+                    rules={{ required: "Required" }}
                     render={({ field }) => (
                       <input
                         {...field}
                         maxLength={1}
                         className="w-[54px] md:w-[64px] lg:w-[84px] py-3 md:py-4 lg:py-[19px] text-center text-[#132235] font-[Satoshi] text-[17px] md:text-[20px] lg:text-[24px] not-italic font-medium leading-[31.68px] tracking-[-0.48px] rounded-[16px]  border border-[#D3DDE7] bg-white shadow-sm focus:outline-none focus:ring-1 focus:ring-[#09B5FF]"
                         onChange={(e) => {
-                          const value = e.target.value.replace(/\D/, '');
+                          const value = e.target.value.replace(/\D/, "");
                           field.onChange(value);
 
                           if (value && index < 3) {
@@ -75,7 +66,7 @@ const VerifyOtp = () => {
                         }}
                         onKeyDown={(e) => {
                           if (
-                            e.key === 'Backspace' &&
+                            e.key === "Backspace" &&
                             !e.target.value &&
                             index > 0
                           ) {
@@ -87,15 +78,15 @@ const VerifyOtp = () => {
                         }}
                         onPaste={(e) => {
                           const paste = e.clipboardData
-                            .getData('text')
+                            .getData("text")
                             .slice(0, 4);
-                          paste.split('').forEach((char, i) => {
+                          paste.split("").forEach((char, i) => {
                             const input = document.querySelector(
                               `input[name=otp${i}]`
                             );
                             if (input) {
                               input.value = char;
-                              const event = new Event('input', {
+                              const event = new Event("input", {
                                 bubbles: true,
                               });
                               input.dispatchEvent(event);
@@ -109,7 +100,7 @@ const VerifyOtp = () => {
                 ))}
               </div>
 
-              {Object.keys(errors).some((key) => key.startsWith('otp')) && (
+              {Object.keys(errors).some((key) => key.startsWith("otp")) && (
                 <p className="text-red-500 mt-2 text-center">
                   All fields are required
                 </p>
@@ -117,7 +108,7 @@ const VerifyOtp = () => {
 
               <div className="mt-6 md:mt-8 lg:mt-10 flex flex-col gap-2.5">
                 <p className="text-[#3B3B3B] text-center font-[Urbanist] text-[15px] md:text-[16px] not-italic font-normal leading-[27.2px]">
-                  Haven't got the confirmation code yet?{' '}
+                  Haven't got the confirmation code yet?{" "}
                   <button className="text-[#010B21] text-center font-[Manrope] text-[14px] not-italic font-medium leading-[132%]">
                     Resend
                   </button>
@@ -126,7 +117,7 @@ const VerifyOtp = () => {
                   type="submit"
                   className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] "
                 >
-                  Verify Code
+                  {isMatching ? "Verifying..." : "Verify Code"}
                 </button>
               </div>
             </form>
