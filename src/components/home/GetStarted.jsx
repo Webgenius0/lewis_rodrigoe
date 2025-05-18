@@ -8,21 +8,21 @@ const GetStarted = () => {
       <section>
         <div className="container my-14">
           <div
-            className="rounded-[24px] overflow-hidden py-[120px] bg-no-repeat bg-cover px-5"
+            className="rounded-[24px] overflow-hidden py-[40px] sm:py-[60px] md:py-[80px] lg:py-[120px] bg-no-repeat bg-cover px-4 md:px-5"
             style={{ backgroundImage: `url(${getStartedBg})` }}
           >
             <div className="max-w-[988px] mx-auto">
-              <p className="text-[#FFF] text-center font-[Geist] text-[16px] not-italic font-normal leading-[28.8px] tracking-[3.5px] uppercase opacity-70">
+              <p className="text-[#FFF] text-center font-[Geist] text-[14px] sm:text-[15px] md:text-[16px] not-italic font-normal leading-[28.8px] tracking-[3.5px] uppercase opacity-70">
                 GEt started for free
               </p>
-              <h1 className="text-[#FFF] text-center font-[Manrope] text-[24px] sm:text-[26px]  md:text-[36px] lg:text-[56px] not-italic font-medium leading-[40px] md:leading-[50px] lg:leading-[70px] tracking-[-2.5px]">
+              <h1 className="text-[#FFF] text-center font-[Manrope] text-[24px] sm:text-[26px]  md:text-[36px] lg:text-[56px] not-italic font-medium leading-[40px] md:leading-[50px] lg:leading-[70px] md:tracking-[-2.5px]">
                 Home Repairs Made Simple — Download HouseMate Today{' '}
               </h1>
               <p className="text-[#FFF] text-center font-[Geist] text-[16px] not-italic font-normal leading-[28.8px] tracking-[-0.4px]">
                 Book boiler, plumbing, or electrical help with just a few taps.
               </p>
               <div className="button-wrapper flex flex-col md:flex-row gap-2  justify-center mt-10 md:mt-[60px] lg:mt-[85px]">
-                <Button className="rounded-[32px] border-[2px]  border-[rgba(255,255,255,0.10)] bg-[#FFF] text-[#0A0915] font-[Geist] text-[16px] not-italic font-normal leading-[28.8px] tracking-[-0.4px] flex px-[24px] py-[12px] md:py-[16px] justify-center items-center gap-[12px]">
+                <Button className="rounded-[32px] border-[2px]  border-[rgba(255,255,255,0.10)] bg-[#FFF] text-[#0A0915] font-[Geist] text-[14px] sm:text-[15px] md:text-[16px] not-italic font-normal leading-[28.8px] tracking-[-0.4px] flex px-[24px] py-[12px] md:py-[16px] justify-center items-center gap-[12px] ">
                   Download on Android
                   <span>
                     <svg
@@ -40,7 +40,7 @@ const GetStarted = () => {
                     </svg>
                   </span>
                 </Button>
-                <Button className="rounded-[32px] border-[2px]  border-[rgba(255,255,255,0.10)] bg-[#FFF] text-[#0A0915] font-[Geist] text-[16px] not-italic font-normal leading-[28.8px] tracking-[-0.4px] flex px-[24px] py-[12px] md:py-[16px] justify-center items-center gap-[12px]">
+                <Button className="rounded-[32px] border-[2px]  border-[rgba(255,255,255,0.10)] bg-[#FFF] text-[#0A0915] font-[Geist] text-[14px] sm:text-[15px] md:text-[16px] not-italic font-normal leading-[28.8px] tracking-[-0.4px] flex px-[24px] py-[12px] md:py-[16px] justify-center items-center gap-[12px] ">
                   Download on iOS
                   <span>
                     <svg
