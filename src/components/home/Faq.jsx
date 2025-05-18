@@ -8,12 +8,12 @@ const items = [
   {
     key: '1',
     label: (
-      <div className="text-[#1B1139] font-[Manrope] md:text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
+      <div className="text-[#1B1139] font-[Manrope] text-[17px] sm:text-[18px] md:text-[20px] lg:text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
         What is HouseMate and how does it work?
       </div>
     ),
     children: (
-      <p className="text-[#363049] font-[Manrope] md:text-[18px] not-italic font-normal leading-[29.52px] tracking-[0.1px] opacity-70">
+      <p className="text-[#363049] font-[Manrope] text-[15px] sm:text-[17px] md:text-[18px] not-italic font-normal md:leading-[29.52px] tracking-[0.1px] opacity-70">
         HouseMate is a modern homecare subscription designed to keep your home
         running smoothly — without the stress of unexpected repair bills.
         Whether it’s your boiler, heating, plumbing, drains, or electrics, we’ve
@@ -34,17 +34,17 @@ const items = [
       </p>
     ),
     className:
-      'rounded-[8px] bg-[#FFF] p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
+      'rounded-[8px] bg-[#FFF] p-[16px] sm:p-[18px] md:p-[20px] lg:p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
   },
   {
     key: '2',
     label: (
-      <div className="text-[#1B1139] font-[Manrope] md:text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
+      <div className="text-[#1B1139] font-[Manrope] text-[17px] sm:text-[18px] md:text-[20px] lg:text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
         How do I use HouseMate?
       </div>
     ),
     children: (
-      <p className="text-[#363049] font-[Manrope] md:text-[18px] not-italic font-normal leading-[29.52px] tracking-[0.1px] opacity-70">
+      <p className="text-[#363049] font-[Manrope] text-[15px] sm:text-[17px] md:text-[18px] not-italic font-normal md:leading-[29.52px] tracking-[0.1px] opacity-70">
         Using HouseMate is simple and hassle-free. Once you&apos;ve selected and
         subscribed to your preferred plan, you’ll have immediate access to our
         network of trusted local professionals. When you experience a breakdown
@@ -56,17 +56,17 @@ const items = [
       </p>
     ),
     className:
-      'rounded-[8px] bg-[#FFF] p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
+      'rounded-[8px] bg-[#FFF] p-[16px] sm:p-[18px] md:p-[20px] lg:p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
   },
   {
     key: '3',
     label: (
-      <div className="text-[#1B1139] font-[Manrope] md:text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
+      <div className="text-[#1B1139] font-[Manrope] text-[17px] sm:text-[18px] md:text-[20px] lg:text-[24px] not-italic font-bold leading-[31.2px] opacity-[0.88]">
         Is HouseMate available in all regions?
       </div>
     ),
     children: (
-      <p className="text-[#363049] font-[Manrope] md:text-[18px] not-italic font-normal leading-[29.52px] tracking-[0.1px] opacity-70">
+      <p className="text-[#363049] font-[Manrope] text-[15px] sm:text-[17px] md:text-[18px] not-italic font-normal md:leading-[29.52px] tracking-[0.1px] opacity-70">
         HouseMate is currently available across many regions within the United
         Kingdom. We’re rapidly expanding to cover even more areas to meet
         growing demand. To check if HouseMate is available in your specific
@@ -77,7 +77,7 @@ const items = [
       </p>
     ),
     className:
-      'rounded-[8px] bg-[#FFF] p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
+      'rounded-[8px] bg-[#FFF] p-[16px] sm:p-[18px] md:p-[20px] lg:p-[24px] [box-shadow:0px_4px_32px_-14.734px_rgba(149,_149,_149,_0.25)]',
   },
 ];
 const Faq = () => {
