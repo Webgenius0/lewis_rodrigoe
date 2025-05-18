@@ -123,7 +123,7 @@ const SignUp = () => {
                       marginBottom: 24,
                     }}
                   >
-                    <ImgCrop rotate>
+                    <ImgCrop className='test-class' rotate>
                       <Upload
                         name="avatar"
                         listType="picture-circle"

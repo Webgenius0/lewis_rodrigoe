@@ -17,10 +17,11 @@ body {
 }
 
 /* common css */
-.container{
-  padding-left:20px;
+.container {
+  padding-left: 20px;
   padding-right: 20px;
 }
+
 /* common css */
 
 
@@ -146,6 +147,10 @@ body {
   font-style: normal;
   font-weight: 700;
   border: none !important;
+}
+
+.test-class .ant-btn {
+  font-size: 45px !important;
 }
 
 /* tarek css */

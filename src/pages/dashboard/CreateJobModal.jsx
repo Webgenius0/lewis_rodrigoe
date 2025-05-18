@@ -143,7 +143,11 @@ const CreateJobModal = ({ visible, onClose }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" block>
+          <Button
+            className="w-full bg-[#0A0A0A] text-white py-3 rounded-[16px] hover:bg-white hover:text-[#0A0A0A] border border-[#0A0A0A] transition"
+            htmlType="submit"
+            block
+          >
             Post job
           </Button>
         </Form.Item>
