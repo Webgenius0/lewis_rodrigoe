@@ -1,5 +1,5 @@
 
-import { Link, NavLink} from 'react-router-dom';
+import { Link, NavLink} from 'react-router';
 import logo from '../../assets/logo-white.png';
 
 const DashboardNavbar = () => {

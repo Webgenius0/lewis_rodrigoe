@@ -1,6 +1,6 @@
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import PricingTitle from './PricingTitle';

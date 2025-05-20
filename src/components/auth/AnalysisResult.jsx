@@ -1,7 +1,7 @@
 
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { Checkbox } from 'antd';
 import { useForm } from 'react-hook-form';
 const AnalysisResult = () => {

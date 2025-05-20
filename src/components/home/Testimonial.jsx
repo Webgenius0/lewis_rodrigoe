@@ -82,7 +82,7 @@ const Testimonial = () => {
               {testimonials.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className=" text-center pb-10">
-                    <p className="text-[#0E0F11] text-center font-[Satoshi] text-[18px] not-italic font-normal leading-[30.6px] rounded-[8px] bg-[#FAFAFC] px-10 pt-[34px] pb-[91px] m-0">{`"${item.review}"`}</p>
+                    <p className="text-[#0E0F11] text-center font-[Manrope] text-[16px] md:text-[18px] not-italic font-normal leading-[30.6px] rounded-[8px] bg-[#FAFAFC] px-7 md:px-10 pt-[24px] md:pt-[34px] pb-[70px] md:pb-[91px] m-0">{`"${item.review}"`}</p>
                     <div className="flex justify-center -mt-10">
                       <img
                         src={item.image}
@@ -99,7 +99,7 @@ const Testimonial = () => {
                           </span>
                         ))}
                     </div>
-                    <h3 className="text-[#0E0F11] text-center font-[Manrope] text-[18px] not-italic font-bold leading-[30.6px]">
+                    <h3 className="text-[#0E0F11] text-center font-[Manrope] text-[16px] md:text-[18px] not-italic font-bold leading-[30.6px]">
                       {item.name}
                     </h3>
                   </div>

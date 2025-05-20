@@ -9,7 +9,7 @@ const Footer = () => {
     <>
       <footer className="bg-[#0E0F11]">
         <div className="container">
-          <h1 className="text-[#FFF] font-[Outfit] text-[48px] not-italic font-semibold leading-[55.2px] tracking-[-1px] py-[100px] ">
+          <h1 className="text-[#FFF] font-[Outfit] text-[30px] text-center md:text-start md:text-[48px] not-italic font-semibold leading-[55.2px] tracking-[-1px] py-[100px] ">
             Smarter. Simpler. Covered.
           </h1>
           {/* footer main content */}
@@ -20,7 +20,7 @@ const Footer = () => {
               borderTopWidth: "1px",
             }}
           >
-            <div className="flex flex-col items-start md:items-center w-full md:w-[283px] ">
+            <div className="flex flex-col items-center md:items-center w-full md:w-[283px] ">
               <div className="w-[175px] h-[95px]">
                 <img
                   src={logoTransparent}
@@ -106,7 +106,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-[repeat(1,1fr)] sm:grid-cols-[repeat(2,1fr)] md:grid-cols-[repeat(3,1fr)] flex-grow gap-7">
+            <div className="grid grid-cols-[repeat(1,1fr)] sm:grid-cols-[repeat(2,1fr)] md:grid-cols-[repeat(3,1fr)] justify-items-center  flex-grow gap-7">
               {/* first grid item */}
               <div className="firstGrid">
                 <h4 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5 opacity-50">
