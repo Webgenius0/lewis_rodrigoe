@@ -4,7 +4,7 @@ import "react-phone-input-2/lib/style.css";
 
 import homeHero from '../../assets/homeHero.png';
 import logo from '../../assets/logo.png';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { Input, Select } from 'antd';
 const { Option } = Select;
 import { useState } from 'react';
@@ -123,7 +123,7 @@ const SignUp = () => {
                       marginBottom: 24,
                     }}
                   >
-                    <ImgCrop className='test-class' rotate>
+                    <ImgCrop rotate>
                       <Upload
                         name="avatar"
                         listType="picture-circle"
