@@ -64,7 +64,7 @@ body {
 }
 
 .ant-input {
-  border: none !important;
+  /* border: none !important; */
   outline: 1px solid transparent !important;
   transition: all 0.2s ease;
   box-shadow: none !important;
@@ -142,15 +142,17 @@ body {
   background: var(--Primary, linear-gradient(95deg, #09B5FF 0%, #4F81FF 53.67%, #0048FF 100%));
   color: #FFF;
   text-align: center;
-  font-family: Satoshi;
+  font-family: Manrope;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
   border: none !important;
 }
 
-.test-class .ant-btn {
-  font-size: 45px !important;
+:where(.css-dev-only-do-not-override-1m2bkf9).ant-upload-wrapper .ant-upload-drag {
+  background-color: #FFF !important;
+  border-radius: 12px !important;
+  border: 1px dashed #94A3B3 !important;
 }
 
 /* tarek css */
