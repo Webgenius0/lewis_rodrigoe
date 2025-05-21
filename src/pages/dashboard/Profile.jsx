@@ -40,14 +40,45 @@ const Profile = () => {
           className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
         />
       </div>
+      {/* Email */}
+      <div className="py-5 flex gap-8 border-b border-[#E9EAEB]">
+        <label className="block text-[#132235] font-semibold min-w-[280px]">
+          Email
+        </label>
+        <Input
+          prefix={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z"
+                stroke="#292D32"
+                strokeWidth="1.5"
+                strokeMiterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9"
+                stroke="#292D32"
+                strokeWidth="1.5"
+                strokeMiterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+          placeholder="elementary221b@gmail.com"
+          className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
+        />
+      </div>
 
       {/* Email */}
-      <div className="mb-4">
-        <label className="block text-[#132235] font-semibold mb-1">
-          Email address
-        </label>
-        <Input defaultValue="eklemantary21st@gmail.com" />
-      </div>
+ 
 
       {/* Photo Upload */}
       <div className="mb-4">
