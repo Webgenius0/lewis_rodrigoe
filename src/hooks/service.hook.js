@@ -56,7 +56,7 @@ export const useCreateProperty = () => {
         }
       });
 
-      const res = await axios.post("/api/v1/property", formData, {
+      const res = await axios.post("/property", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return res.data;
@@ -77,4 +77,61 @@ export const useCreateProperty = () => {
   });
 
   return { form, mutate, isPending };
+};
+
+//get country
+export const useGetCountrys = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["country"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/country");
+      return res.data;
+    },
+  });
+  return { country: data?.data, isLoading };
+};
+
+//get state
+export const useGetStates = (countryId) => {
+  console.log({ countryId });
+  const { data, isLoading } = useQuery({
+    queryKey: ["state", countryId],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/country/${countryId}/state`);
+      return res.data;
+    },
+    enabled: !!countryId,
+  });
+
+  return { state: data?.data, isLoading };
+};
+
+//get city
+export const useGetCitys = (cityId) => {
+  console.log({ cityId });
+  const { data, isLoading } = useQuery({
+    queryKey: ["city", cityId],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/state/${cityId}/city`);
+      return res.data;
+    },
+    enabled: !!cityId,
+  });
+
+  return { city: data?.data, isLoading };
+};
+
+//get zip
+export const useGetZip = (zipId) => {
+  console.log({ zipId });
+  const { data, isLoading } = useQuery({
+    queryKey: ["zip", zipId],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/city/${zipId}/zip`);
+      return res.data;
+    },
+    enabled: !!zipId,
+  });
+
+  return { zip: data?.data, isLoading };
 };

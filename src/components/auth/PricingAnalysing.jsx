@@ -1,17 +1,24 @@
-import { Controller } from 'react-hook-form';
-import 'react-phone-input-2/lib/style.css';
-import homeHero from '../../assets/homeHero.png';
-import { DatePicker, Input, Select } from 'antd';
+import { Controller } from "react-hook-form";
+import "react-phone-input-2/lib/style.css";
+import homeHero from "../../assets/homeHero.png";
+import { DatePicker, Input, Select } from "antd";
 import "react-phone-input-2/lib/style.css";
 import { useNavigate } from "react-router";
 const { Option } = Select;
 import PricingTitle from "./PricingTitle";
-import { useCreateProperty, useGetService } from "@/hooks/service.hook";
+import {
+  useCreateProperty,
+  useGetCitys,
+  useGetCountrys,
+  useGetService,
+  useGetStates,
+  useGetZip,
+} from "@/hooks/service.hook";
 import Plumbing from "@/assets/Plumbing";
 import Electrinic from "@/assets/electrinic";
 import Drainage from "@/assets/Drainage";
 import Heating from "@/assets/Heating";
-import Servicebtn from '../shared/Servicebtn';
+import Servicebtn from "../shared/Servicebtn";
 
 const onChange = (date, dateString) => {
   console.log(date, dateString);
@@ -19,13 +26,29 @@ const onChange = (date, dateString) => {
 
 const PricingAnalysing = () => {
   const { service, isLoading } = useGetService();
+  const { country } = useGetCountrys();
+  console.log({ country });
+  // const { control, watch } = useForm();
 
   const { form, mutate, isPending } = useCreateProperty();
   const {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = form;
+  const selectedCountryId = watch("country_id");
+  console.log({ selectedCountryId });
+
+  const selectedStateId = watch("state_id");
+  console.log({ selectedStateId });
+  const selectedCityId = watch("city_id");
+  console.log({ selectedCityId });
+
+  const { state } = useGetStates(selectedCountryId);
+  const { city } = useGetCitys(selectedStateId);
+  const { zip } = useGetZip(selectedCityId);
+  console.log({ zip });
 
   const navigate = useNavigate();
 
@@ -51,16 +74,6 @@ const PricingAnalysing = () => {
     heating: <Heating />,
   };
 
-  const cities = [
-    { id: 1, name: "New York" },
-    { id: 2, name: "London" },
-    { id: 3, name: "Tokyo" },
-  ];
-  const countries = [
-    { id: 1, name: "New York" },
-    { id: 2, name: "London" },
-    { id: 3, name: "Tokyo" },
-  ];
   const boilertypes = [
     { id: 1, name: "boiler1" },
     { id: 2, name: "boiler2" },
@@ -209,6 +222,7 @@ const PricingAnalysing = () => {
                           State / Province / Region
                           <span className="text-red-500">*</span>
                         </label>
+
                         <Controller
                           name="state_id"
                           control={control}
@@ -216,15 +230,17 @@ const PricingAnalysing = () => {
                             required: "State / Province / Region is required",
                           }}
                           render={({ field }) => (
-                            <Input
+                            <Select
                               {...field}
-                              value={field.value ?? ""}
-                              onChange={(e) =>
-                                field.onChange(Number(e.target.value))
-                              }
-                              placeholder="Enter state..."
-                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                            />
+                              placeholder="-- Select state --"
+                              allowClear
+                            >
+                              {state?.map((item) => (
+                                <Option key={item.id} value={item.id}>
+                                  {item.name}
+                                </Option>
+                              ))}
+                            </Select>
                           )}
                         />
 
@@ -261,7 +277,7 @@ const PricingAnalysing = () => {
                               }}
                               className=""
                             >
-                              {cities.map((city) => (
+                              {city?.map((city) => (
                                 <Option key={city.id} value={city.id}>
                                   {city.name}
                                 </Option>
@@ -286,14 +302,21 @@ const PricingAnalysing = () => {
                         <Controller
                           name="zip_id"
                           control={control}
-                          rules={{ required: "Postal / ZIP Code is required" }}
+                          rules={{
+                            required: "Zipid is required",
+                          }}
                           render={({ field }) => (
-                            <Input
+                            <Select
                               {...field}
-                              prefix={<></>}
-                              placeholder="Enter postal.."
-                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                            />
+                              placeholder="-- Select state --"
+                              allowClear
+                            >
+                              {zip?.map((item) => (
+                                <Option key={item.id} value={item.id}>
+                                  {item.number}
+                                </Option>
+                              ))}
+                            </Select>
                           )}
                         />
 
@@ -313,34 +336,25 @@ const PricingAnalysing = () => {
                       <Controller
                         name="country_id"
                         control={control}
-                        rules={{
-                          required: "country is required",
-                        }}
+                        rules={{ required: "Country is required" }}
                         render={({ field }) => (
                           <Select
                             {...field}
                             placeholder="-- Select country --"
                             allowClear
-                            prefix={<></>}
-                            className=""
-                            onChange={(value) => {
-                              field.onChange(value);
-                              console.log("Selected country ID:", value);
-                            }}
+                            onChange={(value) => field.onChange(value)}
                           >
-                            {countries.map((country) => (
-                              <Option key={country.id} value={country.id}>
-                                {country.name}
+                            {country?.map((item) => (
+                              <Option key={item.id} value={item.id}>
+                                {item.name}
                               </Option>
                             ))}
                           </Select>
                         )}
                       />
-
                       {errors.country_id && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.country_id.message}{" "}
+                          {errors.country_id.message}
                         </p>
                       )}
                     </div>
@@ -542,102 +556,12 @@ const PricingAnalysing = () => {
                   </div>
                 </div>
 
-                {/* Property Information */}
-                <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
-                  <PricingTitle titletext="Property Information" />
-                  <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
-                    {/* property Name */}
-                    <div className="w-full">
-                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                        Property Name
-                        <span className="text-red-500">*</span>
-                      </label>
-                      <Controller
-                        name="propertyName"
-                        control={control}
-                        rules={{ required: 'Property Name is required' }}
-                        render={({ field }) => (
-                          <Input
-                            {...field}
-                            prefix={<></>}
-                            placeholder="Enter property name"
-                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                          />
-                        )}
-                      />
-
-                      {errors.propertyName && (
-                        <p className="text-red-500">
-                          {' '}
-                          {errors.propertyName.message}{' '}
-                        </p>
-                      )}
-                    </div>
-                    {/* Property Type* */}
-                    <div className="w-full">
-                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                        Property Type
-                        <span className="text-red-500">*</span>
-                      </label>
-                      <Controller
-                        name="propertyType"
-                        control={control}
-                        rules={{ required: 'Property Type is required' }}
-                        render={({ field }) => (
-                          <Input
-                            {...field}
-                            prefix={<></>}
-                            placeholder="Enter property name"
-                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                          />
-                        )}
-                      />
-
-                      {errors.propertyType && (
-                        <p className="text-red-500">
-                          {' '}
-                          {errors.propertyType.message}{' '}
-                        </p>
-                      )}
-                    </div>
-                    {/* Accessibility Info */}
-                    <div className="w-full">
-                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                        Accessibility Info
-                        <span className="text-red-500">*</span>
-                      </label>
-                      <Controller
-                        name="accessibilityInfo"
-                        control={control}
-                        rules={{ required: 'Accessibility Info is required' }}
-                        render={({ field }) => (
-                          <Input
-                            {...field}
-                            prefix={<></>}
-                            placeholder="Enter property name"
-                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                          />
-                        )}
-                      />
-
-                      {errors.accessibilityInfo && (
-                        <p className="text-red-500">
-                          {' '}
-                          {errors.accessibilityInfo.message}{' '}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
                 <div className="btn-wrapper mt-6 md:mt-8 lg:mt-10 flex flex-col md:flex-row gap-2 md:gap-3">
                   <button
                     type="button"
-                    onClick={
-                      ()=>{
-                        navigate(-1)
-                      }
-                    }
+                    onClick={() => {
+                      navigate(-1);
+                    }}
                     className="w-full bg-[#EAEAEA] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#ee3a3a] hover:text-[#F0F5F6] border border-[#EAEAEA] transition text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] "
                   >
                     Back
