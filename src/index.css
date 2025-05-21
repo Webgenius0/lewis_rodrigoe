@@ -155,4 +155,10 @@ body {
   border: 1px dashed #94A3B3 !important;
 }
 
+.profile.ant-upload-wrapper .ant-upload-drag {
+  border-radius: 8px;
+  border: 1px solid #E9EAEB !important;
+  background: #FFF;
+}
+
 /* tarek css */
