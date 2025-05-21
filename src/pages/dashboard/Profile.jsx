@@ -4,6 +4,7 @@ const { Dragger } = Upload;
 const { Option } = Select;
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import NotificationSettings from './NotificationSettings';
 
 const Profile = () => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -228,11 +229,9 @@ const Profile = () => {
         <Button className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] ">
           Save
         </Button>
-
       </div>
     </div>
   );
-
 
   // Password
   const password = (
@@ -241,15 +240,12 @@ const Profile = () => {
         <div className="py-5 flex gap-8 border-b border-[#E9EAEB] items-center justify-between">
           <div className="flex flex-col gap-1">
             <p className="text-[#181D27] font-[Manrope] text-[17px] md:text-[18px] not-italic font-semibold leading-[28px]">
-              Personal info
+              Password
             </p>
             <p className="text-[#535862] font-[Manrope] text-[14px] not-italic font-normal leading-[20px]">
-              Update your photo and personal details here.
+              Please enter your current password to change your password.
             </p>
           </div>
-          <Button className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] ">
-            Edit
-          </Button>
         </div>
         {/* Current password */}
         <div className="py-5 flex gap-8 border-b border-[#E9EAEB]">
@@ -259,7 +255,7 @@ const Profile = () => {
           <Input.Password
             prefix={<LockIcon />}
             placeholder="***********"
-            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
+            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
           />
         </div>
 
@@ -271,7 +267,7 @@ const Profile = () => {
           <Input.Password
             prefix={<LockIcon />}
             placeholder="***********"
-            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
+            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
           />
         </div>
         {/* Confirm new password* */}
@@ -282,7 +278,7 @@ const Profile = () => {
           <Input.Password
             prefix={<LockIcon />}
             placeholder="***********"
-            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
+            className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
           />
         </div>
       </div>
@@ -300,6 +296,7 @@ const Profile = () => {
     </div>
   );
 
+
   const tabItems = [
     {
       key: '1',
@@ -314,11 +311,7 @@ const Profile = () => {
     {
       key: '3',
       label: 'Notifications',
-      children: (
-        <div className="p-6 bg-white rounded-[16px] border">
-          Notification preferences here.
-        </div>
-      ),
+      children: <NotificationSettings/>
     },
   ];
 
