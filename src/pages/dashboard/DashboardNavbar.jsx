@@ -1,13 +1,23 @@
 
 import { Link, NavLink} from 'react-router';
 import logo from '../../assets/logo-white.png';
+import { useState } from 'react';
+import { PanelRightClose, PanelRightOpen } from 'lucide-react';
 
 const DashboardNavbar = () => {
+  const [isOpen, setisOpen]=useState(false)
   return (
-    <header className="flex w-[221px] p-[16px] flex-col items-start gap-[29px] flex-shrink-0 self-stretch rounded-[12px] bg-[#FDFDFD] ">
+    <header
+      className={`md:w-[190px] lg:w-[221px] flex p-3 lg:p-[16px] flex-col items-start gap-[29px] flex-shrink-0 self-stretch rounded-[12px] bg-[#FDFDFD] relative transition-width duration-300 ${
+        isOpen ? 'w-[221px]' : 'w-[81px]'
+      }`}
+    >
       <div className="flex flex-col items-start gap-5 md:gap-7 w-full">
-        <div className="header-right">
-          <Link to="/" className="w-[125px] h-[90px] block">
+        <div className="header-right ">
+          <Link
+            to="/"
+            className={`  ${isOpen ? 'w-[125px] h-[90px]' : 'w-full h-full'}  block`}
+          >
             <img src={logo} alt="" className="h-full w-full object-cover" />
           </Link>
         </div>
@@ -37,7 +47,9 @@ const DashboardNavbar = () => {
                 />
               </svg>
             </span>
-            My Jobs
+            <span className={` md:block ${isOpen ? 'block' : 'hidden'}`}>
+              My Jobs
+            </span>
           </NavLink>
 
           <NavLink
@@ -93,7 +105,10 @@ const DashboardNavbar = () => {
                 />
               </svg>
             </span>
-            My Properties
+            <span className={` md:block ${isOpen ? 'block' : 'hidden'}`}>
+              {' '}
+              My Properties
+            </span>
           </NavLink>
           <NavLink
             to="/dashboard/messages"
@@ -139,7 +154,9 @@ const DashboardNavbar = () => {
                 />
               </svg>
             </span>
-            Messages
+            <span className={` md:block ${isOpen ? 'block' : 'hidden'}`}>
+              Messages
+            </span>
           </NavLink>
           <NavLink
             to="/dashboard/profile"
@@ -165,10 +182,18 @@ const DashboardNavbar = () => {
                 />
               </svg>
             </span>
-            Profile
+            <span className={` md:block ${isOpen ? 'block' : 'hidden'}`}>
+              Profile
+            </span>
           </NavLink>
         </div>
       </div>
+      <button
+        className="md:hidden block absolute -right-2"
+        onClick={() => setisOpen(!isOpen)}
+      >
+        {isOpen ? <PanelRightOpen /> : <PanelRightClose />}
+      </button>
     </header>
   );
 };

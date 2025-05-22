@@ -34,7 +34,7 @@ const NotificationSettings = () => {
   return (
     <>
       <div className=" bg-white h-full">
-        <div className="border-b border-[#E9EAEB] flex flex-col justify-between h-full">
+        <div className=" flex flex-col justify-between h-full">
           <div className="py-5 flex gap-8 border-b border-[#E9EAEB] items-center justify-between">
             <div className="flex flex-col gap-1">
               <p className="text-[#181D27] font-[Manrope] text-[17px] md:text-[18px] not-italic font-semibold leading-[28px]">
@@ -66,7 +66,7 @@ const NotificationSettings = () => {
           </div>
 
 
-            <div className="flex py-5 gap-8 border-b border-[#E9EAEB]">
+            <div className="flex py-5 gap-8 ">
               <div className="block text-[#414651] font-[Manrope] text-[15px] md:text-[16px] not-italic font-semibold leading-[20px] max-w-[280px]">
                 <h2 className="text-base font-semibold mb-2">
                   Summary Notification

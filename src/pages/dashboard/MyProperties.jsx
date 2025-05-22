@@ -205,7 +205,7 @@ const MyProperties = () => {
 
       {/* Table Wrapper with Responsive Scroll */}
       <div
-        className="overflow-x-auto  overflow-y-auto "
+        className="w-full lg:overflow-x-auto  overflow-y-auto"
         style={{
           maxHeight: 'calc(100vh - 300px)',
           overflowY: 'auto',
@@ -215,7 +215,13 @@ const MyProperties = () => {
         <Table
           columns={columns}
           dataSource={mockData}
-          pagination={false}
+          pagination={{
+            showSizeChanger: true,
+            defaultPageSize: 10,
+            total: mockData.length,
+          }}
+          scroll={{ x: 800 }}
+          sticky
           onChange={(filters, sorter, extra) => {
             console.log('params', filters, sorter, extra);
           }}
@@ -230,7 +236,7 @@ const MyProperties = () => {
           <Pagination
             onShowSizeChange={onShowSizeChange}
             defaultCurrent={3}
-            total={160}
+            total={mockData.length}
             showSizeChanger={false}
           />
         </div>
