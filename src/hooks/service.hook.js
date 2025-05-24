@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
@@ -24,7 +23,7 @@ export const useCreateProperty = () => {
   const navigate = useNavigate();
 
   const form = useForm({
-    resolver: zodResolver(propertySchema),
+    // resolver: zodResolver(propertySchema),
     defaultValues: {
       label: "",
       street: "",
@@ -33,8 +32,8 @@ export const useCreateProperty = () => {
       state_id: "",
       city_id: "",
       zip_id: "",
-      latitude: "",
-      longitude: "",
+      latitude: null,
+      longitude: null,
       boiler_type_id: "",
       boiler_model_id: "",
       property_type_id: "",
@@ -44,6 +43,7 @@ export const useCreateProperty = () => {
       last_service_date: "",
       location: "",
       accessability_info: "",
+      price: "",
     },
   });
 
@@ -56,7 +56,7 @@ export const useCreateProperty = () => {
         }
       });
 
-      const res = await axios.post("/property", formData, {
+      const res = await axiosPrivate.post("/property", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return res.data;
@@ -134,4 +134,43 @@ export const useGetZip = (zipId) => {
   });
 
   return { zip: data?.data, isLoading };
+};
+
+//boiler type
+
+export const useGetBoilertype = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["boilertype"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/boiler-type");
+      return res.data;
+    },
+  });
+  return { boilertype: data?.data, isLoading };
+};
+
+//boiler model
+
+export const useGetBoilermodel = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["boilermodel"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/boiler-model");
+      return res.data;
+    },
+  });
+  return { boilermodel: data?.data, isLoading };
+};
+
+//property-type
+
+export const useGetPropertytype = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["propertytype"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/property-type");
+      return res.data;
+    },
+  });
+  return { propertytype: data?.data, isLoading };
 };
