@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Tabs, Button, Pagination, Select } from 'antd';
 import JobCard from './JobCard';
 import CreateJobModal from './CreateJobModal';

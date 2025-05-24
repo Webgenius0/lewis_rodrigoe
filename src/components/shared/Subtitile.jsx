@@ -2,6 +2,8 @@
 const Subtitile = ({ text, className = '' }) => {
   return (
     <h4
+      data-aos="fade-down"
+      data-aos-duration="1500"
       className={`flex items-center text-[#010B21] font-[Manrope] text-[13px] md:text-[14px] not-italic font-medium leading-[22.96px] uppercase gap-2.5 ${className}`}
     >
       <span>
