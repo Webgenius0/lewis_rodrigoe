@@ -1,5 +1,5 @@
 import { Tabs, Button, Input, Select, Upload } from 'antd';
-import  { useState } from 'react';
+import { useState } from 'react';
 const { Dragger } = Upload;
 const { Option } = Select;
 import PhoneInput from 'react-phone-input-2';
@@ -296,7 +296,6 @@ const Profile = () => {
     </div>
   );
 
-
   const tabItems = [
     {
       key: '1',
@@ -311,7 +310,7 @@ const Profile = () => {
     {
       key: '3',
       label: 'Notifications',
-      children: <NotificationSettings/>
+      children: <NotificationSettings />,
     },
   ];
 
@@ -342,7 +341,6 @@ const Profile = () => {
     </div>
   );
 };
-
 
 const LockIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
