@@ -1,23 +1,69 @@
-import { Tabs, Button, Input, Select, Upload } from 'antd';
-import  { useState } from 'react';
+import { Tabs, Button, Input, Select, Upload } from "antd";
+import { useState } from "react";
 const { Dragger } = Upload;
 const { Option } = Select;
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
-import NotificationSettings from './NotificationSettings';
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import NotificationSettings from "./NotificationSettings";
+import { useGetUserdata, useUpdateUser } from "@/hooks/dashboard.hook";
+import { useEffect } from "react";
 
 const Profile = () => {
   const [imageUrl, setImageUrl] = useState(null);
-
+  const [avatarFile, setAvatarFile] = useState(null);
   const handleImageChange = (info) => {
     const file = info.file.originFileObj;
     if (file) {
+      setAvatarFile(file); // actual file to send
       const reader = new FileReader();
       reader.onload = () => {
-        setImageUrl(reader.result); // store image URL
+        setImageUrl(reader.result); // for preview only
       };
       reader.readAsDataURL(file);
     }
+  };
+  const { userdata } = useGetUserdata();
+  const { form, updateUser } = useUpdateUser();
+
+  console.log({ userdata });
+  const fullName = userdata?.user?.first_name + " " + userdata?.user?.last_name;
+  console.log("Full Name:", fullName);
+
+  //state
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
+  const [phone, setPhone] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  // update state when userdata is loaded
+  useEffect(() => {
+    if (userdata?.user) {
+      setFirstName(userdata.user.first_name || "");
+      setLastName(userdata.user.last_name || "");
+      setEmail(userdata.user.email || "");
+      setSelectedGender(userdata.user.profile?.gender || "");
+      setPhone(userdata.user.profile?.phone || "");
+      setImageUrl(userdata.user.avatar || null);
+    }
+  }, [userdata]);
+
+  const handleSave = () => {
+    const formData = new FormData();
+    formData.append("first_name", firstName);
+    formData.append("last_name", lastName);
+    formData.append("email", email);
+    formData.append("gender", selectedGender);
+    formData.append("phone", phone);
+    if (avatarFile) {
+      formData.append("avatar", avatarFile);
+    }
+
+    updateUser(formData); // ensure your hook handles FormData
+    setIsEditing(false);
   };
 
   // My Details
@@ -32,7 +78,10 @@ const Profile = () => {
             Update your photo and personal details here.
           </p>
         </div>
-        <Button className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] ">
+        <Button
+          onClick={() => setIsEditing(!isEditing)}
+          className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] "
+        >
           Edit
         </Button>
       </div>
@@ -66,7 +115,10 @@ const Profile = () => {
               />
             </svg>
           }
-          placeholder="Robert Lewis"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={fullName}
+          readOnly={!isEditing}
           className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
         />
       </div>
@@ -102,7 +154,10 @@ const Profile = () => {
               />
             </svg>
           }
-          placeholder="elementary221b@gmail.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          readOnly={!isEditing}
+          placeholder={email}
           className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
         />
       </div>
@@ -148,14 +203,14 @@ const Profile = () => {
             <p className="text-[#00245F] font-[Inter] text-[14px] not-italic font-semibold leading-[20px]">
               Click to Upload
               <small className="text-[#535862] text-[14px] not-italic font-normal leading-[20px]">
-                {' '}
+                {" "}
                 (Max. File size: 25 MB)
               </small>
             </p>
           </Dragger>
           {imageUrl && (
             <img
-              src={imageUrl}
+              src={imageUrl || userdata?.user?.avatar}
               alt="Preview"
               className="w-[64px] h-[56px] object-cover  border border-[#E1E6EF]  rounded-[50%] bg-[lightgray_50%] bg-cover bg-no-repeat"
             />
@@ -166,7 +221,7 @@ const Profile = () => {
       {/* Gender */}
       <div className="py-5 flex gap-8 border-b border-[#E9EAEB]">
         <label className="block text-[#414651] font-[Manrope] text-[15px] md:text-[16px] not-italic font-semibold leading-[20px] min-w-[280px]">
-          Email
+          Gender
         </label>
         <Select
           placeholder="-- Select Gender --"
@@ -196,6 +251,9 @@ const Profile = () => {
             </svg>
           }
           className="max-w-[509px] w-full"
+          value={selectedGender}
+          onChange={(value) => setSelectedGender(value)}
+          disabled={!isEditing}
         >
           <Option value="male">Male</Option>
           <Option value="femail">Female</Option>
@@ -209,8 +267,13 @@ const Profile = () => {
           Phone Number
         </label>
         <PhoneInput
+          value={phone}
+          onChange={(value) => setPhone(value)}
+          inputProps={{
+            readOnly: !isEditing,
+          }}
           country="gb"
-          onlyCountries={['gb']}
+          onlyCountries={["gb"]}
           disableCountryCode={false}
           disableDropdown={true}
           enableSearch={false}
@@ -222,13 +285,22 @@ const Profile = () => {
 
       {/* Buttons */}
       <div className="flex justify-end gap-3 pt-3 mb:pt-4">
-        <Button className="rounded-[8px] border-[1px] border-[solid] border-[#D5D7DA] bg-[#FFF] [box-shadow:0px_1px_2px_0px_rgba(10,_13,_18,_0.05)] text-[#414651] font-[Inter] text-[14px] not-italic font-semibold leading-[20px]">
-          Cancel
-        </Button>
-
-        <Button className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] ">
-          Save
-        </Button>
+        {isEditing ? (
+          <Button
+            onClick={handleSave}
+            type="primary"
+            className="bg-blue-500 text-white"
+          >
+            Save
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setIsEditing(true)}
+            className="gradient-button text-white"
+          >
+            Edit
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -296,22 +368,21 @@ const Profile = () => {
     </div>
   );
 
-
   const tabItems = [
     {
-      key: '1',
-      label: 'My Details',
+      key: "1",
+      label: "My Details",
       children: personalInfoForm,
     },
     {
-      key: '2',
-      label: 'Password',
+      key: "2",
+      label: "Password",
       children: password,
     },
     {
-      key: '3',
-      label: 'Notifications',
-      children: <NotificationSettings/>
+      key: "3",
+      label: "Notifications",
+      children: <NotificationSettings />,
     },
   ];
 
@@ -329,9 +400,9 @@ const Profile = () => {
           children: (
             <div
               style={{
-                maxHeight: 'calc(100vh - 200px)',
-                overflowY: 'auto',
-                paddingRight: '8px',
+                maxHeight: "calc(100vh - 200px)",
+                overflowY: "auto",
+                paddingRight: "8px",
               }}
             >
               {item.children}
@@ -342,7 +413,6 @@ const Profile = () => {
     </div>
   );
 };
-
 
 const LockIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">

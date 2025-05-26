@@ -1,24 +1,29 @@
-import { useEffect, useState } from 'react';
-import { Menu, Dropdown } from 'antd';
-import { Link, useLocation, useNavigate } from 'react-router';
-import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
-import logo from '../../assets/logo.png';
-import downArrow from '../../assets/cheveronDown.svg';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import toast from 'react-hot-toast';
+import { useEffect, useState } from "react";
+import { Menu, Dropdown } from "antd";
+import { Link, useLocation, useNavigate } from "react-router";
+import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
+import logo from "../../assets/logo.png";
+import downArrow from "../../assets/cheveronDown.svg";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import toast from "react-hot-toast";
 
 const menu1 = {
   items: [
-    { key: '1', label: 'Submenu 1-1' },
-    { key: '2', label: 'Submenu 1-2' },
+    { key: "1", label: "Submenu 1-1" },
+    { key: "2", label: "Submenu 1-2" },
   ],
 };
 
 const menu2 = {
   items: [
-    { key: '1', label: 'Submenu 2-1' },
-    { key: '2', label: 'Submenu 2-2' },
+    { key: "1", label: "Submenu 2-1" },
+    { key: "2", label: "Submenu 2-2" },
   ],
 };
 
@@ -29,14 +34,14 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
 
     if (token && storedUser) {
       try {
         setUser(JSON.parse(storedUser));
       } catch {
-        localStorage.removeItem('user');
+        localStorage.removeItem("user");
         setUser(null);
       }
     } else {
@@ -45,13 +50,15 @@ const Navbar = () => {
   }, [pathname]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
-    toast.success('Logged out successfully');
-    navigate('/sign-in');
+    toast.success("Logged out successfully");
+    navigate("/sign-in");
   };
- 
+  const gitodashboard = () => {
+    navigate("/dashboard");
+  };
 
   return (
     <header className="bg-inherit absolute top-0 left-0 right-0 z-20">
@@ -72,7 +79,7 @@ const Navbar = () => {
             {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
           </button>
 
-          {user  && (
+          {user && (
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar className="cursor-pointer h-10 w-10 border">
@@ -81,7 +88,7 @@ const Navbar = () => {
                     // src={`https://lewis-rodrigoe.softvencefsd.xyz/storage/avatar/${user?.avatar}`}
                     //src={user?.avatar}
                     src={
-                      'https://adaptcommunitynetwork.org/wp-content/uploads/2023/09/person-placeholder.jpg'
+                      "https://adaptcommunitynetwork.org/wp-content/uploads/2023/09/person-placeholder.jpg"
                     }
                     alt={user?.first_name}
                   />
@@ -130,8 +137,8 @@ const Navbar = () => {
         </nav>
 
         {/* Join button */}
-        {pathname === '/pricing' ? (
-          <div className='hidden lg:block'></div>
+        {pathname === "/pricing" ? (
+          <div className="hidden lg:block"></div>
         ) : (
           <div className="header-left items-center hidden lg:flex">
             {user ? (
@@ -143,7 +150,7 @@ const Navbar = () => {
                       // src={`https://lewis-rodrigoe.softvencefsd.xyz/storage/avatar/${user?.avatar}`}
                       //src={user?.avatar}
                       src={
-                        'https://adaptcommunitynetwork.org/wp-content/uploads/2023/09/person-placeholder.jpg'
+                        "https://adaptcommunitynetwork.org/wp-content/uploads/2023/09/person-placeholder.jpg"
                       }
                       alt={user?.first_name}
                     />
@@ -157,7 +164,10 @@ const Navbar = () => {
                   align="end"
                   className="border-none bg-[#08172c] p-2"
                 >
-                  <DropdownMenuItem className="text-white hover:bg-[#010B21] cursor-pointer">
+                  <DropdownMenuItem
+                    onClick={gitodashboard}
+                    className="text-white hover:bg-[#010B21] cursor-pointer"
+                  >
                     Dashboard
                   </DropdownMenuItem>
                   <DropdownMenuItem
@@ -184,8 +194,8 @@ const Navbar = () => {
       <div
         className={`lg:hidden fixed inset-0 z-50 bg-[#111827] text-white font-medium font-[Inter] transform transition-all duration-500 ease-in-out ${
           mobileMenuOpen
-            ? 'translate-y-0 opacity-100'
-            : '-translate-y-full opacity-0 pointer-events-none'
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-full opacity-0 pointer-events-none"
         }`}
       >
         <div className="p-6 flex flex-col gap-6">
@@ -226,7 +236,7 @@ const Navbar = () => {
             Connect
           </Link>
 
-          {pathname !== '/pricing' && !user && (
+          {pathname !== "/pricing" && !user && (
             <Link
               onClick={() => setMobileMenuOpen(false)}
               className="mt-4 inline-flex px-[20px] py-[16px] justify-center items-center gap-[16px] text-white text-[14px] font-semibold leading-[23.8px] uppercase rounded-[30px] bg-gradient-to-r from-[#09B5FF] via-[#4F81FF] to-[#0048FF]"
