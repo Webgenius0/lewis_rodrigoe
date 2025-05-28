@@ -1,6 +1,4 @@
 import { axiosPrivate } from "@/lib/axios.config";
-import { propertySchema } from "@/schemas/service.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 
 import { useQuery } from "@tanstack/react-query";
@@ -78,7 +76,15 @@ export const useCreateProperty = () => {
 
   return { form, mutate, isPending };
 };
-
+//getprice
+export const useGetPropertyPrice = () => {
+  return useMutation({
+    mutationFn: async (body) => {
+      const res = await axiosPrivate.post("/property/price", body);
+      return res.data;
+    },
+  });
+};
 //get country
 export const useGetCountrys = () => {
   const { data, isLoading } = useQuery({

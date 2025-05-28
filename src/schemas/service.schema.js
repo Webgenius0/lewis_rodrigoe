@@ -50,10 +50,13 @@ export const propertySchema = z.object({
     .refine((val) => !val || !isNaN(Date.parse(val)), {
       message: "Invalid date format",
     }), // e.g., "2024-12-31"
-  price: z.coerce.number({
-    invalid_type_error: "price is required",
-  }),
+  // price: z.coerce.number({
+  //   invalid_type_error: "price is required",
+  // }),
 
   location: z.string(),
   accessability_info: z.string(),
+  radiator: z
+    .number({ required_error: "Radiator count is required" })
+    .min(1, "At least 1 radiator is required"),
 });

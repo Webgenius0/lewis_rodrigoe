@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, Dropdown } from "antd";
+import { Dropdown } from "antd";
 import { Link, useLocation, useNavigate } from "react-router";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
 import logo from "../../assets/logo.png";
