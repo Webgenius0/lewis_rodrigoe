@@ -49,3 +49,68 @@ export const useUpdateUser = () => {
 
   return { form, updateUser, isLoading };
 };
+
+//create job
+export const useCreateJob = () => {
+  const navigate = useNavigate();
+
+  const form = useForm({
+    // resolver: zodResolver(createjobSchema),
+    defaultValues: {
+      property_id: "",
+      title: "",
+      description: "",
+      date_time: "",
+      error_code: "",
+      error_code_image: "",
+      water_pressure_level: "",
+      tools_info: null,
+      additional_info: null,
+      image: "",
+      video: "",
+    },
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (payload) => {
+      const formData = new FormData();
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, value);
+        }
+      });
+
+      const res = await axiosPrivate.post("/property-job", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success(data?.message || "Property created successfully");
+        navigate("/properties");
+      } else {
+        toast.error(data?.message || "Failed to create property");
+      }
+    },
+    onError: (error) => {
+      const message =
+        error?.response?.data?.message || "Failed to create property";
+      toast.error(message);
+    },
+  });
+
+  return { form, mutate, isPending };
+};
+
+//get property
+export const useGetProperties = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["properties"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/property/dropdown");
+      return res.data;
+    },
+  });
+  return { properties: data?.data, isLoading };
+};

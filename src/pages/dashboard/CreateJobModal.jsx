@@ -1,15 +1,9 @@
+import { Modal, Input, DatePicker, Select, Upload } from "antd";
 
-import {
-  Modal,
-  Input,
-  DatePicker,
-  Select,
-  Upload,
-} from 'antd';
-
-import PricingTitle from '@/components/auth/PricingTitle';
-import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import PricingTitle from "@/components/auth/PricingTitle";
+import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { useCreateJob, useGetProperties } from "@/hooks/dashboard.hook";
 const { Option } = Select;
 
 const { TextArea } = Input;
@@ -19,6 +13,14 @@ const onChange = (date, dateString) => {
 };
 
 const CreateJobModal = ({ visible, onClose }) => {
+  const { mutate, isPending } = useCreateJob();
+  const { properties } = useGetProperties();
+  console.log({ properties });
+
+  const onSubmit = (data) => {
+    console.log(data);
+    mutate(data);
+  };
   // for getting form data and error
   const {
     handleSubmit,
@@ -26,12 +28,12 @@ const CreateJobModal = ({ visible, onClose }) => {
     control,
   } = useForm();
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    navigate('/analysis-result');
-  };
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  //   navigate("/analysis-result");
+  // };
 
   console.log(errors);
 
@@ -52,10 +54,10 @@ const CreateJobModal = ({ visible, onClose }) => {
                   Property<span className="text-red-500">*</span>
                 </label>
                 <Controller
-                  name="property"
+                  name="property_id"
                   control={control}
                   rules={{
-                    required: 'Property is required',
+                    required: "Property is required",
                   }}
                   render={({ field }) => (
                     <Select
@@ -64,16 +66,22 @@ const CreateJobModal = ({ visible, onClose }) => {
                       allowClear
                       prefix={<></>}
                       className=""
+                      onChange={(value) => {
+                        field.onChange(value);
+                        console.log("Selected property ID:", value);
+                      }}
                     >
-                      <Option value="Property 1">Property 1</Option>
-                      <Option value="Property 2">Property 2</Option>
-                      <Option value="Property 3">Property 3</Option>
+                      {properties?.map((property) => (
+                        <Option key={property.id} value={property.id}>
+                          {property.address}
+                        </Option>
+                      ))}
                     </Select>
                   )}
                 />
 
-                {errors.property && (
-                  <p className="text-red-500"> {errors.property.message} </p>
+                {errors.property_id && (
+                  <p className="text-red-500"> {errors.property_id.message} </p>
                 )}
               </div>
             </div>
@@ -89,9 +97,9 @@ const CreateJobModal = ({ visible, onClose }) => {
                     Job Title<span className="text-red-500">*</span>
                   </label>
                   <Controller
-                    name="jobTitle"
+                    name="title"
                     control={control}
-                    rules={{ required: 'Job title is required' }}
+                    rules={{ required: "Job title is required" }}
                     render={({ field }) => (
                       <Input
                         {...field}
@@ -102,8 +110,8 @@ const CreateJobModal = ({ visible, onClose }) => {
                     )}
                   />
 
-                  {errors.jobTitle && (
-                    <p className="text-red-500"> {errors.jobTitle.message} </p>
+                  {errors.title && (
+                    <p className="text-red-500"> {errors.title.message} </p>
                   )}
                 </div>
 
@@ -114,10 +122,10 @@ const CreateJobModal = ({ visible, onClose }) => {
                     <span className="text-red-500">*</span>
                   </label>
                   <Controller
-                    name="jobDescription"
+                    name="description"
                     control={control}
                     rules={{
-                      required: 'Job Description  is required',
+                      required: "Job Description  is required",
                     }}
                     render={({ field }) => (
                       <Input
@@ -129,10 +137,10 @@ const CreateJobModal = ({ visible, onClose }) => {
                     )}
                   />
 
-                  {errors.jobDescription && (
+                  {errors.description && (
                     <p className="text-red-500">
-                      {' '}
-                      {errors.jobDescription.message}{' '}
+                      {" "}
+                      {errors.description.message}{" "}
                     </p>
                   )}
                 </div>
@@ -144,28 +152,21 @@ const CreateJobModal = ({ visible, onClose }) => {
                     <span className="text-red-500">*</span>
                   </label>
                   <Controller
-                    name="preferredDate"
+                    name="date_time"
                     control={control}
-                    rules={{
-                      required: 'Prefered Date is required',
-                    }}
+                    rules={{ required: "Date and Time is required" }}
                     render={({ field }) => (
-                      <DatePicker
-                        onChange={onChange}
+                      <input
                         {...field}
-                        placeholder="Select date and time"
-                        allowClear
-                        prefix={<></>}
-                        className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                        type="date"
+                        placeholder="YYYY/MM/DD"
+                        className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px] focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] shadow-sm"
                       />
                     )}
                   />
 
-                  {errors.preferredDate && (
-                    <p className="text-red-500">
-                      {' '}
-                      {errors.preferredDate.message}{' '}
-                    </p>
+                  {errors.date_time && (
+                    <p className="text-red-500"> {errors.date_time.message} </p>
                   )}
                 </div>
               </div>
@@ -182,9 +183,9 @@ const CreateJobModal = ({ visible, onClose }) => {
                     <span className="text-red-500">*</span>
                   </label>
                   <Controller
-                    name="errorCode"
+                    name="error_code"
                     control={control}
-                    rules={{ required: 'Error Code is required' }}
+                    rules={{ required: "Error Code is required" }}
                     render={({ field }) => (
                       <Input
                         {...field}
@@ -195,62 +196,91 @@ const CreateJobModal = ({ visible, onClose }) => {
                     )}
                   />
 
-                  {errors.errorCode && (
-                    <p className="text-red-500"> {errors.errorCode.message} </p>
+                  {errors.error_code && (
+                    <p className="text-red-500">
+                      {" "}
+                      {errors.error_code.message}{" "}
+                    </p>
                   )}
                 </div>
                 {/* Error Code Desplayed Image**/}
                 <div className="w-full">
                   <Controller
-                    name="errorImage"
+                    name="error_code_image"
                     control={control}
+                    rules={{ required: "Error image is required" }}
                     render={({ field }) => (
                       <Dragger
-                        {...field}
                         beforeUpload={() => false}
                         maxCount={1}
+                        onChange={(info) => {
+                          field.onChange(info.fileList[0]); // store file object
+                        }}
                       >
-                        <div className="p-2 rounded-[50px] bg-[#F0F5FF] w-fit mx-auto">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M16.4008 11.2C14.7037 11.2 13.8552 11.2 13.328 10.6728C12.8008 10.1456 12.8008 9.29706 12.8008 7.6C12.8008 5.90294 12.8008 5.05442 13.328 4.52721C13.8552 4 14.7037 4 16.4008 4C18.0978 4 18.9464 4 19.4736 4.52721C20.0008 5.05442 20.0008 5.90294 20.0008 7.6C20.0008 9.29706 20.0008 10.1456 19.4736 10.6728C18.9464 11.2 18.0978 11.2 16.4008 11.2ZM17.0008 6C17.0008 5.66863 16.7322 5.4 16.4008 5.4C16.0694 5.4 15.8008 5.66863 15.8008 6V7H14.8008C14.4694 7 14.2008 7.26863 14.2008 7.6C14.2008 7.93137 14.4694 8.2 14.8008 8.2H15.8008V9.2C15.8008 9.53137 16.0694 9.8 16.4008 9.8C16.7322 9.8 17.0008 9.53137 17.0008 9.2V8.2H18.0008C18.3322 8.2 18.6008 7.93137 18.6008 7.6C18.6008 7.26863 18.3322 7 18.0008 7H17.0008V6Z"
-                              fill="#010B21"
-                            />
-                            <path
-                              opacity="0.6"
-                              d="M19.9998 12.5583C19.9986 13.7339 19.9897 14.7332 19.9229 15.5531C19.8453 16.5046 19.6865 17.2997 19.3309 17.96C19.1741 18.2512 18.9813 18.512 18.7467 18.7467C18.0808 19.4126 17.2324 19.7142 16.1572 19.8588C15.1068 20 13.7606 20 12.0427 20H11.9573C10.2394 20 8.89317 20 7.84276 19.8588C6.76761 19.7142 5.91922 19.4126 5.25331 18.7467C4.66296 18.1563 4.3581 17.4216 4.19598 16.5101C4.03673 15.6147 4.00759 14.5007 4.00154 13.1174C4 12.7655 4 12.3934 4 12.0007V11.9573C3.99999 10.2394 3.99998 8.89317 4.14121 7.84276C4.28576 6.76761 4.58741 5.91922 5.25331 5.25331C5.91922 4.58741 6.76761 4.28576 7.84276 4.14121C8.77689 4.01562 9.97877 4.00172 11.4416 4.00019C11.7499 3.99987 12 4.24989 12 4.55814C12 4.86639 11.7498 5.11616 11.4415 5.11648C9.95799 5.11805 8.85401 5.13157 7.9915 5.24753C7.04013 5.37544 6.46657 5.61871 6.04264 6.04264C5.61871 6.46657 5.37544 7.04013 5.24753 7.9915C5.11747 8.95893 5.11628 10.2302 5.11628 12C5.11628 12.2161 5.11628 12.4252 5.11653 12.6275L5.86157 11.9756C6.53972 11.3823 7.5618 11.4163 8.19898 12.0535L11.3913 15.2458C11.9028 15.7573 12.7078 15.827 13.2996 15.4111L13.5215 15.2552C14.373 14.6567 15.5251 14.7261 16.2987 15.4223L18.4051 17.3181C18.6171 16.8728 18.743 16.2878 18.8103 15.4625C18.8736 14.6849 18.8823 13.7404 18.8835 12.5583C18.8838 12.2501 19.1336 12 19.4419 12C19.7501 12 20.0001 12.25 19.9998 12.5583Z"
-                              fill="#010B21"
-                            />
-                          </svg>
-                        </div>
-                        <p className="text-[#010B21] text-center text-15px md:text-[16px] not-italic font-[Manrope] font-medium leading-[132%]">
-                          Click to Upload Error Codes Displayed
-                          <br />
-                          <small className="text-[#607080] text-center text-[12px] not-italic font-normal leading-[164%] font-[Manrope]">
-                            {' '}
-                            (Max. File size: 25 MB)
-                          </small>
-                        </p>
+                        <p>Click to Upload Error Codes Displayed</p>
+                        <small>(Max. File size: 25 MB)</small>
                       </Dragger>
                     )}
                   />
 
-                  {errors.errorImage && (
+                  {errors.error_code_image && (
                     <p className="text-red-500">
-                      {' '}
-                      {errors.errorImage.message}{' '}
+                      {" "}
+                      {errors.error_code_image.message}{" "}
                     </p>
                   )}
                 </div>
               </div>
+            </div>
+
+            <div className="w-full">
+              <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                water pressure level
+                <span className="text-red-500">*</span>
+              </label>
+              <Controller
+                name="water_pressure_level"
+                control={control}
+                rules={{ required: "Water Pressure Level is required" }}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    prefix={<></>}
+                    placeholder="Enter water pressure level"
+                    className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                  />
+                )}
+              />
+
+              {errors.water_pressure_level && (
+                <p className="text-red-500">
+                  {" "}
+                  {errors.water_pressure_level.message}{" "}
+                </p>
+              )}
+            </div>
+            <div className="w-full">
+              <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                tools_info
+                <span className="text-red-500">*</span>
+              </label>
+              <Controller
+                name="tools_info"
+                control={control}
+                rules={{ required: "Tools Info is required" }}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    prefix={<></>}
+                    placeholder="Enter tools info"
+                    className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                  />
+                )}
+              />
+
+              {errors.tools_info && (
+                <p className="text-red-500"> {errors.tools_info.message} </p>
+              )}
             </div>
 
             {/* Additional Information */}
@@ -264,9 +294,9 @@ const CreateJobModal = ({ visible, onClose }) => {
                     <span className="text-red-500">*</span>
                   </label>
                   <Controller
-                    name="additionalNote"
+                    name="additional_info"
                     control={control}
-                    rules={{ required: 'Additional Notes is required' }}
+                    rules={{ required: "Additional Notes is required" }}
                     render={({ field }) => (
                       <TextArea
                         showCount
@@ -280,10 +310,10 @@ const CreateJobModal = ({ visible, onClose }) => {
                     )}
                   />
 
-                  {errors.additionalNote && (
+                  {errors.additional_info && (
                     <p className="text-red-500">
-                      {' '}
-                      {errors.additionalNote.message}{' '}
+                      {" "}
+                      {errors.additional_info.message}{" "}
                     </p>
                   )}
                 </div>
@@ -301,10 +331,10 @@ const CreateJobModal = ({ visible, onClose }) => {
                     <span className="text-red-500">*</span>
                   </label>
                   <Controller
-                    name="photos"
+                    name="image"
                     control={control}
                     rules={{
-                      required: 'Photo is required',
+                      required: "Photo is required",
                     }}
                     render={({ field }) => (
                       <Dragger
@@ -337,15 +367,15 @@ const CreateJobModal = ({ visible, onClose }) => {
                           Click to Upload
                           <br />
                           <small className="text-[#607080] text-center text-[12px] not-italic font-normal leading-[164%] font-[Manrope]">
-                            {' '}
+                            {" "}
                             (Max. File size: 25 MB)
                           </small>
                         </p>
                       </Dragger>
                     )}
                   />
-                  {errors.photos && (
-                    <p className="text-red-500"> {errors.photos.message} </p>
+                  {errors.image && (
+                    <p className="text-red-500"> {errors.image.message} </p>
                   )}
                 </div>
                 {/* Property Type* */}
@@ -354,7 +384,7 @@ const CreateJobModal = ({ visible, onClose }) => {
                     Videos
                   </label>
                   <Controller
-                    name="videos"
+                    name="video"
                     control={control}
                     render={({ field }) => (
                       <Dragger
@@ -387,7 +417,7 @@ const CreateJobModal = ({ visible, onClose }) => {
                           Click to Upload
                           <br />
                           <small className="text-[#607080] text-center text-[12px] not-italic font-normal leading-[164%] font-[Manrope]">
-                            {' '}
+                            {" "}
                             (Max. File size: 25 MB)
                           </small>
                         </p>
@@ -395,8 +425,8 @@ const CreateJobModal = ({ visible, onClose }) => {
                     )}
                   />
 
-                  {errors.videos && (
-                    <p className="text-red-500"> {errors.videos.message} </p>
+                  {errors.video && (
+                    <p className="text-red-500"> {errors.video.message} </p>
                   )}
                 </div>
               </div>
