@@ -62,12 +62,12 @@ export const useCreateJob = () => {
       description: "",
       date_time: "",
       error_code: "",
-      error_code_image: "",
+      error_code_image: null,
       water_pressure_level: "",
       tools_info: null,
       additional_info: null,
-      image: "",
-      video: "",
+      image: null,
+      video: null,
     },
   });
 
@@ -103,14 +103,38 @@ export const useCreateJob = () => {
   return { form, mutate, isPending };
 };
 
-//get property
+//get property type
 export const useGetProperties = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["properties"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/property-type");
+      return res.data;
+    },
+  });
+  return { properties: data?.data, isLoading };
+};
+
+//get property
+export const useGetPropertyAddress = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["properties-address"],
     queryFn: async () => {
       const res = await axiosPrivate.get("/property/dropdown");
       return res.data;
     },
   });
-  return { properties: data?.data, isLoading };
+  return { propertiesAddress: data?.data, isLoading };
+};
+
+//get all jobs
+export const useGetAllJobs = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["all-jobs"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/property-job/pending?per_page=25");
+      return res.data?.data;
+    },
+  });
+  return { allJobs: data, isLoading };
 };

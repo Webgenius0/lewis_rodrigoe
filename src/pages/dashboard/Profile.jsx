@@ -7,6 +7,7 @@ import "react-phone-input-2/lib/style.css";
 import NotificationSettings from "./NotificationSettings";
 import { useGetUserdata, useUpdateUser } from "@/hooks/dashboard.hook";
 import { useEffect } from "react";
+import { useUpdatePassword } from "@/hooks/auth.hook";
 
 const Profile = () => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -64,6 +65,20 @@ const Profile = () => {
 
     updateUser(formData); // ensure your hook handles FormData
     setIsEditing(false);
+  };
+  const { updatePassword, isUpdating } = useUpdatePassword();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const onUpdatePassword = () => {
+    const formData = {
+      old_password: currentPassword,
+      password: newPassword,
+      password_confirmation: confirmPassword,
+    };
+
+    updatePassword(formData);
   };
 
   // My Details
@@ -327,6 +342,8 @@ const Profile = () => {
           <Input.Password
             prefix={<LockIcon />}
             placeholder="***********"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
             className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
           />
         </div>
@@ -339,6 +356,8 @@ const Profile = () => {
           <Input.Password
             prefix={<LockIcon />}
             placeholder="***********"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
             className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
           />
         </div>
@@ -350,6 +369,8 @@ const Profile = () => {
           <Input.Password
             prefix={<LockIcon />}
             placeholder="***********"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
           />
         </div>
@@ -361,7 +382,11 @@ const Profile = () => {
           Cancel
         </Button>
 
-        <Button className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] ">
+        <Button
+          onClick={onUpdatePassword}
+          type="submit"
+          className="[background-image:linear-gradient(95deg,_#09B5FF_0%,_#4F81FF_53.67%,_#0048FF_100%)] text-[#FFF] font-[Inter] text-[14px] not-italic font-semibold leading-[20px] "
+        >
           Save
         </Button>
       </div>

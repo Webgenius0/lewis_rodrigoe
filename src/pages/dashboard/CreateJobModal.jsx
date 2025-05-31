@@ -4,6 +4,7 @@ import PricingTitle from "@/components/auth/PricingTitle";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useCreateJob, useGetProperties } from "@/hooks/dashboard.hook";
+import { message } from "antd";
 const { Option } = Select;
 
 const { TextArea } = Input;
@@ -73,7 +74,7 @@ const CreateJobModal = ({ visible, onClose }) => {
                     >
                       {properties?.map((property) => (
                         <Option key={property.id} value={property.id}>
-                          {property.address}
+                          {property.name}
                         </Option>
                       ))}
                     </Select>

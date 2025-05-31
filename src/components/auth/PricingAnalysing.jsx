@@ -297,32 +297,23 @@ const PricingAnalysing = () => {
                         )}
                       </div>
 
-                      {/* State / Province / Region* */}
+                      {/* Country**/}
                       <div className="w-full">
-                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                          State / Province / Region
-                          <span className="text-red-500">*</span>
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
+                          Country<span className="text-red-500">*</span>
                         </label>
-
                         <Controller
-                          name="state_id"
+                          name="country_id"
                           control={control}
-                          rules={{
-                            required: "State / Province / Region is required",
-                          }}
+                          rules={{ required: "Country is required" }}
                           render={({ field }) => (
                             <Select
                               {...field}
-                              value={field.value ?? undefined}
-                              placeholder={
-                                watch("country_id")
-                                  ? "-- Select state --"
-                                  : "Select country first"
-                              }
-                              disabled={!watch("country_id")}
+                              placeholder="-- Select country --"
                               allowClear
+                              onChange={(value) => field.onChange(value)}
                             >
-                              {state?.map((item) => (
+                              {country?.map((item) => (
                                 <Option key={item.id} value={item.id}>
                                   {item.name}
                                 </Option>
@@ -330,14 +321,54 @@ const PricingAnalysing = () => {
                             </Select>
                           )}
                         />
-
-                        {errors.state_id && (
+                        {errors.country_id && (
                           <p className="text-red-500">
-                            {" "}
-                            {errors.state_id.message}{" "}
+                            {errors.country_id.message}
                           </p>
                         )}
                       </div>
+                    </div>
+
+                    {/* State / Province / Region* */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        State / Province / Region
+                        <span className="text-red-500">*</span>
+                      </label>
+
+                      <Controller
+                        name="state_id"
+                        control={control}
+                        rules={{
+                          required: "State / Province / Region is required",
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            value={field.value ?? undefined}
+                            placeholder={
+                              watch("country_id")
+                                ? "-- Select state --"
+                                : "Select country first"
+                            }
+                            disabled={!watch("country_id")}
+                            allowClear
+                          >
+                            {state?.map((item) => (
+                              <Option key={item.id} value={item.id}>
+                                {item.name}
+                              </Option>
+                            ))}
+                          </Select>
+                        )}
+                      />
+
+                      {errors.state_id && (
+                        <p className="text-red-500">
+                          {" "}
+                          {errors.state_id.message}{" "}
+                        </p>
+                      )}
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-2 md:gap-4">
@@ -424,36 +455,6 @@ const PricingAnalysing = () => {
                           </p>
                         )}
                       </div>
-                    </div>
-                    {/* Country**/}
-                    <div className="w-full">
-                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
-                        Country<span className="text-red-500">*</span>
-                      </label>
-                      <Controller
-                        name="country_id"
-                        control={control}
-                        rules={{ required: "Country is required" }}
-                        render={({ field }) => (
-                          <Select
-                            {...field}
-                            placeholder="-- Select country --"
-                            allowClear
-                            onChange={(value) => field.onChange(value)}
-                          >
-                            {country?.map((item) => (
-                              <Option key={item.id} value={item.id}>
-                                {item.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        )}
-                      />
-                      {errors.country_id && (
-                        <p className="text-red-500">
-                          {errors.country_id.message}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>
