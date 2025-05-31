@@ -81,14 +81,15 @@ export const useCreateJob = () => {
       });
 
       const res = await axiosPrivate.post("/property-job", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       return res.data;
     },
     onSuccess: (data) => {
       if (data?.success) {
         toast.success(data?.message || "Property created successfully");
-        navigate("/properties");
       } else {
         toast.error(data?.message || "Failed to create property");
       }

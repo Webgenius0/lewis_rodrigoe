@@ -22,6 +22,7 @@ const CreateJobModal = ({ visible, onClose }) => {
     console.log(data);
     mutate(data);
   };
+
   // for getting form data and error
   const {
     handleSubmit,
@@ -215,8 +216,9 @@ const CreateJobModal = ({ visible, onClose }) => {
                         beforeUpload={() => false}
                         maxCount={1}
                         onChange={(info) => {
-                          field.onChange(info.fileList[0]); // store file object
+                          field.onChange(info.fileList[0]?.originFileObj); // store file object
                         }}
+                        accept="image/*"
                       >
                         <p>Click to Upload Error Codes Displayed</p>
                         <small>(Max. File size: 25 MB)</small>
@@ -339,8 +341,11 @@ const CreateJobModal = ({ visible, onClose }) => {
                     }}
                     render={({ field }) => (
                       <Dragger
-                        {...field}
+                        onChange={(info) => {
+                          field.onChange(info.fileList[0]?.originFileObj); // store file object
+                        }}
                         beforeUpload={() => false}
+                        accept="image/*"
                         maxCount={3}
                       >
                         <div className="p-2 rounded-[50px] bg-[#F0F5FF] w-fit mx-auto">
@@ -389,8 +394,11 @@ const CreateJobModal = ({ visible, onClose }) => {
                     control={control}
                     render={({ field }) => (
                       <Dragger
-                        {...field}
+                        onChange={(info) => {
+                          field.onChange(info.fileList[0]?.originFileObj); // store file object
+                        }}
                         beforeUpload={() => false}
+                        accept="video/*"
                         maxCount={2}
                       >
                         <div className="p-2 rounded-[50px] bg-[#F0F5FF] w-fit mx-auto">
