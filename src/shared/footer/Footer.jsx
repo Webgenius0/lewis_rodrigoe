@@ -9,15 +9,15 @@ const Footer = () => {
     <>
       <footer className="bg-[#0E0F11]">
         <div className="container">
-          <h1 className="text-[#FFF] font-[Outfit] text-[30px] text-center md:text-start md:text-[48px] not-italic font-semibold leading-[55.2px] tracking-[-1px] py-[100px] ">
+          <h1 className="text-[#FFF] font-[Outfit] text-center md:text-start text-[22px] sm:text-[28px] md:text-[40px] lg:text-[48px] not-italic font-semibold leading-[35.2px] sm:leading-[45.2px] md:leading-[55.2px] tracking-[-1px] py-[40px] sm:py-[50px] md:py-[80px] lg:py-[100px] ">
             Smarter. Simpler. Covered.
           </h1>
           {/* footer main content */}
           <div
             className="py-[33px] border-b border-t border-[#262728] flex lg:flex-row flex-col justify-between gap-[30px] sm:gap-[50px] md:gap-[80px] lg:gap-[150px]"
             style={{
-              borderBottomWidth: "1px",
-              borderTopWidth: "1px",
+              borderBottomWidth: '1px',
+              borderTopWidth: '1px',
             }}
           >
             <div className="flex flex-col items-center md:items-center w-full md:w-[283px] ">
@@ -91,7 +91,7 @@ const Footer = () => {
 
               {/* certificate wrapper */}
               <div className="certificate-area">
-                <h5 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-2 md:mb-3">
+                <h5 className="text-[#FFF] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[27.2px] mb-2 md:mb-3">
                   Certified On
                 </h5>
                 <div className="flex items-center gap-1">
@@ -108,32 +108,32 @@ const Footer = () => {
 
             <div className="grid grid-cols-[repeat(1,1fr)] sm:grid-cols-[repeat(2,1fr)] md:grid-cols-[repeat(3,1fr)] justify-items-center  flex-grow gap-7">
               {/* first grid item */}
-              <div className="firstGrid">
-                <h4 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5 opacity-50">
+              <div className="firstGrid ">
+                <h4 className="text-[#FFF] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5 opacity-50">
                   LINKS
                 </h4>
                 <div className="link-wrapper flex flex-col gap-2 md:gap-4">
                   <Link
                     to=""
-                    className="text-[#FAFAFC] font-[ Manrope] text-[16px] not-italic font-normal leading-[27.2px]  "
+                    className="text-[#FAFAFC] font-[ Manrope] text-[15px] text-[#FAFAFC] font-[ Manrope] md:text-[16px] not-italic font-normal leading-[27.2px]  "
                   >
                     About
                   </Link>
                   <Link
                     to=""
-                    className="text-[#FAFAFC] font-[ Manrope] text-[16px] not-italic font-normal leading-[27.2px]  "
+                    className="text-[#FAFAFC] font-[ Manrope] text-[15px] text-[#FAFAFC] font-[ Manrope] md:text-[16px] not-italic font-normal leading-[27.2px]  "
                   >
                     Services
                   </Link>
                   <Link
                     to=""
-                    className="text-[#FAFAFC] font-[ Manrope] text-[16px] not-italic font-normal leading-[27.2px]  "
+                    className="text-[#FAFAFC] font-[ Manrope] text-[15px] text-[#FAFAFC] font-[ Manrope] md:text-[16px] not-italic font-normal leading-[27.2px]  "
                   >
                     Blog
                   </Link>
                   <Link
                     to=""
-                    className="text-[#FAFAFC] font-[ Manrope] text-[16px] not-italic font-normal leading-[27.2px]  "
+                    className="text-[#FAFAFC] font-[ Manrope] text-[15px] text-[#FAFAFC] font-[ Manrope] md:text-[16px] not-italic font-normal leading-[27.2px]  "
                   >
                     Contact
                   </Link>
@@ -141,8 +141,8 @@ const Footer = () => {
               </div>
 
               {/* second grid item */}
-              <div className="seconGrid">
-                <h4 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5">
+              <div className="seconGrid ">
+                <h4 className="text-[#FFF] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[27.2px] mb-3 md:mb-5">
                   Download the app
                 </h4>
                 <div className="flex flex-col gap-2">
@@ -402,11 +402,11 @@ const Footer = () => {
               </div>
 
               {/* third grid item */}
-              <div className="thirdGrid">
-                <h4 className="text-[#FFF] font-[Manrope] text-[16px] not-italic font-bold leading-[27.2px] mb-2">
+              <div className="thirdGrid ">
+                <h4 className="text-[#FFF] text-center sm:text-start font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[27.2px] mb-1 sm:mb-2">
                   NEWSLETTER
                 </h4>
-                <p className="text-[#FAFAFC] font-[Manrope] text-[16px] not-italic font-normal leading-[27.2px] mb-3 md:mb-5">
+                <p className="text-[#FAFAFC] text-center sm:text-start font-[Manrope] text-[15px] md:text-[16px] not-italic font-normal leading-[27.2px] mb-3 md:mb-5">
                   Sign up to get updates & news.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -414,7 +414,7 @@ const Footer = () => {
                     <input
                       type="text"
                       placeholder="Email Address"
-                      className="rounded-[58px] bg-[#494C50] w- flex-shrink-0 py-4 pr-[64px] pl-5 text-[#FAFAFC] font-[Inter] text-[16px] not-italic font-normal leading-[27.2px] opacity-60"
+                      className="rounded-[58px] bg-[#494C50] w- flex-shrink-0 py-2.5 md:py-4 pr-[64px] pl-5 text-[#FAFAFC] font-[Inter] text-[15px] md:text-[16px] not-italic font-normal leading-[27.2px] opacity-60"
                     />
                     <Button
                       type="submit"
@@ -428,15 +428,15 @@ const Footer = () => {
             </div>
           </div>
           {/* footer bottom part */}
-          <div className="flex justify-between gap-10 py-6 md:py-10 lg:py-14 items-center ">
-            <p className="text-[#FAFAFC] font-[Inter] text-[14px] not-italic font-normal leading-[23.8px]">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 sm:gap-10 py-6 md:py-10 lg:py-14 items-center ">
+            <p className="text-[#FAFAFC] font-[Inter] text-[13px] sm:text-[14px] not-italic font-normal leading-[23.8px]">
               © 2023 All Right Reserved by FramerBite
             </p>
             <div className="flex items-center gap-10">
-              <Link className="text-[#FAFAFC] font-[Inter] text-[14px] not-italic font-normal leading-[23.8px]">
+              <Link className="text-[#FAFAFC] font-[Inter] text-[13px] sm:text-[14px] not-italic font-normal leading-[23.8px]">
                 Privacy Policy
               </Link>
-              <Link className="text-[#FAFAFC] font-[Inter] text-[14px] not-italic font-normal leading-[23.8px]">
+              <Link className="text-[#FAFAFC] font-[Inter] text-[13px] sm:text-[14px] not-italic font-normal leading-[23.8px]">
                 Terms of Use
               </Link>
             </div>

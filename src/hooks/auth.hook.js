@@ -1,10 +1,11 @@
-import { axiosPublic } from "@/lib/axios.config";
+import { axiosPrivate, axiosPublic } from "@/lib/axios.config";
 import {
   matchOtpSchema,
   resetPasswordSchema,
   sendOtpSchema,
   signInSchema,
   signUpSchema,
+  updatePasswordSchema,
 } from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -308,5 +309,51 @@ export const useResetPassword = () => {
     form,
     resetPassword: mutate,
     isResetting: isPending,
+  };
+};
+
+//update password function
+export const useUpdatePassword = () => {
+  const navigate = useNavigate();
+
+  const form = useForm({
+    resolver: zodResolver(updatePasswordSchema),
+    defaultValues: {
+      old_password: "",
+      password: "",
+      password_confirmation: "",
+    },
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (formData) => {
+      const payload = {
+        old_password: formData.old_password,
+        password: formData.password,
+        password_confirmation: formData.password_confirmation,
+      };
+
+      const { data } = await axiosPrivate.patch("auth-user/password", payload);
+
+      if (!data?.success) {
+        throw new Error(data?.message || "Reset failed");
+      }
+
+      return data;
+    },
+    onSuccess: (data) => {
+      toast.success(data.message || "Password update successful");
+      navigate("/sign-in");
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || error.message;
+      toast.error(message || "Password update failed");
+    },
+  });
+
+  return {
+    form,
+    updatePassword: mutate,
+    isUpdating: isPending,
   };
 };

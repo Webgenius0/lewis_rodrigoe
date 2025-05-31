@@ -1,10 +1,7 @@
 import { axiosPrivate } from "@/lib/axios.config";
-import { propertySchema } from "@/schemas/service.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
@@ -24,7 +21,7 @@ export const useCreateProperty = () => {
   const navigate = useNavigate();
 
   const form = useForm({
-    resolver: zodResolver(propertySchema),
+    // resolver: zodResolver(propertySchema),
     defaultValues: {
       label: "",
       street: "",
@@ -33,8 +30,8 @@ export const useCreateProperty = () => {
       state_id: "",
       city_id: "",
       zip_id: "",
-      latitude: "",
-      longitude: "",
+      latitude: null,
+      longitude: null,
       boiler_type_id: "",
       boiler_model_id: "",
       property_type_id: "",
@@ -44,6 +41,7 @@ export const useCreateProperty = () => {
       last_service_date: "",
       location: "",
       accessability_info: "",
+      price: "",
     },
   });
 
@@ -56,7 +54,7 @@ export const useCreateProperty = () => {
         }
       });
 
-      const res = await axios.post("/api/v1/property", formData, {
+      const res = await axiosPrivate.post("/property", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return res.data;
@@ -77,4 +75,108 @@ export const useCreateProperty = () => {
   });
 
   return { form, mutate, isPending };
+};
+//getprice
+export const useGetPropertyPrice = () => {
+  return useMutation({
+    mutationFn: async (body) => {
+      const res = await axiosPrivate.post("/property/price", body);
+      return res.data;
+    },
+  });
+};
+//get country
+export const useGetCountrys = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["country"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/country");
+      return res.data;
+    },
+  });
+  return { country: data?.data, isLoading };
+};
+
+//get state
+export const useGetStates = (countryId) => {
+  console.log({ countryId });
+  const { data, isLoading } = useQuery({
+    queryKey: ["state", countryId],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/country/${countryId}/state`);
+      return res.data;
+    },
+    enabled: !!countryId,
+  });
+
+  return { state: data?.data, isLoading };
+};
+
+//get city
+export const useGetCitys = (cityId) => {
+  console.log({ cityId });
+  const { data, isLoading } = useQuery({
+    queryKey: ["city", cityId],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/state/${cityId}/city`);
+      return res.data;
+    },
+    enabled: !!cityId,
+  });
+
+  return { city: data?.data, isLoading };
+};
+
+//get zip
+export const useGetZip = (zipId) => {
+  console.log({ zipId });
+  const { data, isLoading } = useQuery({
+    queryKey: ["zip", zipId],
+    queryFn: async () => {
+      const res = await axiosPrivate.get(`/city/${zipId}/zip`);
+      return res.data;
+    },
+    enabled: !!zipId,
+  });
+
+  return { zip: data?.data, isLoading };
+};
+
+//boiler type
+
+export const useGetBoilertype = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["boilertype"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/boiler-type");
+      return res.data;
+    },
+  });
+  return { boilertype: data?.data, isLoading };
+};
+
+//boiler model
+
+export const useGetBoilermodel = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["boilermodel"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/boiler-model");
+      return res.data;
+    },
+  });
+  return { boilermodel: data?.data, isLoading };
+};
+
+//property-type
+
+export const useGetPropertytype = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["propertytype"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/property-type");
+      return res.data;
+    },
+  });
+  return { propertytype: data?.data, isLoading };
 };

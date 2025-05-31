@@ -1,17 +1,30 @@
-import { Controller } from 'react-hook-form';
-import 'react-phone-input-2/lib/style.css';
-import homeHero from '../../assets/homeHero.png';
-import { DatePicker, Input, Select } from 'antd';
+import { Controller } from "react-hook-form";
+import "react-phone-input-2/lib/style.css";
+import homeHero from "../../assets/homeHero.png";
+import { Input, Select } from "antd";
 import "react-phone-input-2/lib/style.css";
 import { useNavigate } from "react-router";
 const { Option } = Select;
 import PricingTitle from "./PricingTitle";
-import { useCreateProperty, useGetService } from "@/hooks/service.hook";
+import {
+  useCreateProperty,
+  useGetBoilermodel,
+  useGetBoilertype,
+  useGetCitys,
+  useGetCountrys,
+  useGetPropertyPrice,
+  useGetPropertytype,
+  useGetService,
+  useGetStates,
+  useGetZip,
+} from "@/hooks/service.hook";
 import Plumbing from "@/assets/Plumbing";
 import Electrinic from "@/assets/electrinic";
 import Drainage from "@/assets/Drainage";
 import Heating from "@/assets/Heating";
-import Servicebtn from '../shared/Servicebtn';
+import Servicebtn from "../shared/Servicebtn";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const onChange = (date, dateString) => {
   console.log(date, dateString);
@@ -19,27 +32,103 @@ const onChange = (date, dateString) => {
 
 const PricingAnalysing = () => {
   const { service, isLoading } = useGetService();
+  const { country } = useGetCountrys();
+  console.log({ country });
+  // const { control, watch } = useForm();
 
   const { form, mutate, isPending } = useCreateProperty();
+  const { mutate: fetchPrice, isPending: isPriceLoading } =
+    useGetPropertyPrice();
   const {
     handleSubmit,
     control,
     formState: { errors },
+    watch,
   } = form;
+  const selectedCountryId = watch("country_id");
+  console.log({ selectedCountryId });
+
+  const selectedStateId = watch("state_id");
+  console.log({ selectedStateId });
+  const selectedCityId = watch("city_id");
+  console.log({ selectedCityId });
+  const selectedZipId = watch("zip_id");
+  console.log({ selectedZipId });
+
+  const { state } = useGetStates(selectedCountryId);
+  const { city } = useGetCitys(selectedStateId);
+  const { zip } = useGetZip(selectedCityId);
+  console.log({ zip });
+
+  const { boilertype } = useGetBoilertype();
+  console.log({ boilertype });
+
+  const { boilermodel } = useGetBoilermodel();
+  console.log({ boilermodel });
+
+  const { propertytype } = useGetPropertytype();
+  console.log({ propertytype });
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const [priceModalVisible, setPriceModalVisible] = useState(false);
+
+  const handleSave = () => {
+    const values = form.getValues();
+
+    fetchPrice(
+      {
+        ...values,
+        last_service_date: values.last_service_date
+          ? new Date(values.last_service_date).toISOString()
+          : null,
+      },
+      {
+        onSuccess: (res) => {
+          if (res.success) {
+            const price = res.data?.price ?? 0;
+            form.setValue("price", price);
+            openModal();
+            toast.success("Price calculated successfully");
+          } else {
+            toast.error(res.message || "Failed to calculate price");
+          }
+        },
+        onError: () => {
+          toast.error("Failed to calculate price");
+        },
+      }
+    );
+  };
+
+  const onSubmit = () => {
+    const data = form.getValues();
+
     const payload = {
       ...data,
-      service_ids: data.services.map((s) => ({
-        id: s.id,
-        label: s.name,
-      })),
+      latitude: data.latitude ? Number(data.latitude) : null,
+      longitude: data.longitude ? Number(data.longitude) : null,
+      last_service_date: data.last_service_date
+        ? new Date(data.last_service_date).toISOString()
+        : null,
+      purchase_year: data.purchase_year
+        ? new Date(data.purchase_year).toISOString()
+        : null,
+      // service_id: data.service_id,
+      service_id: Number(data.service_id),
     };
-    mutate(payload);
-    navigate("/sign-up-continue");
+    console.log({ payload });
+    mutate(payload, {
+      onSuccess: (data) => {
+        if (data?.success) {
+          toast.success(data?.message || "created successfully");
+          navigate("/");
+          isOpen(false);
+        } else {
+          toast.error(data?.message || "Failed to create ");
+        }
+      },
+    });
   };
 
   console.log(errors);
@@ -50,22 +139,35 @@ const PricingAnalysing = () => {
     drainage: <Drainage />,
     heating: <Heating />,
   };
+  const [isOpen, setIsOpen] = useState(false);
 
-  const cities = [
-    { id: 1, name: "New York" },
-    { id: 2, name: "London" },
-    { id: 3, name: "Tokyo" },
-  ];
-  const countries = [
-    { id: 1, name: "New York" },
-    { id: 2, name: "London" },
-    { id: 3, name: "Tokyo" },
-  ];
-  const boilertypes = [
-    { id: 1, name: "boiler1" },
-    { id: 2, name: "boiler2" },
-    { id: 3, name: "boiler3" },
-  ];
+  const openModal = () => {
+    // Simulate API call before opening modal
+    console.log("Simulating POST API call...");
+    setTimeout(() => {
+      console.log("API call complete. Opening modal.");
+      setIsOpen(true);
+    }, 1000); // Simulate a 1-second API call
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+  const handleSaveAndContinue = () => {
+    // In a real application, you would handle the form data and further actions here.
+    console.log("Save & Continue clicked");
+
+    closeModal();
+    // You might navigate to the next page or perform other actions.
+  };
+
+  const [selectedPropertyType, setSelectedPropertyType] = useState(null);
+  console.log({ selectedPropertyType });
+  const [selectedBoilerType, setSelectedBoilerType] = useState(null);
+  console.log({ selectedBoilerType });
+  const lastdate = watch("last_service_date");
+  console.log({ lastdate });
+
   return (
     <>
       <section
@@ -93,33 +195,25 @@ const PricingAnalysing = () => {
                 <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 py-4 md:py-6 px-2 md-px-4">
                   <PricingTitle titletext="Services" />
                   <Controller
-                    name="services"
+                    name="service_id"
                     control={control}
                     rules={{ required: "Please select at least one service" }}
                     render={({ field }) => {
                       const selectedServices = field.value || [];
 
                       const toggleService = (service) => {
-                        const exists = selectedServices.find(
-                          (s) => s.id === service.id
-                        );
-                        const newValue = exists
-                          ? selectedServices.filter((s) => s.id !== service.id)
-                          : [
-                              ...selectedServices,
-                              { id: service.id, name: service.name },
-                            ];
+                        const isSelected = selectedServices === service.id;
+                        const newValue = isSelected ? null : service.id;
+
                         field.onChange(newValue);
-                        console.log("Selected Services:", newValue);
+                        console.log("Selected Service ID:", newValue);
                       };
 
                       return (
                         <div className="grid grid-cols-3 gap-2">
                           {service?.map((item) => {
                             const icon = serviceIconMap[item.slug] || null;
-                            const isSelected = selectedServices.some(
-                              (s) => s.id === item.id
-                            );
+                            const isSelected = selectedServices === item.id;
 
                             return (
                               <Servicebtn
@@ -135,8 +229,8 @@ const PricingAnalysing = () => {
                       );
                     }}
                   />
-                  {errors.services && (
-                    <p className="text-red-500">{errors.services.message}</p>
+                  {errors.service_id && (
+                    <p className="text-red-500">{errors.service_id.message}</p>
                   )}
                 </div>
 
@@ -203,38 +297,78 @@ const PricingAnalysing = () => {
                         )}
                       </div>
 
-                      {/* State / Province / Region* */}
+                      {/* Country**/}
                       <div className="w-full">
-                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                          State / Province / Region
-                          <span className="text-red-500">*</span>
+                        <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
+                          Country<span className="text-red-500">*</span>
                         </label>
                         <Controller
-                          name="state_id"
+                          name="country_id"
                           control={control}
-                          rules={{
-                            required: "State / Province / Region is required",
-                          }}
+                          rules={{ required: "Country is required" }}
                           render={({ field }) => (
-                            <Input
+                            <Select
                               {...field}
-                              value={field.value ?? ""}
-                              onChange={(e) =>
-                                field.onChange(Number(e.target.value))
-                              }
-                              placeholder="Enter state..."
-                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                            />
+                              placeholder="-- Select country --"
+                              allowClear
+                              onChange={(value) => field.onChange(value)}
+                            >
+                              {country?.map((item) => (
+                                <Option key={item.id} value={item.id}>
+                                  {item.name}
+                                </Option>
+                              ))}
+                            </Select>
                           )}
                         />
-
-                        {errors.state_id && (
+                        {errors.country_id && (
                           <p className="text-red-500">
-                            {" "}
-                            {errors.state_id.message}{" "}
+                            {errors.country_id.message}
                           </p>
                         )}
                       </div>
+                    </div>
+
+                    {/* State / Province / Region* */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        State / Province / Region
+                        <span className="text-red-500">*</span>
+                      </label>
+
+                      <Controller
+                        name="state_id"
+                        control={control}
+                        rules={{
+                          required: "State / Province / Region is required",
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            value={field.value ?? undefined}
+                            placeholder={
+                              watch("country_id")
+                                ? "-- Select state --"
+                                : "Select country first"
+                            }
+                            disabled={!watch("country_id")}
+                            allowClear
+                          >
+                            {state?.map((item) => (
+                              <Option key={item.id} value={item.id}>
+                                {item.name}
+                              </Option>
+                            ))}
+                          </Select>
+                        )}
+                      />
+
+                      {errors.state_id && (
+                        <p className="text-red-500">
+                          {" "}
+                          {errors.state_id.message}{" "}
+                        </p>
+                      )}
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-2 md:gap-4">
@@ -253,7 +387,12 @@ const PricingAnalysing = () => {
                           render={({ field }) => (
                             <Select
                               {...field}
-                              placeholder="-- Select city --"
+                              placeholder={
+                                watch("state_id")
+                                  ? "-- Select city --"
+                                  : "Select state first"
+                              }
+                              disabled={!watch("state_id")}
                               allowClear
                               onChange={(value) => {
                                 field.onChange(value);
@@ -261,7 +400,7 @@ const PricingAnalysing = () => {
                               }}
                               className=""
                             >
-                              {cities.map((city) => (
+                              {city?.map((city) => (
                                 <Option key={city.id} value={city.id}>
                                   {city.name}
                                 </Option>
@@ -286,14 +425,26 @@ const PricingAnalysing = () => {
                         <Controller
                           name="zip_id"
                           control={control}
-                          rules={{ required: "Postal / ZIP Code is required" }}
+                          rules={{
+                            required: "Zipid is required",
+                          }}
                           render={({ field }) => (
-                            <Input
+                            <Select
                               {...field}
-                              prefix={<></>}
-                              placeholder="Enter postal.."
-                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                            />
+                              placeholder={
+                                watch("city_id")
+                                  ? "-- Select zip --"
+                                  : "Select city first"
+                              }
+                              disabled={!watch("city_id")}
+                              allowClear
+                            >
+                              {zip?.map((item) => (
+                                <Option key={item.id} value={item.id}>
+                                  {item.number}
+                                </Option>
+                              ))}
+                            </Select>
                           )}
                         />
 
@@ -304,45 +455,6 @@ const PricingAnalysing = () => {
                           </p>
                         )}
                       </div>
-                    </div>
-                    {/* Country**/}
-                    <div className="w-full">
-                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-2">
-                        Country<span className="text-red-500">*</span>
-                      </label>
-                      <Controller
-                        name="country_id"
-                        control={control}
-                        rules={{
-                          required: "country is required",
-                        }}
-                        render={({ field }) => (
-                          <Select
-                            {...field}
-                            placeholder="-- Select country --"
-                            allowClear
-                            prefix={<></>}
-                            className=""
-                            onChange={(value) => {
-                              field.onChange(value);
-                              console.log("Selected country ID:", value);
-                            }}
-                          >
-                            {countries.map((country) => (
-                              <Option key={country.id} value={country.id}>
-                                {country.name}
-                              </Option>
-                            ))}
-                          </Select>
-                        )}
-                      />
-
-                      {errors.country_id && (
-                        <p className="text-red-500">
-                          {" "}
-                          {errors.country_id.message}{" "}
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -357,7 +469,64 @@ const PricingAnalysing = () => {
                         Boiler Type<span className="text-red-500">*</span>
                       </label>
                       <Controller
-                        name="boilerType"
+                        name="boiler_type_id"
+                        control={control}
+                        rules={{
+                          required: "Boiler Type is required",
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            {...field}
+                            placeholder="-- Select boiler type --"
+                            allowClear
+                            prefix={<></>}
+                            className=""
+                            value={
+                              boilertype?.find(
+                                (item) => item.id === field.value
+                              )?.id
+                            }
+                            onChange={(value) => {
+                              // value will be the id
+                              field.onChange(value); // store only id for API
+                              const selected = boilertype?.find(
+                                (item) => item.id === value
+                              );
+                              setSelectedBoilerType(selected); // store full object for display
+                              console.log("Selected boiler type ID:", value);
+                              console.log(
+                                "Selected boiler type name:",
+                                selected?.name
+                              );
+                            }}
+                          >
+                            {boilertype?.map((item) => {
+                              return (
+                                <Option key={item.id} value={item.id}>
+                                  {item.name}
+                                </Option>
+                              );
+                            })}
+                          </Select>
+                        )}
+                      />
+
+                      {errors.boiler_type_id && (
+                        <p className="text-red-500">
+                          {" "}
+                          {errors.boiler_type_id.message}{" "}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Brand & Model* */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Brand & Model
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="boiler_model_id"
                         control={control}
                         rules={{
                           required: "Boiler Type is required",
@@ -371,16 +540,13 @@ const PricingAnalysing = () => {
                             className=""
                             onChange={(value) => {
                               field.onChange(value);
-                              console.log("Selected boiler typed ID:", value);
+                              console.log("Selected boiler model ID:", value);
                             }}
                           >
-                            {boilertypes.map((boilertype) => {
+                            {boilermodel?.map((item) => {
                               return (
-                                <Option
-                                  key={boilertype.id}
-                                  value={boilertype.id}
-                                >
-                                  {boilertype.name}
+                                <Option key={item.id} value={item.id}>
+                                  {item.name}
                                 </Option>
                               );
                             })}
@@ -388,36 +554,11 @@ const PricingAnalysing = () => {
                         )}
                       />
 
-                      {errors.boilerType && (
+                      {errors.boiler_model_id && (
                         <p className="text-red-500">
                           {" "}
-                          {errors.boilerType.message}{" "}
+                          {errors.boiler_model_id.message}{" "}
                         </p>
-                      )}
-                    </div>
-
-                    {/* Brand & Model* */}
-                    <div className="w-full">
-                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
-                        Brand & Model
-                        <span className="text-red-500">*</span>
-                      </label>
-                      <Controller
-                        name="model"
-                        control={control}
-                        rules={{ required: "Brand & Model* is required" }}
-                        render={({ field }) => (
-                          <Input
-                            {...field}
-                            prefix={<></>}
-                            placeholder="Enter brand & model"
-                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                          />
-                        )}
-                      />
-
-                      {errors.model && (
-                        <p className="text-red-500"> {errors.model.message} </p>
                       )}
                     </div>
                     {/* Number of Boilers**/}
@@ -426,30 +567,25 @@ const PricingAnalysing = () => {
                         Number of Boilers<span className="text-red-500">*</span>
                       </label>
                       <Controller
-                        name="boilersNumber"
+                        name="quantity"
                         control={control}
                         rules={{
                           required: "Number of Boilers is required",
                         }}
                         render={({ field }) => (
-                          <Select
+                          <Input
                             {...field}
-                            placeholder="-- Select boiler number --"
-                            allowClear
                             prefix={<></>}
-                            className=""
-                          >
-                            <Option value="male">Option 1</Option>
-                            <Option value="female">Option 2</Option>
-                            <Option value="other">Option 3</Option>
-                          </Select>
+                            placeholder="Enter boiler number"
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                          />
                         )}
                       />
 
-                      {errors.boilersNumber && (
+                      {errors.quantity && (
                         <p className="text-red-500">
                           {" "}
-                          {errors.boilersNumber.message}{" "}
+                          {errors.quantity.message}{" "}
                         </p>
                       )}
                     </div>
@@ -461,23 +597,23 @@ const PricingAnalysing = () => {
                           <span className="text-red-500">*</span>
                         </label>
                         <Controller
-                          name="boilerAge"
+                          name="purchase_year"
                           control={control}
                           rules={{ required: "Age of Boiler is required" }}
                           render={({ field }) => (
-                            <Input
+                            <input
                               {...field}
-                              prefix={<></>}
-                              placeholder="Enter boiler age"
-                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                              type="date"
+                              placeholder="YYYY/MM/DD"
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px] focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] shadow-sm"
                             />
                           )}
                         />
 
-                        {errors.boilerAge && (
+                        {errors.purchase_year && (
                           <p className="text-red-500">
                             {" "}
-                            {errors.boilerAge.message}{" "}
+                            {errors.purchase_year.message}{" "}
                           </p>
                         )}
                       </div>
@@ -493,21 +629,17 @@ const PricingAnalysing = () => {
                           control={control}
                           rules={{ required: "Last Serviced Date is required" }}
                           render={({ field }) => (
-                            <DatePicker
-                              onChange={onChange}
+                            <input
                               {...field}
-                              placeholder="DD/MM/YYYY"
-                              allowClear
-                              prefix={<></>}
-                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                              type="date"
+                              placeholder="YYYY/MM/DD"
+                              className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px] focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] shadow-sm"
                             />
                           )}
                         />
-
                         {errors.last_service_date && (
                           <p className="text-red-500">
-                            {" "}
-                            {errors.last_service_date.message}{" "}
+                            {errors.last_service_date.message}
                           </p>
                         )}
                       </div>
@@ -553,9 +685,9 @@ const PricingAnalysing = () => {
                         <span className="text-red-500">*</span>
                       </label>
                       <Controller
-                        name="propertyName"
+                        name="label"
                         control={control}
-                        rules={{ required: 'Property Name is required' }}
+                        rules={{ required: "Property Name is required" }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -566,11 +698,8 @@ const PricingAnalysing = () => {
                         )}
                       />
 
-                      {errors.propertyName && (
-                        <p className="text-red-500">
-                          {' '}
-                          {errors.propertyName.message}{' '}
-                        </p>
+                      {errors.label && (
+                        <p className="text-red-500"> {errors.label.message} </p>
                       )}
                     </div>
                     {/* Property Type* */}
@@ -580,23 +709,52 @@ const PricingAnalysing = () => {
                         <span className="text-red-500">*</span>
                       </label>
                       <Controller
-                        name="propertyType"
+                        name="property_type_id"
                         control={control}
-                        rules={{ required: 'Property Type is required' }}
+                        rules={{
+                          required: "Property Type is required",
+                        }}
                         render={({ field }) => (
-                          <Input
+                          <Select
                             {...field}
+                            placeholder="-- Select boiler type --"
+                            allowClear
                             prefix={<></>}
-                            placeholder="Enter property name"
-                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
-                          />
+                            className=""
+                            value={
+                              propertytype?.find(
+                                (item) => item.id === field.value
+                              )?.id
+                            }
+                            onChange={(value) => {
+                              // value will be the id
+                              field.onChange(value); // store only id for API
+                              const selected = propertytype?.find(
+                                (item) => item.id === value
+                              );
+                              setSelectedPropertyType(selected); // store full object for display
+                              console.log("Selected property type ID:", value);
+                              console.log(
+                                "Selected property type name:",
+                                selected?.name
+                              );
+                            }}
+                          >
+                            {propertytype?.map((item) => {
+                              return (
+                                <Option key={item.id} value={item.id}>
+                                  {item.name}
+                                </Option>
+                              );
+                            })}
+                          </Select>
                         )}
                       />
 
-                      {errors.propertyType && (
+                      {errors.propertytype && (
                         <p className="text-red-500">
-                          {' '}
-                          {errors.propertyType.message}{' '}
+                          {" "}
+                          {errors.propertytype.message}{" "}
                         </p>
                       )}
                     </div>
@@ -607,9 +765,9 @@ const PricingAnalysing = () => {
                         <span className="text-red-500">*</span>
                       </label>
                       <Controller
-                        name="accessibilityInfo"
+                        name="accessability_info"
                         control={control}
-                        rules={{ required: 'Accessibility Info is required' }}
+                        rules={{ required: "Accessibility Info is required" }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -620,10 +778,61 @@ const PricingAnalysing = () => {
                         )}
                       />
 
-                      {errors.accessibilityInfo && (
+                      {errors.accessability_info && (
                         <p className="text-red-500">
-                          {' '}
-                          {errors.accessibilityInfo.message}{' '}
+                          {" "}
+                          {errors.accessability_info.message}{" "}
+                        </p>
+                      )}
+                    </div>
+                    {/* price */}
+                    {/* <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Price
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Controller
+                        name="price"
+                        control={control}
+                        rules={{ required: "price is required" }}
+                        value={calculatedPrice}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            prefix={<></>}
+                            placeholder="Enter price"
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)] "
+                          />
+                        )}
+                      />
+
+                      {errors.price && (
+                        <p className="text-red-500"> {errors.price.message} </p>
+                      )}
+                    </div> */}
+                    <div className="w-full">
+                      <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                        Number of Radiators
+                        <span className="text-red-500">*</span>
+                      </label>
+
+                      <Controller
+                        name="radiator"
+                        control={control}
+                        rules={{ required: "Radiator count is required" }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            type="number"
+                            placeholder="Enter radiator count"
+                            className="w-full px-4 py-2.5 border border-[#E1E6EF] rounded-[12px] focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)]"
+                          />
+                        )}
+                      />
+
+                      {errors.radiator && (
+                        <p className="text-red-500">
+                          {errors.radiator.message}
                         </p>
                       )}
                     </div>
@@ -633,17 +842,16 @@ const PricingAnalysing = () => {
                 <div className="btn-wrapper mt-6 md:mt-8 lg:mt-10 flex flex-col md:flex-row gap-2 md:gap-3">
                   <button
                     type="button"
-                    onClick={
-                      ()=>{
-                        navigate(-1)
-                      }
-                    }
+                    onClick={() => {
+                      navigate(-1);
+                    }}
                     className="w-full bg-[#EAEAEA] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#ee3a3a] hover:text-[#F0F5F6] border border-[#EAEAEA] transition text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] "
                   >
                     Back
                   </button>
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleSave}
                     className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px]"
                   >
                     Save & Analysis
@@ -654,6 +862,113 @@ const PricingAnalysing = () => {
           </div>
         </div>
       </section>
+
+      {isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+            {/* Modal Header */}
+            <div className="flex justify-center py-4">
+              <div className="bg-blue-100 rounded-full p-2">
+                {/* Replace with your house icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 text-blue-500"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m2.25 12 8.954-8.955c.05-.05.121-.075.196-.075h10.5c.075 0 .146.025.196.075L21.75 12M4.5 9.75v10.125c0 .075.025.146.075.196l7.5 7.5c.05.05.121.075.196.075H18v-2.25m-11.25 0a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zm15.75 0a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div className="text-center px-6 py-2">
+              <h3 className="text-blue-500 font-semibold text-lg">
+                Standard Service — Balanced, Reliable, and Cost-Effective
+              </h3>
+              <p className="text-gray-700 text-sm mt-2">
+                Your job gets priority listing to local plumbers ensuring faster
+                responses at a fair price.
+              </p>
+            </div>
+
+            {/* Pricing Plan */}
+            <div className="bg-black rounded-xl mx-6 my-4 p-6">
+              <div className="relative flex justify-center mb-4">
+                <div className="absolute -top-6">
+                  {/* Replace with your gift icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-10 h-10 text-orange-500"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3c0 4.792 3.5 8.298 5.25 10.002 1.75-1.704 5.25-5.21 5.25-10.002v-3a5.25 5.25 0 0 0-5.25-5.25ZM12 12a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full py-2 px-6 text-sm font-semibold">
+                  Your Plan
+                </div>
+              </div>
+              <ul className="text-gray-300 text-sm space-y-2 mb-4 px-4">
+                <li>{selectedBoilerType?.name}</li>
+                <li>{selectedPropertyType?.name}</li>
+                <li>Date: {lastdate}</li>
+              </ul>
+              <div className="flex justify-between items-center px-4">
+                <span className="text-white font-semibold">Monthly</span>
+                <span className="text-white font-bold text-lg">
+                  ${form.getValues("price")}/mo
+                </span>
+              </div>
+            </div>
+
+            {/* Agreement Checkbox */}
+            <div className="px-6 py-3">
+              <label className="flex items-center text-gray-600 text-xs">
+                <input
+                  type="checkbox"
+                  className="form-checkbox h-4 w-4 text-blue-500 rounded border-gray-300 focus:ring-blue-500"
+                />
+                <span className="ml-2">
+                  By checking this box, you are agreeing to our{" "}
+                  <a href="#" className="underline">
+                    terms
+                  </a>{" "}
+                  and{" "}
+                  <a href="#" className="underline">
+                    conditions
+                  </a>
+                </span>
+              </label>
+            </div>
+
+            {/* Buttons */}
+            <div className="px-6 py-4 flex justify-end gap-2">
+              <button
+                onClick={closeModal}
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+              >
+                Back
+              </button>
+              <button
+                onClick={onSubmit}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Save & Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

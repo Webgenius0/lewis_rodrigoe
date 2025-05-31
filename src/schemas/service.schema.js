@@ -10,8 +10,21 @@ export const propertySchema = z.object({
   city_id: z.coerce.number({ invalid_type_error: "City is required" }),
   zip_id: z.coerce.number({ invalid_type_error: "Zip is required" }),
 
-  latitude: z.string().optional(),
-  longitude: z.string().optional(),
+  latitude: z
+    .string()
+    .optional()
+    .transform((val) => (val ? Number(val) : null))
+    .refine((val) => val === null || !isNaN(val), {
+      message: "Latitude must be a number",
+    }),
+
+  longitude: z
+    .string()
+    .optional()
+    .transform((val) => (val ? Number(val) : null))
+    .refine((val) => val === null || !isNaN(val), {
+      message: "Longitude must be a number",
+    }),
 
   boiler_type_id: z.coerce.number({
     invalid_type_error: "Boiler type is required",
@@ -25,9 +38,25 @@ export const propertySchema = z.object({
   service_id: z.coerce.number({ invalid_type_error: "Service is required" }),
 
   quantity: z.coerce.number({ invalid_type_error: "Quantity is required" }),
-  purchase_year: z.string(), // e.g., "2021-05"
-  last_service_date: z.string().optional(), // e.g., "2024-12-31"
+  purchase_year: z
+    .string()
+    .optional()
+    .refine((val) => !val || !isNaN(Date.parse(val)), {
+      message: "Invalid date format",
+    }), // e.g., "2021-05"
+  last_service_date: z
+    .string()
+    .optional()
+    .refine((val) => !val || !isNaN(Date.parse(val)), {
+      message: "Invalid date format",
+    }), // e.g., "2024-12-31"
+  // price: z.coerce.number({
+  //   invalid_type_error: "price is required",
+  // }),
 
   location: z.string(),
   accessability_info: z.string(),
+  radiator: z
+    .number({ required_error: "Radiator count is required" })
+    .min(1, "At least 1 radiator is required"),
 });

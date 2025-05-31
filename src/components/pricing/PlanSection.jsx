@@ -94,7 +94,7 @@ const PlanSection = () => {
   ];
 
   return (
-    <section className='bg-white'>
+    <section className="bg-white">
       <div className="container mt-14">
         <div className="rounded-[24px] bg-[#000] backdrop-blur-[86px]  w-fit mx-auto flex justify-center">
           <div className="flex gap-2">
@@ -115,7 +115,10 @@ const PlanSection = () => {
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <div
+          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
+          
+        >
           {(activeTab === 'general' ? plans.general : plans.landlord).map(
             (plan, idx) => (
               <PlanCard key={idx} {...plan} />

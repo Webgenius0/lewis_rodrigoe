@@ -9,4 +9,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"), // Set alias for "@/"
     },
   },
+  preview: {
+    allowedHosts: ["housemateuk.com"],
+  },
 });
