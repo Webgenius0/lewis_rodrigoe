@@ -2,16 +2,16 @@ import { Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Link } from 'react-router';
-import { Input, Select } from 'antd';
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { Link } from "react-router";
+import { Input, Select } from "antd";
 const { Option } = Select;
-import { useState } from 'react';
-import { Upload, message } from 'antd';
-import ImgCrop from 'antd-img-crop';
-import uploadPlus from '../../assets/uploadPlus.png';
-import {  UserOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { Upload, message } from "antd";
+import ImgCrop from "antd-img-crop";
+import uploadPlus from "../../assets/uploadPlus.png";
+import { UserOutlined } from "@ant-design/icons";
 import { useSignUp } from "@/hooks/auth.hook";
 import { AuthComment } from "@/components/auth/AuthComment";
 
@@ -44,9 +44,8 @@ const SignUp = () => {
     watch,
   } = form;
 
-
   const onSubmit = (data) => {
-    console.log({data});
+    console.log({ data });
     console.log(data);
     mutate(data);
   };
@@ -566,7 +565,7 @@ const SignUp = () => {
 
           {/* dummy user comment area */}
 
-          <AuthComment />
+          {/* <AuthComment /> */}
         </div>
       </div>
     </section>

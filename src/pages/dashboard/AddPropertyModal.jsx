@@ -957,7 +957,7 @@ const AddPropertyModal = ({ visible, onClose }) => {
                 <div className="flex justify-between items-center px-4">
                   <span className="text-white font-semibold">Monthly</span>
                   <span className="text-white font-bold text-lg">
-                    ${form.getValues("price")}/mo
+                    £{form.getValues("price")}/mo
                   </span>
                 </div>
               </div>
