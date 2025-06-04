@@ -14,7 +14,7 @@ const columns = [
     title: "ID",
     dataIndex: "id",
     key: "id",
-    sorter: (a, b) => a.id.localeCompare(b.id),
+    sorter: (a, b) => a.id - b.id,
   },
   {
     title: "Address",
@@ -74,15 +74,15 @@ const MyProperties = () => {
         </div>
         <div className="flex flex-wrap gap-2.5">
           {/* Month Picker */}
-          <DatePicker
+          {/* <DatePicker
             picker="month"
             format="MMMM YYYY"
             className="w-[180px] px-4 py-2.5 border border-[#E1E6EF] rounded-[12px]  focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#FFF] [box-shadow:0px_2px_2px_0px_rgba(0,_0,_0,_0.03)]"
             allowClear={false}
-          />
+          /> */}
 
           {/* Sort By */}
-          <div className="flex gap-2.5 items-center">
+          {/* <div className="flex gap-2.5 items-center">
             <label className="text-[#B1B2B5] text-center font-[Satoshi] text-[12px] not-italic font-normal leading-[15.6px]">
               Sort by:
             </label>
@@ -90,7 +90,7 @@ const MyProperties = () => {
               <Option value="latest">Latest</Option>
               <Option value="oldest">Oldest</Option>
             </Select>
-          </div>
+          </div> */}
 
           {/* Add Button */}
           <button

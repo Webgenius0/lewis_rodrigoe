@@ -4,10 +4,10 @@ import { Card, Button } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Link } from "react-router";
 
-const PlanCard = ({ title, price, features, buttonText }) => {
+const PlanCard = ({ title, price, features, buttonText, id }) => {
   return (
     <div data-aos="zoom-in">
-      <Link to="/pricing-analysing">
+      <Link to="/sign-up" state={{ package_id: id }}>
         {" "}
         <Card
           className="relative overflow-hidden text-center rounded-[12px] bg-white dark:bg-[#1A1B1F] transition-transform duration-300 hover:scale-105 group border border-[#EAEDF0] group-hover:border-[#0048FF]"

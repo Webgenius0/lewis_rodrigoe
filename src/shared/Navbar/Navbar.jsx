@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dropdown } from "antd";
 import { Link, useLocation, useNavigate } from "react-router";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo-removebg.png";
 import downArrow from "../../assets/cheveronDown.svg";
 import {
   DropdownMenu,
@@ -131,7 +131,7 @@ const Navbar = () => {
               <img src={downArrow} alt="downArrow" />
             </Link>
           </Dropdown> */}
-
+          <Link to="/">Home</Link>
           <Link to="/pricing">Pricing</Link>
           <Link to="/">Contact</Link>
         </nav>

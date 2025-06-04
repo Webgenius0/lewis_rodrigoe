@@ -37,7 +37,7 @@ export const useCreateProperty = () => {
       property_type_id: "",
       service_id: "",
       quantity: "",
-      purchase_year: "",
+      // purchase_year: "",
       last_service_date: "",
       location: "",
       accessability_info: "",
@@ -59,10 +59,12 @@ export const useCreateProperty = () => {
       });
       return res.data;
     },
+
     onSuccess: (data) => {
+      //debugger;
       if (data?.success) {
         toast.success(data?.message || "Property created successfully");
-        navigate("/properties");
+        navigate("/dashboard");
       } else {
         toast.error(data?.message || "Failed to create property");
       }
@@ -85,6 +87,30 @@ export const useGetPropertyPrice = () => {
     },
   });
 };
+//get packages
+
+export const useGetGeneralPackages = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["packages"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/package/general");
+      return res.data;
+    },
+  });
+  return { generalPackages: data?.data, isLoading };
+};
+
+export const useGetLandlordPackages = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["package"],
+    queryFn: async () => {
+      const res = await axiosPrivate.get("/package/landlord");
+      return res.data;
+    },
+  });
+  return { landlordPackages: data?.data, isLoading };
+};
+
 //get country
 export const useGetCountrys = () => {
   const { data, isLoading } = useQuery({

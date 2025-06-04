@@ -122,16 +122,18 @@ const PricingAnalysing = () => {
     };
     console.log({ payload });
     mutate(payload, {
-      onSuccess: (data) => {
-        if (data?.success) {
-          toast.success(data?.message || "created successfully");
-          navigate("/");
-          isOpen(false);
-        } else {
-          toast.error(data?.message || "Failed to create ");
-        }
-      },
+      // onSuccess: (data) => {
+      //   if (data?.success) {
+      //     toast.success(data?.message || "created successfully");
+      //     navigate("/");
+      //     isOpen(false);
+      //   } else {
+      //     toast.error(data?.message || "Failed to create ");
+      //   }
+      // },
     });
+
+    // navigate("/card");
   };
 
   console.log(errors);
@@ -170,7 +172,8 @@ const PricingAnalysing = () => {
   console.log({ selectedBoilerType });
   const lastdate = watch("last_service_date");
   console.log({ lastdate });
-
+  const radiator = watch("radiator");
+  console.log({ radiator });
   return (
     <>
       <section
@@ -904,6 +907,7 @@ const PricingAnalysing = () => {
               <ul className="text-gray-300 text-sm space-y-2 mb-4 px-4">
                 <li>{selectedBoilerType?.name}</li>
                 <li>{selectedPropertyType?.name}</li>
+                <li>{radiator}</li>
                 <li>Date: {lastdate}</li>
               </ul>
               <div className="flex justify-between items-center px-4">

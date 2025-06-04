@@ -404,11 +404,11 @@ const Profile = () => {
       label: "Password",
       children: password,
     },
-    {
-      key: "3",
-      label: "Notifications",
-      children: <NotificationSettings />,
-    },
+    // {
+    //   key: "3",
+    //   label: "Notifications",
+    //   children: <NotificationSettings />,
+    // },
   ];
 
   return (

@@ -28,6 +28,7 @@ export const useSignUp = () => {
       phone: "",
       gender: "",
       avatar: null,
+      package_id: "",
     },
   });
 
