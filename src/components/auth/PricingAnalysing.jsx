@@ -133,7 +133,7 @@ const PricingAnalysing = () => {
       // },
     });
 
-    // navigate("/card");
+    navigate("/card");
   };
 
   console.log(errors);

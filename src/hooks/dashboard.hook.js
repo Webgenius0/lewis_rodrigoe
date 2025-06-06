@@ -199,3 +199,49 @@ export const useGetMessages = (receiverId, page = 1) => {
     staleTime: 30 * 1000,
   });
 };
+
+//collect card
+export const useCollectCard = () => {
+  const navigate = useNavigate();
+  const form = useForm({
+    // resolver: zodResolver(createjobSchema),
+    defaultValues: {
+      name: "",
+      number: "",
+      cvv: "",
+      date: "",
+    },
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (payload) => {
+      const formData = new FormData();
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, value);
+        }
+      });
+
+      const res = await axiosPrivate.post("/card", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success(data?.message || "Card data stored successfully");
+        navigate("/");
+      } else {
+        toast.error(data?.message || "Failed to create card");
+      }
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message || "Failed to create card";
+      toast.error(message);
+    },
+  });
+
+  return { form, mutate, isPending };
+};

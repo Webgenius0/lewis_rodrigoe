@@ -93,11 +93,15 @@ const AddPropertyModal = ({ visible, onClose }) => {
             openModal();
             toast.success("Price calculated successfully");
           } else {
-            toast.error(res.message || "Failed to calculate price");
+            toast.error(
+              res.message || "Failed to calculate price sign in first"
+            );
+            navigate("/sign-in");
           }
         },
         onError: () => {
-          toast.error("Failed to calculate price");
+          toast.error("Failed to calculate price sign in first");
+          navigate("/sign-in");
         },
       }
     );
@@ -120,18 +124,8 @@ const AddPropertyModal = ({ visible, onClose }) => {
       service_id: Number(data.service_id),
     };
     console.log({ payload });
-    mutate(payload, {
-      // onSuccess: (data) => {
-      //   if (data?.success) {
-      //     toast.success(data?.message || "created successfully");
-      //     navigate("/");
-      //     isOpen(false);
-      //   } else {
-      //     toast.error(data?.message || "Failed to create ");
-      //   }
-      // },
-    });
-    // navigate("/card");
+    mutate(payload);
+    navigate("/card");
   };
 
   console.log(errors);

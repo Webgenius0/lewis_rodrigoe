@@ -64,7 +64,7 @@ export const useCreateProperty = () => {
       //debugger;
       if (data?.success) {
         toast.success(data?.message || "Property created successfully");
-        navigate("/dashboard");
+        navigate("/card");
       } else {
         toast.error(data?.message || "Failed to create property");
       }

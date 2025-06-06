@@ -21,17 +21,20 @@ import { useGetMessages, useSendMessage } from "@/hooks/dashboard.hook";
 const Messages = () => {
   const [searchValue, setSearchValue] = useState("");
   const [receiverId, setReceiverId] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   // API integration
   const { data: messageData, isLoading } = useGetMessages(receiverId); // Optional: pass chatId
   const { mutate: sendMessage } = useSendMessage();
 
   const [messages, setMessages] = useState([]);
-  const currentUserId = 3; // Replace with actual user from auth context
+  // const currentUserId = 3; // Replace with actual user from auth context
+  const user = JSON.parse(localStorage.getItem("user"));
+  const currentUserId = user?.id;
 
   // Sync API data
   useEffect(() => {
-    if (messageData?.messages) {
+    if (messageData?.data) {
       const formattedMessages = messageData.data.map((msg) => ({
         message: msg.content,
         sender: msg.sender_id === currentUserId ? "user" : "agent",
@@ -39,7 +42,19 @@ const Messages = () => {
       }));
       setMessages(formattedMessages);
     }
-  }, [messageData]);
+  }, [messageData, currentUserId]);
+  useEffect(() => {
+    const messageList = document.querySelector(
+      ".cs-message-list__scroll-wrapper"
+    );
+    if (messageList) {
+      messageList.scrollTop = messageList.scrollHeight;
+    }
+  }, [messages]);
+
+  if (!currentUserId) {
+    return <div>Please log in to view messages.</div>;
+  }
 
   const handleSend = (messageText) => {
     if (!messageText.trim() || !receiverId) return;
@@ -86,9 +101,9 @@ const Messages = () => {
           <div className="p-3 border-b border-gray-300">
             <h2 className="text-lg font-semibold">
               Messages
-              <span className="ml-2 text-xs bg-blue-500 text-white px-2 py-0.5 rounded-full">
+              {/* <span className="ml-2 text-xs bg-blue-500 text-white px-2 py-0.5 rounded-full">
                 29
-              </span>
+              </span> */}
             </h2>
             <Input
               placeholder="Search..."
@@ -101,7 +116,15 @@ const Messages = () => {
             {[...Array(10)].map((_, i) => (
               <Conversation
                 key={i}
-                onClick={() => setReceiverId(i + 1)}
+                onClick={() => {
+                  setReceiverId(i + 1);
+                  setSelectedUser({
+                    id: i + 1,
+                    name: `User ${i + 1}`,
+                    avatar: `https://i.pravatar.cc/150?img=${i + 1}`,
+                    status: "Online",
+                  });
+                }}
                 name={`User ${i + 1}`}
                 lastSenderName="User"
                 info="Last message preview..."
@@ -114,8 +137,11 @@ const Messages = () => {
 
         <ChatContainer>
           <ConversationHeader>
-            <Avatar src="https://i.pravatar.cc/150?img=3" />
-            <ConversationHeader.Content userName="Jerome White" info="Online" />
+            <Avatar src={selectedUser?.avatar} />
+            <ConversationHeader.Content
+              userName={selectedUser?.name}
+              info={selectedUser?.status}
+            />
             <ConversationHeader.Actions>
               <Dropdown overlay={menu} trigger={["click"]}>
                 <EllipsisOutlined className="text-lg cursor-pointer" />
