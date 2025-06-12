@@ -17,7 +17,7 @@ const JobCard = ({
   description = "My home boiler has stopped heating water. It turns on but doesn’t produce hot water. I need someone to check and fix it ASAP.",
   arrivalTime = "15mins",
 }) => {
-  const isCompleted = status === "completed";
+  //const isCompleted = status === "completed";
   const getStatusInfo = (status) => {
     switch (status?.toLowerCase()) {
       case "completed":

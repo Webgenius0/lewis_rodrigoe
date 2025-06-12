@@ -16,7 +16,7 @@ export const signUpSchema = z
       .refine((val) => val.length >= 10 && val.length <= 15, {
         message: "Phone number must be between 10 and 15 digits",
       }),
-
+    package_id: z.number().optional(),
     gender: z.enum(["male", "femail", "other"], {
       required_error: "Gender is required",
     }),
@@ -84,3 +84,8 @@ export const updatePasswordSchema = z
     path: ["password_confirmation"],
     message: "Passwords do not match",
   });
+
+export const sendMessageSchema = z.object({
+  receiver_id: z.number(),
+  content: z.string().min(1, "Message content is required"),
+});

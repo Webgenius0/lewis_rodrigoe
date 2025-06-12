@@ -101,7 +101,7 @@ const Profile = () => {
         </Button>
       </div>
       {/* Name */}
-      <div className="py-5 flex gap-8 border-b border-[#E9EAEB]">
+      {/* <div className="py-5 flex gap-8 border-b border-[#E9EAEB]">
         <label className="block text-[#414651] font-[Manrope] text-[15px] md:text-[16px] not-italic font-semibold leading-[20px] min-w-[280px]">
           Name
         </label>
@@ -136,6 +136,38 @@ const Profile = () => {
           readOnly={!isEditing}
           className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
         />
+      </div> */}
+
+      <div className="flex gap-5 w-full items-center border-b border-[#E9EAEB]">
+        {/* First Name */}
+        <div className="py-5 flex flex-col gap-1 ">
+          <label className="block text-[#414651] font-[Manrope] text-[15px] md:text-[16px] not-italic font-semibold leading-[20px] min-w-[280px]">
+            First Name
+          </label>
+          <Input
+            name="first_name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            readOnly={!isEditing}
+            placeholder="First Name"
+            className="w-full px-4 py-2 border  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
+          />
+        </div>
+
+        {/* Last Name */}
+        <div className="py-5 flex flex-col gap-1  ">
+          <label className="block text-[#414651] font-[Manrope] text-[15px] md:text-[16px] not-italic font-semibold leading-[20px] min-w-[280px]">
+            Last Name
+          </label>
+          <Input
+            name="last_name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            readOnly={!isEditing}
+            placeholder="Last Name"
+            className="w-full px-4 py-2 border  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4] max-w-[509px]"
+          />
+        </div>
       </div>
       {/* Email */}
       <div className="py-5 flex gap-8 border-b border-[#E9EAEB]">
@@ -404,11 +436,11 @@ const Profile = () => {
       label: "Password",
       children: password,
     },
-    {
-      key: "3",
-      label: "Notifications",
-      children: <NotificationSettings />,
-    },
+    // {
+    //   key: "3",
+    //   label: "Notifications",
+    //   children: <NotificationSettings />,
+    // },
   ];
 
   return (

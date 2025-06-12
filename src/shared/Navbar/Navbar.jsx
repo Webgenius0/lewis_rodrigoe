@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dropdown } from "antd";
 import { Link, useLocation, useNavigate } from "react-router";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo-removebg.png";
 import downArrow from "../../assets/cheveronDown.svg";
 import {
   DropdownMenu,
@@ -118,22 +118,22 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <nav className="hidden lg:flex items-center gap-10 text-white font-[Inter] text-[16px] font-medium leading-[27.2px]">
-          <Dropdown menu={menu1} placement="bottom">
+          {/* <Dropdown menu={menu1} placement="bottom">
             <Link className="flex items-center gap-2.5">
               <span>Demos</span>
               <img src={downArrow} alt="downArrow" />
             </Link>
-          </Dropdown>
+          </Dropdown> */}
 
-          <Dropdown menu={menu2} placement="bottom">
+          {/* <Dropdown menu={menu2} placement="bottom">
             <Link className="flex items-center gap-2.5">
               <span>Essential Pages</span>
               <img src={downArrow} alt="downArrow" />
             </Link>
-          </Dropdown>
-
+          </Dropdown> */}
+          <Link to="/">Home</Link>
           <Link to="/pricing">Pricing</Link>
-          <Link to="/">Connect</Link>
+          <Link to="/">Contact</Link>
         </nav>
 
         {/* Join button */}

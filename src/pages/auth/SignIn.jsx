@@ -1,10 +1,10 @@
-import { Controller } from 'react-hook-form';
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Input } from 'antd';
+import { Controller } from "react-hook-form";
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { Input } from "antd";
 import { Link } from "react-router";
 import { useSignIn } from "@/hooks/auth.hook";
-import { AuthComment } from '@/components/auth/AuthComment';
+import { AuthComment } from "@/components/auth/AuthComment";
 
 const SignIn = () => {
   const { form, mutate, isPending } = useSignIn();
@@ -107,7 +107,7 @@ const SignIn = () => {
               <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] text-center">
                 Don’t have an Account?{" "}
                 <Link
-                  to="/sign-up"
+                  to="/pricing"
                   className="text-[#0A0A0A] font-semibold underline"
                 >
                   Sign-Up here!
@@ -117,7 +117,7 @@ const SignIn = () => {
           </div>
 
           {/* Dummy comment area */}
-          <AuthComment />
+          {/* <AuthComment /> */}
         </div>
       </div>
     </section>

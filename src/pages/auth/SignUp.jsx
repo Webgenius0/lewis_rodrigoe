@@ -2,18 +2,20 @@ import { Controller } from "react-hook-form";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Link } from 'react-router';
-import { Input, Select } from 'antd';
+import homeHero from "../../assets/homeHero.png";
+import logo from "../../assets/logo.png";
+import { Link } from "react-router";
+import { Input, Select } from "antd";
 const { Option } = Select;
-import { useState } from 'react';
-import { Upload, message } from 'antd';
-import ImgCrop from 'antd-img-crop';
-import uploadPlus from '../../assets/uploadPlus.png';
-import {  UserOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { Upload, message } from "antd";
+import ImgCrop from "antd-img-crop";
+import uploadPlus from "../../assets/uploadPlus.png";
+import { UserOutlined } from "@ant-design/icons";
 import { useSignUp } from "@/hooks/auth.hook";
 import { AuthComment } from "@/components/auth/AuthComment";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -44,9 +46,8 @@ const SignUp = () => {
     watch,
   } = form;
 
-
   const onSubmit = (data) => {
-    console.log({data});
+    console.log({ data });
     console.log(data);
     mutate(data);
   };
@@ -83,7 +84,15 @@ const SignUp = () => {
 
   const watchFields = watch(["first_name", "last_name", "phone", "gender"]);
   const isDisabled = watchFields.some((val) => !val);
+  const location = useLocation();
+  const selectedPackageId = location.state?.package_id;
+  console.log({ selectedPackageId });
 
+  useEffect(() => {
+    if (selectedPackageId) {
+      form.setValue("package_id", selectedPackageId);
+    }
+  }, [selectedPackageId, form]);
   return (
     <section
       className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center auth-section"
@@ -532,6 +541,31 @@ const SignUp = () => {
                       </p>
                     )}
                   </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
+                      Package Id
+                    </label>
+                    <Controller
+                      name="package_id"
+                      control={control}
+                      rules={{ required: "Package Id is required" }}
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          disabled={!!selectedPackageId}
+                          placeholder="Enter Package Id"
+                          className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#09B5FF] bg-[#F3F3F4]"
+                        />
+                      )}
+                    />
+
+                    {errors.package_id && (
+                      <p className="text-red-500">
+                        {" "}
+                        {errors.package_id.message}{" "}
+                      </p>
+                    )}
+                  </div>
                   <div className="flex justify-between gap-2">
                     <button
                       type="button"
@@ -566,7 +600,7 @@ const SignUp = () => {
 
           {/* dummy user comment area */}
 
-          <AuthComment />
+          {/* <AuthComment /> */}
         </div>
       </div>
     </section>

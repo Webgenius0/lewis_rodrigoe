@@ -38,7 +38,7 @@ const MyJobs = () => {
           />
         ))}
 
-        <div className="pagination-area" style={{ marginTop: "16px" }}>
+        {/* <div className="pagination-area" style={{ marginTop: "16px" }}>
           <Select
             defaultValue="10"
             style={{ width: 80, marginRight: 16 }}
@@ -49,7 +49,7 @@ const MyJobs = () => {
             total={filteredJobs.length}
             pageSize={10}
           />
-        </div>
+        </div> */}
       </>
     );
   };

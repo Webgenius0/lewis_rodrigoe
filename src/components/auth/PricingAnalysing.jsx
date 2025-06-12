@@ -25,6 +25,9 @@ import Heating from "@/assets/Heating";
 import Servicebtn from "../shared/Servicebtn";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Gift from "@/assets/gift";
+import HandIcon from "@/assets/handicon";
+import Houselogo from "../../assets/logo.png";
 
 const onChange = (date, dateString) => {
   console.log(date, dateString);
@@ -119,16 +122,18 @@ const PricingAnalysing = () => {
     };
     console.log({ payload });
     mutate(payload, {
-      onSuccess: (data) => {
-        if (data?.success) {
-          toast.success(data?.message || "created successfully");
-          navigate("/");
-          isOpen(false);
-        } else {
-          toast.error(data?.message || "Failed to create ");
-        }
-      },
+      // onSuccess: (data) => {
+      //   if (data?.success) {
+      //     toast.success(data?.message || "created successfully");
+      //     navigate("/");
+      //     isOpen(false);
+      //   } else {
+      //     toast.error(data?.message || "Failed to create ");
+      //   }
+      // },
     });
+
+    navigate("/card");
   };
 
   console.log(errors);
@@ -167,7 +172,8 @@ const PricingAnalysing = () => {
   console.log({ selectedBoilerType });
   const lastdate = watch("last_service_date");
   console.log({ lastdate });
-
+  const radiator = watch("radiator");
+  console.log({ radiator });
   return (
     <>
       <section
@@ -868,22 +874,8 @@ const PricingAnalysing = () => {
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
             {/* Modal Header */}
             <div className="flex justify-center py-4">
-              <div className="bg-blue-100 rounded-full p-2">
-                {/* Replace with your house icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6 text-blue-500"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m2.25 12 8.954-8.955c.05-.05.121-.075.196-.075h10.5c.075 0 .146.025.196.075L21.75 12M4.5 9.75v10.125c0 .075.025.146.075.196l7.5 7.5c.05.05.121.075.196.075H18v-2.25m-11.25 0a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zm15.75 0a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0z"
-                  />
-                </svg>
+              <div className=" rounded-full p-4">
+                <img className="h-10" src={Houselogo} alt="" />
               </div>
             </div>
             <div className="text-center px-6 py-2">
@@ -897,36 +889,31 @@ const PricingAnalysing = () => {
             </div>
 
             {/* Pricing Plan */}
-            <div className="bg-black rounded-xl mx-6 my-4 p-6">
-              <div className="relative flex justify-center mb-4">
-                <div className="absolute -top-6">
-                  {/* Replace with your gift icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-10 h-10 text-orange-500"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3c0 4.792 3.5 8.298 5.25 10.002 1.75-1.704 5.25-5.21 5.25-10.002v-3a5.25 5.25 0 0 0-5.25-5.25ZM12 12a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+
+            <div className="bg-black rounded-xl mx-6 my-20 p-6">
+              <div className=" flex flex-col justify-center items-center gap-2 mb-4 -mt-20">
+                <div className="flex items-center justify-center bg-white rounded-full h-20 w-20 space-x-2 mt-2">
+                  <Gift />
                 </div>
                 <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full py-2 px-6 text-sm font-semibold">
-                  Your Plan
+                  <span className="flex">
+                    {" "}
+                    <HandIcon className="inline-block mr-1" />
+                    Your Plan
+                    <HandIcon className="inline-block mr-1" />
+                  </span>
                 </div>
               </div>
               <ul className="text-gray-300 text-sm space-y-2 mb-4 px-4">
                 <li>{selectedBoilerType?.name}</li>
                 <li>{selectedPropertyType?.name}</li>
+                <li>{radiator}</li>
                 <li>Date: {lastdate}</li>
               </ul>
               <div className="flex justify-between items-center px-4">
                 <span className="text-white font-semibold">Monthly</span>
                 <span className="text-white font-bold text-lg">
-                  ${form.getValues("price")}/mo
+                  £{form.getValues("price")}/mo
                 </span>
               </div>
             </div>
