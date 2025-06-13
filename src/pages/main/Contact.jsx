@@ -1,12 +1,9 @@
-import { Controller } from "react-hook-form";
-import homeHero from "../../assets/homeHero.png";
-import logo from "../../assets/logo.png";
-import { Input } from "antd";
-import { Link } from "react-router";
-import { AuthComment } from "@/components/auth/AuthComment";
-import TextArea from "antd/es/input/TextArea";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { contact } from "@/hooks/contact.hook";
+import { contact } from '@/hooks/contact.hook';
+import { Input } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+import { Mail, MapPin, Phone } from 'lucide-react';
+import { Controller } from 'react-hook-form';
+import homeHero from '../../assets/homeHero.png';
 
 const Contact = () => {
   const { form, mutate, isPending } = contact();
@@ -33,8 +30,8 @@ const Contact = () => {
               Get In Touch
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              We'd love to hear from you. Send us a message and we'll respond as
-              soon as possible.
+              We&apos;d love to hear from you. Send us a message and we&apos;ll
+              respond as soon as possible.
             </p>
           </div>
         </div>
@@ -48,7 +45,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-lg">Email</h3>
-                  <p className="text-white/70">hello@example.com</p>
+                  <p className="text-white/70">lewisrodrigoe@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -60,7 +57,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-lg">Phone</h3>
-                  <p className="text-white/70">+1 (555) 123-4567</p>
+                  <p className="text-white/70">07753 107506</p>
                 </div>
               </div>
             </div>
@@ -72,9 +69,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-lg">Address</h3>
-                  <p className="text-white/70">
-                    123 Business St, City, State 12345
-                  </p>
+                  <p className="text-white/70">Hemel Hempstead, UK</p>
                 </div>
               </div>
             </div>
@@ -216,7 +211,7 @@ const Contact = () => {
                   disabled={isPending}
                   className="w-full bg-[#010b21] text-white font-[Urbanist] font-semibold text-[16px] py-3 rounded-[16px] hover:bg-white hover:text-[#0A0A0A] border border-[#0A0A0A] transition md:col-span-2"
                 >
-                  {isPending ? "Submitting..." : "Submit"}
+                  {isPending ? 'Submitting...' : 'Submit'}
                 </button>
               </form>
             </div>
