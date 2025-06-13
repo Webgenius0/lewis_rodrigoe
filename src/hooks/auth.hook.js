@@ -1,4 +1,4 @@
-import { axiosPrivate, axiosPublic } from "@/lib/axios.config";
+import { axiosPrivate, axiosPublic } from '@/lib/axios.config';
 import {
   matchOtpSchema,
   resetPasswordSchema,
@@ -6,13 +6,13 @@ import {
   signInSchema,
   signUpSchema,
   updatePasswordSchema,
-} from "@/schemas/auth.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useLocation, useNavigate, useSearchParams } from "react-router";
+} from '@/schemas/auth.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 export const useSignUp = () => {
   const navigate = useNavigate();
@@ -20,15 +20,15 @@ export const useSignUp = () => {
   const form = useForm({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
-      phone: "",
-      gender: "",
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      password_confirmation: '',
+      phone: '',
+      gender: '',
       avatar: null,
-      package_id: "",
+      package_id: '',
     },
   });
 
@@ -41,29 +41,28 @@ export const useSignUp = () => {
         }
       });
 
-      const res = await axiosPublic.post("/auth/register", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const res = await axiosPublic.post('/auth/register', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       return res.data;
     },
     onSuccess: (data) => {
       if (data?.success) {
-        toast.success(data?.message || "User created successfully");
+        toast.success(data?.message || 'User created successfully');
         const token = data?.data?.token;
-        localStorage.setItem("token", token);
+        localStorage.setItem('token', token);
         const user = data?.data?.user;
-        localStorage.setItem("user", JSON.stringify(user));
-        navigate("/");
+        localStorage.setItem('user', JSON.stringify(user));
+        navigate('/');
       } else {
-        toast.error(data?.message || "Failed to create user");
+        toast.error(data?.message || 'Failed to create user');
       }
     },
     onError: (error) => {
-      const message = error?.response?.data?.message || "Failed to create user";
-      if (message.includes("email")) {
-        form.setError("email", { message });
-      } else {
-        toast.error(message);
+      const message = error?.response?.data?.message || 'Failed to create user';
+      toast.error(message);
+      if (message.includes('email')) {
+        form.setError('email', { message });
       }
     },
   });
@@ -74,60 +73,61 @@ export const useSignUp = () => {
 export const useSignIn = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const redirectUrl = params.get("redirect");
+  const redirectUrl = params.get('redirect');
 
   const form = useForm({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (credentials) => {
-      const res = await axiosPublic.post("/auth/login", credentials);
+      const res = await axiosPublic.post('/auth/login', credentials);
       return res.data;
     },
     onSuccess: (data) => {
       if (data?.success) {
-        toast.success(data?.message || "Sign in successfully");
+        toast.success(data?.message || 'Sign in successfully');
         const token = data?.data?.token;
-        localStorage.setItem("token", token);
+        localStorage.setItem('token', token);
         const user = data?.data?.user;
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
         if (redirectUrl) {
           navigate(redirectUrl);
         } else {
-          navigate("/dashboard");
+          navigate('/dashboard');
         }
       } else {
-        toast.error(data?.message || "Failed to sign in");
+        toast.error(data?.message || 'Failed to sign in');
       }
     },
     onError: (error) => {
       const message = error?.response?.data?.message;
       if (
-        typeof message === "string" &&
-        message.toLowerCase().includes("email")
+        typeof message === 'string' &&
+        message.toLowerCase().includes('email')
       ) {
-        form.setError("email", { message });
+        form.setError('email', { message });
       } else {
-        toast.error(message || "Failed to sign in");
+        toast.error(message || 'Failed to sign in');
       }
     },
   });
 
   return { form, mutate, isPending };
 };
+
 export const useLogout = () => {
   const navigate = useNavigate();
 
   const { mutate: logout, isPending } = useMutation({
     mutationFn: async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       return await axiosPublic.post(
-        "/auth/logout",
+        '/auth/logout',
         {},
         {
           headers: {
@@ -137,14 +137,14 @@ export const useLogout = () => {
       );
     },
     onSuccess: () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      toast.success("Logged out successfully");
-      navigate("/sign-in");
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      toast.success('Logged out successfully');
+      navigate('/sign-in');
     },
     onError: (error) => {
       toast.error(
-        error?.response?.data?.message || "Failed to logout. Try again."
+        error?.response?.data?.message || 'Failed to logout. Try again.'
       );
     },
   });
@@ -158,7 +158,7 @@ export const useSendOtp = () => {
   const form = useForm({
     resolver: zodResolver(sendOtpSchema),
     defaultValues: {
-      email: "",
+      email: '',
     },
   });
 
@@ -166,26 +166,26 @@ export const useSendOtp = () => {
     mutationFn: async ({ email }) => {
       const payload = {
         email: email,
-        operation: "password",
+        operation: 'password',
       };
       const { data } = await axiosPublic.post(
-        "/auth/forget-password/otp-send",
+        '/auth/forget-password/otp-send',
         payload
       );
       if (!data?.success) {
-        throw new Error(data?.message || "Failed to send OTP");
+        throw new Error(data?.message || 'Failed to send OTP');
       }
       return data;
     },
     onSuccess: (data) => {
-      navigate("/verify-otp", {
-        state: { email: form.watch("email") },
+      navigate('/verify-otp', {
+        state: { email: form.watch('email') },
       });
-      toast.success(data?.message || "OTP sent successfully");
+      toast.success(data?.message || 'OTP sent successfully');
     },
     onError: (error) => {
       const message = error?.response?.data?.message || error.message;
-      toast.error(message || "Failed to send OTP");
+      toast.error(message || 'Failed to send OTP');
     },
   });
 
@@ -196,17 +196,17 @@ export const useSendOtp = () => {
 export const useMatchOtp = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const email = location.state?.email || "";
+  const email = location.state?.email || '';
 
   const form = useForm({
     resolver: zodResolver(matchOtpSchema),
     defaultValues: {
       email,
-      operation: "password",
-      otp0: "",
-      otp1: "",
-      otp2: "",
-      otp3: "",
+      operation: 'password',
+      otp0: '',
+      otp1: '',
+      otp2: '',
+      otp3: '',
     },
   });
 
@@ -214,11 +214,11 @@ export const useMatchOtp = () => {
     if (email) {
       form.reset({
         email,
-        operation: "password",
-        otp0: "",
-        otp1: "",
-        otp2: "",
-        otp3: "",
+        operation: 'password',
+        otp0: '',
+        otp1: '',
+        otp2: '',
+        otp3: '',
       });
     }
   }, [email]);
@@ -233,19 +233,19 @@ export const useMatchOtp = () => {
       };
 
       const { data } = await axiosPublic.post(
-        "/auth/forget-password/otp-match",
+        '/auth/forget-password/otp-match',
         payload
       );
 
       return data;
     },
     onSuccess: (data) => {
-      navigate("/new-password", { state: { email: form.watch("email") } });
-      toast.success(data.message || "OTP Verified");
+      navigate('/new-password', { state: { email: form.watch('email') } });
+      toast.success(data.message || 'OTP Verified');
     },
     onError: (error) => {
       const message = error?.response?.data?.message || error.message;
-      toast.error(message || "OTP verification failed");
+      toast.error(message || 'OTP verification failed');
     },
   });
 
@@ -260,14 +260,14 @@ export const useMatchOtp = () => {
 export const useResetPassword = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const email = location.state?.email || "";
+  const email = location.state?.email || '';
 
   const form = useForm({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       email,
-      password: "",
-      password_confirmation: "",
+      password: '',
+      password_confirmation: '',
     },
   });
 
@@ -275,8 +275,8 @@ export const useResetPassword = () => {
     if (email) {
       form.reset({
         email,
-        password: "",
-        password_confirmation: "",
+        password: '',
+        password_confirmation: '',
       });
     }
   }, [email]);
@@ -290,23 +290,23 @@ export const useResetPassword = () => {
       };
 
       const { data } = await axiosPublic.post(
-        "/auth/forget-password/reset-password",
+        '/auth/forget-password/reset-password',
         payload
       );
 
       if (!data?.success) {
-        throw new Error(data?.message || "Reset failed");
+        throw new Error(data?.message || 'Reset failed');
       }
 
       return data;
     },
     onSuccess: (data) => {
-      toast.success(data.message || "Password reset successful");
-      navigate("/sign-in");
+      toast.success(data.message || 'Password reset successful');
+      navigate('/sign-in');
     },
     onError: (error) => {
       const message = error?.response?.data?.message || error.message;
-      toast.error(message || "Password reset failed");
+      toast.error(message || 'Password reset failed');
     },
   });
 
@@ -324,9 +324,9 @@ export const useUpdatePassword = () => {
   const form = useForm({
     resolver: zodResolver(updatePasswordSchema),
     defaultValues: {
-      old_password: "",
-      password: "",
-      password_confirmation: "",
+      old_password: '',
+      password: '',
+      password_confirmation: '',
     },
   });
 
@@ -338,21 +338,21 @@ export const useUpdatePassword = () => {
         password_confirmation: formData.password_confirmation,
       };
 
-      const { data } = await axiosPrivate.patch("auth-user/password", payload);
+      const { data } = await axiosPrivate.patch('auth-user/password', payload);
 
       if (!data?.success) {
-        throw new Error(data?.message || "Reset failed");
+        throw new Error(data?.message || 'Reset failed');
       }
 
       return data;
     },
     onSuccess: (data) => {
-      toast.success(data.message || "Password update successful");
-      navigate("/sign-in");
+      toast.success(data.message || 'Password update successful');
+      navigate('/sign-in');
     },
     onError: (error) => {
       const message = error?.response?.data?.message || error.message;
-      toast.error(message || "Password update failed");
+      toast.error(message || 'Password update failed');
     },
   });
 

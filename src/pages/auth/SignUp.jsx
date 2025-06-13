@@ -1,41 +1,42 @@
-import { Controller } from "react-hook-form";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { Controller } from 'react-hook-form';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
-import homeHero from "../../assets/homeHero.png";
-import logo from "../../assets/logo.png";
-import { Link } from "react-router";
-import { Input, Select } from "antd";
+import { useSignUp } from '@/hooks/auth.hook';
+import { UserOutlined } from '@ant-design/icons';
+import { Input, Select, Upload, message } from 'antd';
+import ImgCrop from 'antd-img-crop';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
+import homeHero from '../../assets/homeHero.png';
+import logo from '../../assets/logo.png';
+import uploadPlus from '../../assets/uploadPlus.png';
 const { Option } = Select;
-import { useState } from "react";
-import { Upload, message } from "antd";
-import ImgCrop from "antd-img-crop";
-import uploadPlus from "../../assets/uploadPlus.png";
-import { UserOutlined } from "@ant-design/icons";
-import { useSignUp } from "@/hooks/auth.hook";
-import { AuthComment } from "@/components/auth/AuthComment";
-import { useLocation } from "react-router";
-import { useEffect } from "react";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
+  reader.addEventListener('load', () => callback(reader.result));
   reader.readAsDataURL(img);
 };
 
 const beforeUpload = (file) => {
-  const isImage = file.type === "image/jpeg" || file.type === "image/png";
+  const isImage = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isImage) {
-    message.error("Only JPG/PNG files allowed!");
+    message.error('Only JPG/PNG files allowed!');
   }
   const isSmall = file.size / 1024 / 1024 < 2;
   if (!isSmall) {
-    message.error("Image must be smaller than 2MB!");
+    message.error('Image must be smaller than 2MB!');
   }
   return isImage && isSmall;
 };
 
 const SignUp = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const selectedPackageId = location.state?.package_id;
+  const authData = location?.state?.authData;
+
   const { form, mutate, isPending } = useSignUp();
   // for getting form data and error
   const {
@@ -47,12 +48,12 @@ const SignUp = () => {
   } = form;
 
   const onSubmit = (data) => {
-    console.log({ data });
-    console.log(data);
-    mutate(data);
+    if (selectedPackageId) {
+      mutate(data);
+    } else {
+      navigate('/pricing', { state: { authData: data } });
+    }
   };
-
-  console.log(errors);
 
   // for image upload
   const [imageUrl, setImageUrl] = useState(null);
@@ -62,37 +63,38 @@ const SignUp = () => {
     const file = info.file.originFileObj;
     if (!file) return;
 
-    if (info.file.status === "uploading") {
+    if (info.file.status === 'uploading') {
       return;
     }
 
-    if (info.file.status === "done" || file) {
+    if (info.file.status === 'done' || file) {
       getBase64(file, (url) => {
         setImageUrl(url);
       });
 
-      form.setValue("avatar", file);
+      form.setValue('avatar', file);
     }
   };
 
   const goToNextStep = async () => {
-    const valid = await trigger(["first_name", "last_name", "phone", "gender"]);
+    const valid = await trigger(['first_name', 'last_name', 'phone', 'gender']);
     if (valid) {
       setStep(2);
     }
   };
 
-  const watchFields = watch(["first_name", "last_name", "phone", "gender"]);
+  const watchFields = watch(['first_name', 'last_name', 'phone', 'gender']);
   const isDisabled = watchFields.some((val) => !val);
-  const location = useLocation();
-  const selectedPackageId = location.state?.package_id;
-  console.log({ selectedPackageId });
 
   useEffect(() => {
     if (selectedPackageId) {
-      form.setValue("package_id", selectedPackageId);
+      form.setValue('package_id', selectedPackageId);
     }
-  }, [selectedPackageId, form]);
+    if (authData) {
+      form.reset(authData);
+    }
+  }, [selectedPackageId, authData]);
+
   return (
     <section
       className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center auth-section"
@@ -122,13 +124,13 @@ const SignUp = () => {
             >
               {step === 1 && (
                 <>
-                  {" "}
+                  {' '}
                   {/* Avatar Upload Section */}
                   <div
                     className="imgUploadClass"
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
+                      display: 'flex',
+                      justifyContent: 'center',
                       marginBottom: 24,
                     }}
                   >
@@ -142,7 +144,7 @@ const SignUp = () => {
                       >
                         <div
                           style={{
-                            position: "relative",
+                            position: 'relative',
                             width: 100,
                             height: 100,
                           }}
@@ -152,26 +154,26 @@ const SignUp = () => {
                               src={imageUrl}
                               alt="avatar"
                               style={{
-                                width: "100px",
-                                height: "100px",
-                                borderRadius: "50%",
-                                objectFit: "cover",
+                                width: '100px',
+                                height: '100px',
+                                borderRadius: '50%',
+                                objectFit: 'cover',
                               }}
                             />
                           ) : (
                             <div
                               style={{
-                                width: "100px",
-                                height: "100px",
-                                borderRadius: "50%",
-                                background: "#f0f0f0",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
+                                width: '100px',
+                                height: '100px',
+                                borderRadius: '50%',
+                                background: '#f0f0f0',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
                               }}
                             >
                               <UserOutlined
-                                style={{ fontSize: 32, color: "#999" }}
+                                style={{ fontSize: 32, color: '#999' }}
                               />
                             </div>
                           )}
@@ -179,13 +181,13 @@ const SignUp = () => {
                           {/* Custom Icon Button */}
                           <div
                             style={{
-                              position: "absolute",
+                              position: 'absolute',
                               bottom: -2,
                               right: -2,
-                              backgroundColor: "inherit",
-                              borderRadius: "50%",
+                              backgroundColor: 'inherit',
+                              borderRadius: '50%',
                               padding: 6,
-                              cursor: "pointer",
+                              cursor: 'pointer',
                             }}
                           >
                             <span>
@@ -196,7 +198,9 @@ const SignUp = () => {
                       </Upload>
                     </ImgCrop>
                   </div>
+                  {/* Name */}
                   <div className="flex gap-5 justify-between">
+                    {/* First Name */}
                     <div className="flex flex-col gap-2">
                       <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                         First Name
@@ -204,7 +208,7 @@ const SignUp = () => {
                       <Controller
                         name="first_name"
                         control={control}
-                        rules={{ required: "Name is required" }}
+                        rules={{ required: 'Name is required' }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -240,11 +244,12 @@ const SignUp = () => {
 
                       {errors.first_name && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.first_name.message}{" "}
+                          {' '}
+                          {errors.first_name.message}{' '}
                         </p>
                       )}
                     </div>
+                    {/* Last Name */}
                     <div className="flex flex-col gap-2">
                       <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                         Last Name
@@ -252,7 +257,7 @@ const SignUp = () => {
                       <Controller
                         name="last_name"
                         control={control}
-                        rules={{ required: "Last Name is required" }}
+                        rules={{ required: 'Last Name is required' }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -288,12 +293,13 @@ const SignUp = () => {
 
                       {errors.last_name && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.last_name.message}{" "}
+                          {' '}
+                          {errors.last_name.message}{' '}
                         </p>
                       )}
                     </div>
                   </div>
+                  {/* Phone Number */}
                   <div className="flex flex-col gap-2">
                     <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                       Phone Number
@@ -301,12 +307,12 @@ const SignUp = () => {
                     <Controller
                       name="phone"
                       control={control}
-                      rules={{ required: "Phone number is required" }}
+                      rules={{ required: 'Phone number is required' }}
                       render={({ field }) => (
                         <PhoneInput
                           {...field}
                           country="gb"
-                          onlyCountries={["gb"]}
+                          onlyCountries={['gb']}
                           disableCountryCode={false}
                           disableDropdown={true}
                           enableSearch={false}
@@ -324,6 +330,7 @@ const SignUp = () => {
                       <p className="text-red-500 ">{errors.phone.message}</p>
                     )}
                   </div>
+                  {/* Gender */}
                   <div className="flex flex-col gap-2">
                     <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                       Gender
@@ -331,7 +338,7 @@ const SignUp = () => {
                     <Controller
                       name="gender"
                       control={control}
-                      rules={{ required: "Gender is required" }}
+                      rules={{ required: 'Gender is required' }}
                       render={({ field }) => (
                         <Select
                           {...field}
@@ -385,7 +392,7 @@ const SignUp = () => {
                     Continue
                   </button>
                   <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                    Already have an account? {""}
+                    Already have an account? {''}
                     <Link
                       to="/sign-in"
                       className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"
@@ -397,7 +404,7 @@ const SignUp = () => {
               )}
               {step === 2 && (
                 <>
-                  {/* Email input */}
+                  {/* Email */}
                   <div className="flex flex-col gap-2">
                     <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                       Email Address
@@ -405,7 +412,7 @@ const SignUp = () => {
                     <Controller
                       name="email"
                       control={control}
-                      rules={{ required: "Email is required" }}
+                      rules={{ required: 'Email is required' }}
                       render={({ field }) => (
                         <Input
                           {...field}
@@ -441,7 +448,7 @@ const SignUp = () => {
                       <p className="text-red-500"> {errors.email.message} </p>
                     )}
                   </div>
-                  {/* password input */}
+                  {/* Password */}
                   <div className="flex flex-col gap-2">
                     <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                       Password
@@ -449,7 +456,7 @@ const SignUp = () => {
                     <Controller
                       name="password"
                       control={control}
-                      rules={{ required: "Password is required" }}
+                      rules={{ required: 'Password is required' }}
                       render={({ field }) => (
                         <Input.Password
                           {...field}
@@ -490,7 +497,7 @@ const SignUp = () => {
                       <p className="text-red-500">{errors.password.message}</p>
                     )}
                   </div>
-                  {/* Confirm password input */}
+                  {/* Confirm Password */}
                   <div className="flex flex-col gap-2">
                     <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                       Confirm Password
@@ -498,7 +505,7 @@ const SignUp = () => {
                     <Controller
                       name="password_confirmation"
                       control={control}
-                      rules={{ required: "Password is required" }}
+                      rules={{ required: 'Password is required' }}
                       render={({ field }) => (
                         <Input.Password
                           {...field}
@@ -541,14 +548,15 @@ const SignUp = () => {
                       </p>
                     )}
                   </div>
-                  <div className="flex flex-col gap-2">
+                  {/* Package ID */}
+                  {/* <div className="flex flex-col gap-2">
                     <label className="block text-[#111214] font-[Manrope] text-[15px] md:text-[16px] not-italic font-bold leading-[21.12px] tracking-[-0.16px] mb-1">
                       Package Id
                     </label>
                     <Controller
                       name="package_id"
                       control={control}
-                      rules={{ required: "Package Id is required" }}
+                      rules={{ required: 'Package Id is required' }}
                       render={({ field }) => (
                         <Input
                           {...field}
@@ -561,11 +569,13 @@ const SignUp = () => {
 
                     {errors.package_id && (
                       <p className="text-red-500">
-                        {" "}
-                        {errors.package_id.message}{" "}
+                        {' '}
+                        {errors.package_id.message}{' '}
                       </p>
                     )}
-                  </div>
+                  </div> */}
+
+                  {/* Action Buttons */}
                   <div className="flex justify-between gap-2">
                     <button
                       type="button"
@@ -580,12 +590,12 @@ const SignUp = () => {
                       disabled={isPending}
                       className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px] mt-6 md:mt-8 lg:mt-10"
                     >
-                      {isPending ? "Signing Up..." : "Sign Up"}
+                      {isPending ? 'Signing Up' : 'Sign Up'}
                     </button>
                   </div>
 
                   <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] not-italic font-normal leading-[170%] mx-auto">
-                    Already have an account? {""}
+                    Already have an account? {''}
                     <Link
                       to="/sign-in"
                       className="text-[#0A0A0A] font-[Urbanist] text-[16px] not-italic font-semibold leading-[170%] [text-decoration-line:underline] [text-decoration-style:solid] [text-decoration-skip-ink:none] [text-underline-offset:auto] [text-underline-position:from-font]"
