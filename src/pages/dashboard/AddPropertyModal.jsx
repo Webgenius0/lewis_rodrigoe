@@ -80,7 +80,11 @@ const AddPropertyModal = ({ visible, onClose }) => {
 
     fetchPrice(
       {
-        ...values,
+        // ...values,
+        radiator: parseInt(values.radiator),
+        zip_id: values.zip_id,
+        boiler_type_id: values.boiler_type_id,
+        property_type_id: values.property_type_id,
         last_service_date: values.last_service_date
           ? new Date(values.last_service_date).toISOString()
           : null,
@@ -96,12 +100,19 @@ const AddPropertyModal = ({ visible, onClose }) => {
             toast.error(
               res.message || "Failed to calculate price sign in first"
             );
-            navigate("/sign-in");
+            // navigate("/sign-in");
+            // onClose();
           }
         },
-        onError: () => {
-          toast.error("Failed to calculate price sign in first");
-          navigate("/sign-in");
+        onError: (res) => {
+          console.log(res);
+
+          toast.error(
+            res.response.data.message ||
+              "Failed to calculate price sign in first"
+          );
+          // navigate("/sign-in");
+          // onClose();
         },
       }
     );
