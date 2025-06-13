@@ -3,13 +3,13 @@ import homeHero from "../../assets/homeHero.png";
 import logo from "../../assets/logo.png";
 import { Input } from "antd";
 import { Link } from "react-router";
-import { useSignIn } from "@/hooks/auth.hook";
 import { AuthComment } from "@/components/auth/AuthComment";
 import TextArea from "antd/es/input/TextArea";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { contact } from "@/hooks/contact.hook";
 
 const Contact = () => {
-  const { form, mutate, isPending } = useSignIn();
+  const { form, mutate, isPending } = contact();
   const {
     control,
     handleSubmit,
