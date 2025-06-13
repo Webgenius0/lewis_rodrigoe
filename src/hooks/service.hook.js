@@ -47,14 +47,14 @@ export const useCreateProperty = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (payload) => {
-      const formData = new FormData();
-      Object.entries(payload).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-          formData.append(key, value);
-        }
-      });
+      //   const formData = new FormData();
+      //   Object.entries(payload).forEach(([key, value]) => {
+      //     if (value !== undefined && value !== null) {
+      //       formData.append(key, value);
+      //     }
+      //   });
 
-      const res = await axiosPrivate.post('/property', formData, {
+      const res = await axiosPrivate.post('/property', payload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       return res.data;
@@ -63,8 +63,8 @@ export const useCreateProperty = () => {
     onSuccess: (data) => {
       //debugger;
       if (data?.success) {
-        toast.success(data?.message || 'Property created successfully');
-        navigate('/card');
+        // toast.success(data?.message || 'Property created successfully');
+        navigate('/card', { state: { from: 'pricing-analysis' } });
       } else {
         toast.error(data?.message || 'Failed to create property');
       }

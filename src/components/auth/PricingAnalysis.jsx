@@ -1,11 +1,9 @@
-import { Controller } from "react-hook-form";
-import "react-phone-input-2/lib/style.css";
-import homeHero from "../../assets/homeHero.png";
-import { Input, Select } from "antd";
-import "react-phone-input-2/lib/style.css";
-import { useNavigate } from "react-router";
-const { Option } = Select;
-import PricingTitle from "./PricingTitle";
+import Drainage from '@/assets/Drainage';
+import Heating from '@/assets/Heating';
+import Plumbing from '@/assets/Plumbing';
+import Electrinic from '@/assets/electrinic';
+import Gift from '@/assets/gift';
+import HandIcon from '@/assets/handicon';
 import {
   useCreateProperty,
   useGetBoilermodel,
@@ -17,64 +15,62 @@ import {
   useGetService,
   useGetStates,
   useGetZip,
-} from "@/hooks/service.hook";
-import Plumbing from "@/assets/Plumbing";
-import Electrinic from "@/assets/electrinic";
-import Drainage from "@/assets/Drainage";
-import Heating from "@/assets/Heating";
-import Servicebtn from "../shared/Servicebtn";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import Gift from "@/assets/gift";
-import HandIcon from "@/assets/handicon";
-import Houselogo from "../../assets/logo.png";
+} from '@/hooks/service.hook';
+import { cn } from '@/lib/utils';
+import { Input, Select } from 'antd';
+import { useState } from 'react';
+import { Controller } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import 'react-phone-input-2/lib/style.css';
+import { useNavigate } from 'react-router';
+import homeHero from '../../assets/homeHero.png';
+import Houselogo from '../../assets/logo.png';
+import Servicebtn from '../shared/Servicebtn';
+import PricingTitle from './PricingTitle';
+const { Option } = Select;
 
-const onChange = (date, dateString) => {
-  console.log(date, dateString);
-};
+const PricingAnalysis = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(false);
 
-const PricingAnalysing = () => {
-  const { service, isLoading } = useGetService();
+  const { service } = useGetService();
   const { country } = useGetCountrys();
-  console.log({ country });
+
   // const { control, watch } = useForm();
 
-  const { form, mutate, isPending } = useCreateProperty();
+  const {
+    form,
+    mutate: createProperty,
+    isPending: isCreatePropertyPending,
+  } = useCreateProperty();
+
   const { mutate: fetchPrice, isPending: isPriceLoading } =
     useGetPropertyPrice();
+
   const {
     handleSubmit,
     control,
     formState: { errors },
     watch,
   } = form;
-  const selectedCountryId = watch("country_id");
-  console.log({ selectedCountryId });
 
-  const selectedStateId = watch("state_id");
-  console.log({ selectedStateId });
-  const selectedCityId = watch("city_id");
-  console.log({ selectedCityId });
-  const selectedZipId = watch("zip_id");
-  console.log({ selectedZipId });
+  const selectedCountryId = watch('country_id');
+
+  const selectedStateId = watch('state_id');
+
+  const selectedCityId = watch('city_id');
 
   const { state } = useGetStates(selectedCountryId);
   const { city } = useGetCitys(selectedStateId);
   const { zip } = useGetZip(selectedCityId);
-  console.log({ zip });
 
   const { boilertype } = useGetBoilertype();
-  console.log({ boilertype });
 
   const { boilermodel } = useGetBoilermodel();
-  console.log({ boilermodel });
 
   const { propertytype } = useGetPropertytype();
-  console.log({ propertytype });
 
   const navigate = useNavigate();
-
-  const [priceModalVisible, setPriceModalVisible] = useState(false);
 
   const handleSave = () => {
     const values = form.getValues();
@@ -90,15 +86,14 @@ const PricingAnalysing = () => {
         onSuccess: (res) => {
           if (res.success) {
             const price = res.data?.price ?? 0;
-            form.setValue("price", price);
-            openModal();
-            toast.success("Price calculated successfully");
+            form.setValue('price', price);
+            setIsOpen(true);
           } else {
-            toast.error(res.message || "Failed to calculate price");
+            toast.error(res.message || 'Failed to calculate price');
           }
         },
         onError: () => {
-          toast.error("Failed to calculate price");
+          toast.error('Failed to calculate price');
         },
       }
     );
@@ -120,8 +115,7 @@ const PricingAnalysing = () => {
       // service_id: data.service_id,
       service_id: Number(data.service_id),
     };
-    console.log({ payload });
-    mutate(payload, {
+    createProperty(payload, {
       // onSuccess: (data) => {
       //   if (data?.success) {
       //     toast.success(data?.message || "created successfully");
@@ -133,10 +127,8 @@ const PricingAnalysing = () => {
       // },
     });
 
-    navigate("/card");
+    // navigate('/card');
   };
-
-  console.log(errors);
 
   const serviceIconMap = {
     plumbing: <Plumbing />,
@@ -144,36 +136,12 @@ const PricingAnalysing = () => {
     drainage: <Drainage />,
     heating: <Heating />,
   };
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    // Simulate API call before opening modal
-    console.log("Simulating POST API call...");
-    setTimeout(() => {
-      console.log("API call complete. Opening modal.");
-      setIsOpen(true);
-    }, 1000); // Simulate a 1-second API call
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-  const handleSaveAndContinue = () => {
-    // In a real application, you would handle the form data and further actions here.
-    console.log("Save & Continue clicked");
-
-    closeModal();
-    // You might navigate to the next page or perform other actions.
-  };
 
   const [selectedPropertyType, setSelectedPropertyType] = useState(null);
-  console.log({ selectedPropertyType });
   const [selectedBoilerType, setSelectedBoilerType] = useState(null);
-  console.log({ selectedBoilerType });
-  const lastdate = watch("last_service_date");
-  console.log({ lastdate });
-  const radiator = watch("radiator");
-  console.log({ radiator });
+  const lastdate = watch('last_service_date');
+  const radiator = watch('radiator');
+
   return (
     <>
       <section
@@ -203,7 +171,7 @@ const PricingAnalysing = () => {
                   <Controller
                     name="service_id"
                     control={control}
-                    rules={{ required: "Please select at least one service" }}
+                    rules={{ required: 'Please select at least one service' }}
                     render={({ field }) => {
                       const selectedServices = field.value || [];
 
@@ -212,7 +180,7 @@ const PricingAnalysing = () => {
                         const newValue = isSelected ? null : service.id;
 
                         field.onChange(newValue);
-                        console.log("Selected Service ID:", newValue);
+                        console.log('Selected Service ID:', newValue);
                       };
 
                       return (
@@ -253,7 +221,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="street"
                         control={control}
-                        rules={{ required: "Street Address is required" }}
+                        rules={{ required: 'Street Address is required' }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -266,8 +234,8 @@ const PricingAnalysing = () => {
 
                       {errors.street && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.street.message}{" "}
+                          {' '}
+                          {errors.street.message}{' '}
                         </p>
                       )}
                     </div>
@@ -283,7 +251,7 @@ const PricingAnalysing = () => {
                           name="apartment"
                           control={control}
                           rules={{
-                            required: "Apartment / Suite / Unit is required",
+                            required: 'Apartment / Suite / Unit is required',
                           }}
                           render={({ field }) => (
                             <Input
@@ -297,8 +265,8 @@ const PricingAnalysing = () => {
 
                         {errors.apartment && (
                           <p className="text-red-500">
-                            {" "}
-                            {errors.apartment.message}{" "}
+                            {' '}
+                            {errors.apartment.message}{' '}
                           </p>
                         )}
                       </div>
@@ -311,7 +279,7 @@ const PricingAnalysing = () => {
                         <Controller
                           name="country_id"
                           control={control}
-                          rules={{ required: "Country is required" }}
+                          rules={{ required: 'Country is required' }}
                           render={({ field }) => (
                             <Select
                               {...field}
@@ -346,18 +314,18 @@ const PricingAnalysing = () => {
                         name="state_id"
                         control={control}
                         rules={{
-                          required: "State / Province / Region is required",
+                          required: 'State / Province / Region is required',
                         }}
                         render={({ field }) => (
                           <Select
                             {...field}
                             value={field.value ?? undefined}
                             placeholder={
-                              watch("country_id")
-                                ? "-- Select state --"
-                                : "Select country first"
+                              watch('country_id')
+                                ? '-- Select state --'
+                                : 'Select country first'
                             }
-                            disabled={!watch("country_id")}
+                            disabled={!watch('country_id')}
                             allowClear
                           >
                             {state?.map((item) => (
@@ -371,8 +339,8 @@ const PricingAnalysing = () => {
 
                       {errors.state_id && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.state_id.message}{" "}
+                          {' '}
+                          {errors.state_id.message}{' '}
                         </p>
                       )}
                     </div>
@@ -388,21 +356,21 @@ const PricingAnalysing = () => {
                           name="city_id"
                           control={control}
                           rules={{
-                            required: "City is required",
+                            required: 'City is required',
                           }}
                           render={({ field }) => (
                             <Select
                               {...field}
                               placeholder={
-                                watch("state_id")
-                                  ? "-- Select city --"
-                                  : "Select state first"
+                                watch('state_id')
+                                  ? '-- Select city --'
+                                  : 'Select state first'
                               }
-                              disabled={!watch("state_id")}
+                              disabled={!watch('state_id')}
                               allowClear
                               onChange={(value) => {
                                 field.onChange(value);
-                                console.log("Selected city ID:", value);
+                                console.log('Selected city ID:', value);
                               }}
                               className=""
                             >
@@ -432,17 +400,17 @@ const PricingAnalysing = () => {
                           name="zip_id"
                           control={control}
                           rules={{
-                            required: "Zipid is required",
+                            required: 'Zipid is required',
                           }}
                           render={({ field }) => (
                             <Select
                               {...field}
                               placeholder={
-                                watch("city_id")
-                                  ? "-- Select zip --"
-                                  : "Select city first"
+                                watch('city_id')
+                                  ? '-- Select zip --'
+                                  : 'Select city first'
                               }
-                              disabled={!watch("city_id")}
+                              disabled={!watch('city_id')}
                               allowClear
                             >
                               {zip?.map((item) => (
@@ -456,8 +424,8 @@ const PricingAnalysing = () => {
 
                         {errors.zip_id && (
                           <p className="text-red-500">
-                            {" "}
-                            {errors.zip_id.message}{" "}
+                            {' '}
+                            {errors.zip_id.message}{' '}
                           </p>
                         )}
                       </div>
@@ -478,7 +446,7 @@ const PricingAnalysing = () => {
                         name="boiler_type_id"
                         control={control}
                         rules={{
-                          required: "Boiler Type is required",
+                          required: 'Boiler Type is required',
                         }}
                         render={({ field }) => (
                           <Select
@@ -499,9 +467,9 @@ const PricingAnalysing = () => {
                                 (item) => item.id === value
                               );
                               setSelectedBoilerType(selected); // store full object for display
-                              console.log("Selected boiler type ID:", value);
+                              console.log('Selected boiler type ID:', value);
                               console.log(
-                                "Selected boiler type name:",
+                                'Selected boiler type name:',
                                 selected?.name
                               );
                             }}
@@ -519,8 +487,8 @@ const PricingAnalysing = () => {
 
                       {errors.boiler_type_id && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.boiler_type_id.message}{" "}
+                          {' '}
+                          {errors.boiler_type_id.message}{' '}
                         </p>
                       )}
                     </div>
@@ -535,7 +503,7 @@ const PricingAnalysing = () => {
                         name="boiler_model_id"
                         control={control}
                         rules={{
-                          required: "Boiler Type is required",
+                          required: 'Boiler Type is required',
                         }}
                         render={({ field }) => (
                           <Select
@@ -546,7 +514,7 @@ const PricingAnalysing = () => {
                             className=""
                             onChange={(value) => {
                               field.onChange(value);
-                              console.log("Selected boiler model ID:", value);
+                              console.log('Selected boiler model ID:', value);
                             }}
                           >
                             {boilermodel?.map((item) => {
@@ -562,8 +530,8 @@ const PricingAnalysing = () => {
 
                       {errors.boiler_model_id && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.boiler_model_id.message}{" "}
+                          {' '}
+                          {errors.boiler_model_id.message}{' '}
                         </p>
                       )}
                     </div>
@@ -576,7 +544,7 @@ const PricingAnalysing = () => {
                         name="quantity"
                         control={control}
                         rules={{
-                          required: "Number of Boilers is required",
+                          required: 'Number of Boilers is required',
                         }}
                         render={({ field }) => (
                           <Input
@@ -590,8 +558,8 @@ const PricingAnalysing = () => {
 
                       {errors.quantity && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.quantity.message}{" "}
+                          {' '}
+                          {errors.quantity.message}{' '}
                         </p>
                       )}
                     </div>
@@ -605,7 +573,7 @@ const PricingAnalysing = () => {
                         <Controller
                           name="purchase_year"
                           control={control}
-                          rules={{ required: "Age of Boiler is required" }}
+                          rules={{ required: 'Age of Boiler is required' }}
                           render={({ field }) => (
                             <input
                               {...field}
@@ -618,8 +586,8 @@ const PricingAnalysing = () => {
 
                         {errors.purchase_year && (
                           <p className="text-red-500">
-                            {" "}
-                            {errors.purchase_year.message}{" "}
+                            {' '}
+                            {errors.purchase_year.message}{' '}
                           </p>
                         )}
                       </div>
@@ -633,7 +601,7 @@ const PricingAnalysing = () => {
                         <Controller
                           name="last_service_date"
                           control={control}
-                          rules={{ required: "Last Serviced Date is required" }}
+                          rules={{ required: 'Last Serviced Date is required' }}
                           render={({ field }) => (
                             <input
                               {...field}
@@ -659,7 +627,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="location"
                         control={control}
-                        rules={{ required: "Boiler Location* is required" }}
+                        rules={{ required: 'Boiler Location* is required' }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -672,8 +640,8 @@ const PricingAnalysing = () => {
 
                       {errors.location && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.location.message}{" "}
+                          {' '}
+                          {errors.location.message}{' '}
                         </p>
                       )}
                     </div>
@@ -693,7 +661,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="label"
                         control={control}
-                        rules={{ required: "Property Name is required" }}
+                        rules={{ required: 'Property Name is required' }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -718,7 +686,7 @@ const PricingAnalysing = () => {
                         name="property_type_id"
                         control={control}
                         rules={{
-                          required: "Property Type is required",
+                          required: 'Property Type is required',
                         }}
                         render={({ field }) => (
                           <Select
@@ -739,9 +707,9 @@ const PricingAnalysing = () => {
                                 (item) => item.id === value
                               );
                               setSelectedPropertyType(selected); // store full object for display
-                              console.log("Selected property type ID:", value);
+                              console.log('Selected property type ID:', value);
                               console.log(
-                                "Selected property type name:",
+                                'Selected property type name:',
                                 selected?.name
                               );
                             }}
@@ -759,8 +727,8 @@ const PricingAnalysing = () => {
 
                       {errors.propertytype && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.propertytype.message}{" "}
+                          {' '}
+                          {errors.propertytype.message}{' '}
                         </p>
                       )}
                     </div>
@@ -773,7 +741,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="accessability_info"
                         control={control}
-                        rules={{ required: "Accessibility Info is required" }}
+                        rules={{ required: 'Accessibility Info is required' }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -786,8 +754,8 @@ const PricingAnalysing = () => {
 
                       {errors.accessability_info && (
                         <p className="text-red-500">
-                          {" "}
-                          {errors.accessability_info.message}{" "}
+                          {' '}
+                          {errors.accessability_info.message}{' '}
                         </p>
                       )}
                     </div>
@@ -825,7 +793,7 @@ const PricingAnalysing = () => {
                       <Controller
                         name="radiator"
                         control={control}
-                        rules={{ required: "Radiator count is required" }}
+                        rules={{ required: 'Radiator count is required' }}
                         render={({ field }) => (
                           <Input
                             {...field}
@@ -858,9 +826,10 @@ const PricingAnalysing = () => {
                   <button
                     type="button"
                     onClick={handleSave}
+                    disabled={isPriceLoading}
                     className="w-full bg-[#0A0A0A] py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-10 rounded-[16px] hover:bg-[#F0F5F6] hover:text-[#0A0A0A] border border-[#0A0A0A] transition text-[#F0F5F6] font-[Urbanist] text-[16px] not-italic font-medium leading-[25.6px]"
                   >
-                    Save & Analysis
+                    {isPriceLoading ? 'Saving...' : 'Save & Analysis'}
                   </button>
                 </div>
               </form>
@@ -897,7 +866,7 @@ const PricingAnalysing = () => {
                 </div>
                 <div className="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full py-2 px-6 text-sm font-semibold">
                   <span className="flex">
-                    {" "}
+                    {' '}
                     <HandIcon className="inline-block mr-1" />
                     Your Plan
                     <HandIcon className="inline-block mr-1" />
@@ -913,7 +882,7 @@ const PricingAnalysing = () => {
               <div className="flex justify-between items-center px-4">
                 <span className="text-white font-semibold">Monthly</span>
                 <span className="text-white font-bold text-lg">
-                  £{form.getValues("price")}/mo
+                  £{form.getValues('price')}/mo
                 </span>
               </div>
             </div>
@@ -923,14 +892,16 @@ const PricingAnalysing = () => {
               <label className="flex items-center text-gray-600 text-xs">
                 <input
                   type="checkbox"
+                  checked={isAgreed}
+                  onChange={() => setIsAgreed((prev) => !prev)}
                   className="form-checkbox h-4 w-4 text-blue-500 rounded border-gray-300 focus:ring-blue-500"
                 />
                 <span className="ml-2">
-                  By checking this box, you are agreeing to our{" "}
+                  By checking this box, you are agreeing to our{' '}
                   <a href="#" className="underline">
                     terms
-                  </a>{" "}
-                  and{" "}
+                  </a>{' '}
+                  and{' '}
                   <a href="#" className="underline">
                     conditions
                   </a>
@@ -941,16 +912,22 @@ const PricingAnalysing = () => {
             {/* Buttons */}
             <div className="px-6 py-4 flex justify-end gap-2">
               <button
-                onClick={closeModal}
+                onClick={() => setIsOpen(false)}
                 className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
               >
                 Back
               </button>
               <button
                 onClick={onSubmit}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                disabled={!isAgreed || isCreatePropertyPending}
+                className={cn(
+                  'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                  {
+                    'opacity-70 hover:bg-blue-500': !isAgreed,
+                  }
+                )}
               >
-                Save & Continue
+                {isCreatePropertyPending ? 'Saving...' : 'Save & Continue'}
               </button>
             </div>
           </div>
@@ -960,4 +937,4 @@ const PricingAnalysing = () => {
   );
 };
 
-export default PricingAnalysing;
+export default PricingAnalysis;

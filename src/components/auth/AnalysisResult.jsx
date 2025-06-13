@@ -1,9 +1,8 @@
-
-import homeHero from '../../assets/homeHero.png';
-import logo from '../../assets/logo.png';
-import { Link, useNavigate } from 'react-router';
 import { Checkbox } from 'antd';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router';
+import homeHero from '../../assets/homeHero.png';
+import logo from '../../assets/logo.png';
 const AnalysisResult = () => {
   const {
     handleSubmit,
@@ -216,6 +215,6 @@ const AnalysisResult = () => {
       </div>
     </section>
   );
-}
+};
 
-export default AnalysisResult
+export default AnalysisResult;

@@ -53,7 +53,7 @@ export const useSignUp = () => {
         localStorage.setItem('token', token);
         const user = data?.data?.user;
         localStorage.setItem('user', JSON.stringify(user));
-        navigate('/');
+        navigate('/pricing-analysis');
       } else {
         toast.error(data?.message || 'Failed to create user');
       }

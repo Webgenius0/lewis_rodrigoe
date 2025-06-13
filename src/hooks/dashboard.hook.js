@@ -1,19 +1,19 @@
-import { axiosPrivate } from "@/lib/axios.config";
-import { sendMessageSchema } from "@/schemas/auth.schema";
-import { updateUserSchema } from "@/schemas/updateuser.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { axiosPrivate } from '@/lib/axios.config';
+import { sendMessageSchema } from '@/schemas/auth.schema';
+import { updateUserSchema } from '@/schemas/updateuser.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 
-import { useQuery } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { useQuery } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 export const useGetUserdata = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["userdata"],
+    queryKey: ['userdata'],
     queryFn: async () => {
-      const res = await axiosPrivate.get("/auth-user/dashboard");
+      const res = await axiosPrivate.get('/auth-user/dashboard');
       return res.data;
     },
   });
@@ -25,26 +25,26 @@ export const useUpdateUser = () => {
   const form = useForm({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      avatar: "",
-      gender: "",
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      avatar: '',
+      gender: '',
     },
   });
 
   const { mutate: updateUser, isLoading } = useMutation({
     mutationFn: async (data) => {
-      const res = await axiosPrivate.post("/auth-user", data);
+      const res = await axiosPrivate.post('/auth-user', data);
       return res.data;
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      navigate("/dashboard");
+      navigate('/dashboard');
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.message || "Something went wrong");
+      toast.error(error?.response?.data?.message || 'Something went wrong');
     },
   });
 
@@ -53,18 +53,16 @@ export const useUpdateUser = () => {
 
 //create job
 export const useCreateJob = () => {
-  const navigate = useNavigate();
-
   const form = useForm({
     // resolver: zodResolver(createjobSchema),
     defaultValues: {
-      property_id: "",
-      title: "",
-      description: "",
-      date_time: "",
-      error_code: "",
+      property_id: '',
+      title: '',
+      description: '',
+      date_time: '',
+      error_code: '',
       error_code_image: null,
-      water_pressure_level: "",
+      water_pressure_level: '',
       tools_info: null,
       additional_info: null,
       image: null,
@@ -81,23 +79,23 @@ export const useCreateJob = () => {
         }
       });
 
-      const res = await axiosPrivate.post("/property-job", formData, {
+      const res = await axiosPrivate.post('/property-job', formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       return res.data;
     },
     onSuccess: (data) => {
       if (data?.success) {
-        toast.success(data?.message || "Property created successfully");
+        toast.success(data?.message || 'Property created successfully');
       } else {
-        toast.error(data?.message || "Failed to create property");
+        toast.error(data?.message || 'Failed to create property');
       }
     },
     onError: (error) => {
       const message =
-        error?.response?.data?.message || "Failed to create property";
+        error?.response?.data?.message || 'Failed to create property';
       toast.error(message);
     },
   });
@@ -108,9 +106,9 @@ export const useCreateJob = () => {
 //get property type
 export const useGetProperties = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["properties"],
+    queryKey: ['properties'],
     queryFn: async () => {
-      const res = await axiosPrivate.get("/property-type");
+      const res = await axiosPrivate.get('/property-type');
       return res.data;
     },
   });
@@ -120,9 +118,9 @@ export const useGetProperties = () => {
 //get property
 export const useGetPropertyAddress = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["properties-address"],
+    queryKey: ['properties-address'],
     queryFn: async () => {
-      const res = await axiosPrivate.get("/property/dropdown");
+      const res = await axiosPrivate.get('/property/dropdown');
       return res.data;
     },
   });
@@ -132,9 +130,9 @@ export const useGetPropertyAddress = () => {
 //get all jobs
 export const useGetAllJobs = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["all-jobs"],
+    queryKey: ['all-jobs'],
     queryFn: async () => {
-      const res = await axiosPrivate.get("/property-job/all?per_page=25");
+      const res = await axiosPrivate.get('/property-job/all?per_page=25');
       return res.data?.data;
     },
   });
@@ -150,30 +148,30 @@ export const useSendMessage = () => {
     resolver: zodResolver(sendMessageSchema),
     defaultValues: {
       receiver_id: 1,
-      content: "",
+      content: '',
     },
   });
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ receiver_id, content }) => {
       const payload = { receiver_id, content };
-      const { data } = await axiosPrivate.post("/messages", payload);
+      const { data } = await axiosPrivate.post('/messages', payload);
 
       if (!data?.success) {
-        throw new Error(data?.message || "Failed to send message");
+        throw new Error(data?.message || 'Failed to send message');
       }
 
       return data;
     },
     onSuccess: (data) => {
-      toast.success(data?.message || "Message sent successfully");
+      toast.success(data?.message || 'Message sent successfully');
       form.reset(); // optionally reset the form
       // navigate or do something with data if needed
       // Example: navigate(`/messages/${data.data.id}`);
     },
     onError: (error) => {
       const message = error?.response?.data?.message || error.message;
-      toast.error(message || "Failed to send message");
+      toast.error(message || 'Failed to send message');
     },
   });
 
@@ -182,7 +180,7 @@ export const useSendMessage = () => {
 
 export const useGetMessages = (receiverId, page = 1) => {
   return useQuery({
-    queryKey: ["messages", receiverId, page],
+    queryKey: ['messages', receiverId, page],
     queryFn: async () => {
       const response = await axiosPrivate.get(
         `/messages/${receiverId}?page=${page}`
@@ -190,7 +188,7 @@ export const useGetMessages = (receiverId, page = 1) => {
       const data = response.data;
 
       if (!data?.success) {
-        throw new Error(data?.message || "Failed to fetch messages");
+        throw new Error(data?.message || 'Failed to fetch messages');
       }
 
       return data.data; // this contains pagination + messages
@@ -206,39 +204,32 @@ export const useCollectCard = () => {
   const form = useForm({
     // resolver: zodResolver(createjobSchema),
     defaultValues: {
-      name: "",
-      number: "",
-      cvv: "",
-      date: "",
+      name: '',
+      number: '',
+      cvv: '',
+      date: '',
     },
   });
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (payload) => {
-      const formData = new FormData();
-      Object.entries(payload).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-          formData.append(key, value);
-        }
-      });
-
-      const res = await axiosPrivate.post("/card", formData, {
+      const res = await axiosPrivate.post('/card', payload, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       return res.data;
     },
     onSuccess: (data) => {
       if (data?.success) {
-        toast.success(data?.message || "Card data stored successfully");
-        navigate("/");
+        toast.success(data?.message || 'Card data stored successfully');
+        navigate('/dashboard');
       } else {
-        toast.error(data?.message || "Failed to create card");
+        toast.error(data?.message || 'Failed to create card');
       }
     },
     onError: (error) => {
-      const message = error?.response?.data?.message || "Failed to create card";
+      const message = error?.response?.data?.message || 'Failed to create card';
       toast.error(message);
     },
   });
