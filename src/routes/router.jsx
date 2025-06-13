@@ -13,6 +13,7 @@ import Messages from '@/pages/dashboard/Messages';
 import MyJobs from '@/pages/dashboard/MyJobs';
 import MyProperties from '@/pages/dashboard/MyProperties';
 import Profile from '@/pages/dashboard/Profile';
+import Contact from '@/pages/main/Contact';
 import Home from '@/pages/main/Home';
 import Pricing from '@/pages/main/Pricing';
 import { createBrowserRouter } from 'react-router';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/pricing',
         element: <Pricing />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
       },
     ],
   },
