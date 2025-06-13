@@ -17,6 +17,7 @@ import Home from "@/pages/main/Home";
 import Pricing from "@/pages/main/Pricing";
 import { createBrowserRouter } from "react-router";
 import PrivateRoute from "./private-route";
+import Contact from "@/pages/main/Contact";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/pricing",
         element: <Pricing />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },
@@ -67,33 +72,33 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/analysis-result',
+    path: "/analysis-result",
     element: <AnalysisResult />,
   },
   {
-    path: '/card',
+    path: "/card",
     element: <Card />,
   },
 
   // Dashboard layout
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: <DashboardLayout />,
     children: [
       {
-        index:true,
+        index: true,
         element: <MyJobs />,
       },
       {
-        path: '/dashboard/my-properties',
+        path: "/dashboard/my-properties",
         element: <MyProperties />,
       },
       {
-        path: '/dashboard/messages',
+        path: "/dashboard/messages",
         element: <Messages />,
       },
       {
-        path: '/dashboard/profile',
+        path: "/dashboard/profile",
         element: <Profile />,
       },
     ],

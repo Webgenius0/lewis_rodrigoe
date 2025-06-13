@@ -133,7 +133,7 @@ const Navbar = () => {
           </Dropdown> */}
           <Link to="/">Home</Link>
           <Link to="/pricing">Pricing</Link>
-          <Link to="/">Contact</Link>
+          <Link to="/contact">Contact</Link>
         </nav>
 
         {/* Join button */}
@@ -232,7 +232,7 @@ const Navbar = () => {
           <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>
             Pricing
           </Link>
-          <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+          <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
             Connect
           </Link>
 
