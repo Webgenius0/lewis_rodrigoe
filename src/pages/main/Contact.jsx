@@ -1,4 +1,4 @@
-import { contact } from '@/hooks/contact.hook';
+import { useContact } from '@/hooks/contact.hook';
 import { Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { Mail, MapPin, Phone } from 'lucide-react';
@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form';
 import homeHero from '../../assets/homeHero.png';
 
 const Contact = () => {
-  const { form, mutate, isPending } = contact();
+  const { form, mutate, isPending } = useContact();
   const {
     control,
     handleSubmit,
