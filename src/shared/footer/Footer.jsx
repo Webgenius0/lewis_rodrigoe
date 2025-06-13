@@ -1,8 +1,8 @@
-import logoTransparent from "../../assets/logo-tranparent.png";
-import certificate1 from "../../assets/certificate.jpg";
-import certificate2 from "../../assets/certificate2.png";
-import { Link } from "react-router";
-import { Button } from "antd";
+import { Button } from 'antd';
+import { Link } from 'react-router';
+import certificate1 from '../../assets/certificate.jpg';
+import certificate2 from '../../assets/certificate2.png';
+import logoTransparent from '../../assets/logo-tranparent.png';
 
 const Footer = () => {
   return (
@@ -120,19 +120,13 @@ const Footer = () => {
                     About
                   </Link>
                   <Link
-                    to=""
+                    to="/pricing"
                     className="text-[#FAFAFC] font-[ Manrope] text-[15px] text-[#FAFAFC] font-[ Manrope] md:text-[16px] not-italic font-normal leading-[27.2px]  "
                   >
                     Services
                   </Link>
                   <Link
-                    to=""
-                    className="text-[#FAFAFC] font-[ Manrope] text-[15px] text-[#FAFAFC] font-[ Manrope] md:text-[16px] not-italic font-normal leading-[27.2px]  "
-                  >
-                    Blog
-                  </Link>
-                  <Link
-                    to=""
+                    to="/contact"
                     className="text-[#FAFAFC] font-[ Manrope] text-[15px] text-[#FAFAFC] font-[ Manrope] md:text-[16px] not-italic font-normal leading-[27.2px]  "
                   >
                     Contact
