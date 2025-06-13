@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import { useSignIn } from "@/hooks/auth.hook";
 import { AuthComment } from "@/components/auth/AuthComment";
 import TextArea from "antd/es/input/TextArea";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 const Contact = () => {
   const { form, mutate, isPending } = useSignIn();
@@ -21,167 +22,203 @@ const Contact = () => {
 
   return (
     <section
-      className="bg-cover bg-no-repeat bg-center min-h-screen w-full flex items-center justify-center"
+      className="bg-cover bg-no-repeat bg-center min-h-screen w-full py-48"
       style={{ backgroundImage: `url(${homeHero})` }}
     >
-      <div className="container">
-        <div className="flex flex-col-reverse xl:flex-row items-center gap-10 py-[250px]">
-          {/* main form area */}
-          <div className="px-7 md:px-[40px] py-[40px] rounded-[48px] w-full sm:max-w-xl md:min-w-[700px] xl:min-w-[830px] bg-transparent">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 bg-transparent"
-            >
-              {/* Name Field */}
-              <div className="flex flex-col gap-2">
-                <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
-                  Your Name
-                </label>
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      placeholder="example@mail.com"
-                      prefix={<UserIcon />}
-                      className="bg-[#F3F3F4] py-4"
-                    />
-                  )}
-                />
-                {errors.name && (
-                  <p className="text-red-500">{errors.name.message}</p>
-                )}
-              </div>
-              {/* Email Field */}
-              <div className="flex flex-col gap-2">
-                <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
-                  Email Address
-                </label>
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      placeholder="example@mail.com"
-                      prefix={<MailIcon />}
-                      className="bg-[#F3F3F4] py-4"
-                    />
-                  )}
-                />
-                {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
-                )}
-              </div>
-              {/* Phone Field */}
-              <div className="flex flex-col gap-2">
-                <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
-                  Phone
-                </label>
-                <Controller
-                  name="phone"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      placeholder="example@mail.com"
-                      prefix={<PhoneIcon />}
-                      className="bg-[#F3F3F4] py-4"
-                    />
-                  )}
-                />
-                {errors.phone && (
-                  <p className="text-red-500">{errors.phone.message}</p>
-                )}
-              </div>
-              {/* Address Field */}
-              <div className="flex flex-col gap-2">
-                <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
-                  Address
-                </label>
-                <Controller
-                  name="address"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      placeholder="example@mail.com"
-                      prefix={<AddressIcon />}
-                      className="bg-[#F3F3F4] py-4"
-                    />
-                  )}
-                />
-                {errors.address && (
-                  <p className="text-red-500">{errors.address.message}</p>
-                )}
-              </div>
-              {/* Subjects Field */}
-              <div className="flex flex-col gap-2 md:col-span-2">
-                <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
-                  Subjects
-                </label>
-                <Controller
-                  name="subjects"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      placeholder="example@mail.com"
-                      className="!bg-[#F3F3F4] py-4"
-                    />
-                  )}
-                />
-                {errors.subjects && (
-                  <p className="text-red-500">{errors.subjects.message}</p>
-                )}
-              </div>
-              {/* Message Field */}
-              <div className="flex flex-col gap-2 md:col-span-2">
-                <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
-                  Message
-                </label>
-                <Controller
-                  name="message"
-                  control={control}
-                  render={({ field }) => (
-                    <TextArea
-                      {...field}
-                      placeholder="Write your message..."
-                      rows={4} // You can change this value as needed
-                      className="!bg-[#F3F3F4] py-2"
-                    />
-                  )}
-                />
-                {errors.message && (
-                  <p className="text-red-500">{errors.message.message}</p>
-                )}
-              </div>
-              <button
-                type="submit"
-                disabled={isPending}
-                className="w-full bg-[#ffffff] text-[#0A0A0A] font-[Urbanist] font-semibold text-[16px] py-3 rounded-[16px] hover:bg-white hover:text-[#0A0A0A] border border-[#0A0A0A] transition md:col-span-2"
-              >
-                {isPending ? "Submitting..." : "Submit"}
-              </button>
-            </form>
+      <div className="container mx-auto px-4">
+        <div className="w-full">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+              Get In Touch
+            </h1>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+              We'd love to hear from you. Send us a message and we'll respond as
+              soon as possible.
+            </p>
           </div>
-          {/* Side Content */}
-          <div>
-            <div className="form-header flex flex-col gap-2 mb-6 lg:mb-12 text-center xl:text-right">
-              <h2 className="text-white font-[Urbanist] text-[24px] md:text-[30px] lg:text-[50px] not-italic font-semibold leading-[30.4px] md:leading-[50.4px] tracking-[-1px] mb-1">
-                Contact Us
-              </h2>
-              <p className="text-[#e7e7e7] font-[Urbanist] text-[15px] md:text-[16px]">
-                We will get back to you as soon as possible
-              </p>
-            </div>
-            <div>
-              <div className="flex xl:items-center gap-3 justify-end">
-                <p className="text-[#e7e7e7] font-[Urbanist] text-[15px] md:text-[16px]">
-                  housemates@example.com | | +1 (123) 456-7890 | | 123
-                </p>
+        </div>
+        <div className="grid lg:grid-cols-5 gap-8">
+          {/* Contact Details */}
+          <div className="space-y-6 lg:col-span-2">
+            <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+              <div className="flex items-center gap-4">
+                <div className="bg-[#010b21] p-3 rounded-xl">
+                  <Mail className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-lg">Email</h3>
+                  <p className="text-white/70">hello@example.com</p>
+                </div>
               </div>
+            </div>
+
+            <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+              <div className="flex items-center gap-4">
+                <div className="bg-[#010b21] p-3 rounded-xl">
+                  <Phone className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-lg">Phone</h3>
+                  <p className="text-white/70">+1 (555) 123-4567</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+              <div className="flex items-center gap-4">
+                <div className="bg-[#010b21] p-3 rounded-xl">
+                  <MapPin className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-lg">Address</h3>
+                  <p className="text-white/70">
+                    123 Business St, City, State 12345
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Contact Form */}
+          <div className="lg:col-span-3">
+            <div className="backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl p-8">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 bg-transparent"
+              >
+                {/* Name Field */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
+                    Your Name
+                  </label>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        placeholder="example@mail.com"
+                        prefix={<UserIcon />}
+                        className="bg-[#F3F3F4] py-4"
+                      />
+                    )}
+                  />
+                  {errors.name && (
+                    <p className="text-red-500">{errors.name.message}</p>
+                  )}
+                </div>
+                {/* Email Field */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
+                    Email Address
+                  </label>
+                  <Controller
+                    name="email"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        placeholder="example@mail.com"
+                        prefix={<MailIcon />}
+                        className="bg-[#F3F3F4] py-4"
+                      />
+                    )}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500">{errors.email.message}</p>
+                  )}
+                </div>
+                {/* Phone Field */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
+                    Phone
+                  </label>
+                  <Controller
+                    name="phone"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        placeholder="example@mail.com"
+                        prefix={<PhoneIcon />}
+                        className="bg-[#F3F3F4] py-4"
+                      />
+                    )}
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500">{errors.phone.message}</p>
+                  )}
+                </div>
+                {/* Address Field */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
+                    Address
+                  </label>
+                  <Controller
+                    name="address"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        placeholder="example@mail.com"
+                        prefix={<AddressIcon />}
+                        className="bg-[#F3F3F4] py-4"
+                      />
+                    )}
+                  />
+                  {errors.address && (
+                    <p className="text-red-500">{errors.address.message}</p>
+                  )}
+                </div>
+                {/* Subjects Field */}
+                <div className="flex flex-col gap-2 md:col-span-2">
+                  <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
+                    Subjects
+                  </label>
+                  <Controller
+                    name="subjects"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        placeholder="example@mail.com"
+                        className="!bg-[#F3F3F4] py-4"
+                      />
+                    )}
+                  />
+                  {errors.subjects && (
+                    <p className="text-red-500">{errors.subjects.message}</p>
+                  )}
+                </div>
+                {/* Message Field */}
+                <div className="flex flex-col gap-2 md:col-span-2">
+                  <label className="text-white font-[Manrope] font-bold text-[15px] md:text-[16px] mb-1">
+                    Message
+                  </label>
+                  <Controller
+                    name="message"
+                    control={control}
+                    render={({ field }) => (
+                      <TextArea
+                        {...field}
+                        placeholder="Write your message..."
+                        rows={4} // You can change this value as needed
+                        className="!bg-[#F3F3F4] py-2"
+                      />
+                    )}
+                  />
+                  {errors.message && (
+                    <p className="text-red-500">{errors.message.message}</p>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full bg-[#010b21] text-white font-[Urbanist] font-semibold text-[16px] py-3 rounded-[16px] hover:bg-white hover:text-[#0A0A0A] border border-[#0A0A0A] transition md:col-span-2"
+                >
+                  {isPending ? "Submitting..." : "Submit"}
+                </button>
+              </form>
             </div>
           </div>
         </div>
