@@ -51,13 +51,13 @@ const PlanCard = ({ title, price, features, buttonText, id }) => {
                   className={`flex items-center gap-1.5 md:gap-2.5 transition-colors duration-300 font-[Manrope] text-[16px] not-italic font-medium leading-[24px] ${
                     item.available
                       ? "text-[#0C1523] group-hover:text-white"
-                      : "text-[#98A5B3]"
+                      : "text-[#98A5B3] group-hover:text-[#d5e4f5]"
                   }`}
                 >
                   {item.available ? (
                     <CheckOutlined className="transition-colors duration-300 text-[#14B082] group-hover:text-[#06FF34]" />
                   ) : (
-                    <CloseOutlined className="text-[#98A5B3]" />
+                    <CloseOutlined className="text-[#98A5B3] group-hover:text-[#d5e4f5]" />
                   )}
                   {item.label}
                 </li>

@@ -53,7 +53,7 @@ export const useSignUp = () => {
         localStorage.setItem("token", token);
         const user = data?.data?.user;
         localStorage.setItem("user", JSON.stringify(user));
-        navigate("/pricing");
+        navigate("/");
       } else {
         toast.error(data?.message || "Failed to create user");
       }
@@ -99,7 +99,7 @@ export const useSignIn = () => {
         if (redirectUrl) {
           navigate(redirectUrl);
         } else {
-          navigate("/");
+          navigate("/dashboard");
         }
       } else {
         toast.error(data?.message || "Failed to sign in");

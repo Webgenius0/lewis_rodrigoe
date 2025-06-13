@@ -107,7 +107,7 @@ const SignIn = () => {
               <p className="text-[#3B3B3B] font-[Urbanist] text-[16px] text-center">
                 Don’t have an Account?{" "}
                 <Link
-                  to="/pricing"
+                  to="/sign-up"
                   className="text-[#0A0A0A] font-semibold underline"
                 >
                   Sign-Up here!
